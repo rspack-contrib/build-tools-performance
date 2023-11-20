@@ -1,13 +1,14 @@
 {
   "name": "@farmfe-examples/react",
   "version": "0.0.0",
+  "packageManager": "pnpm@8.10.0",
   "dependencies": {
     "clsx": "^1.2.1",
     "playwright": "^1.36.0",
+    "puppeteer": "^19.7.4",
     "react": "18",
     "react-dom": "18",
-    "tree-kill": "^1.2.2",
-    "puppeteer": "^19.7.4"
+    "tree-kill": "^1.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -18,7 +19,9 @@
     "@farmfe/core": "^0.10.7",
     "@farmfe/plugin-react": "^0.2.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
-    "@rspack/cli": "0.2.8",
+    "@rsbuild/core": "^0.0.27",
+    "@rsbuild/plugin-react": "^0.0.27",
+    "@rspack/cli": "0.3.14",
     "@types/react": "18",
     "@types/react-dom": "18",
     "@vitejs/plugin-react": "^4.0.1",
@@ -31,6 +34,7 @@
     "parcel": "^2.9.3",
     "react-refresh": "^0.14.0",
     "style-loader": "^3.3.1",
+    "typescript": "5.2.2",
     "vite": "4.4.3",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
@@ -46,6 +50,8 @@
     "build:webpack": "webpack build --mode production",
     "start:rspack": "rspack serve",
     "build:rspack": "rspack build",
+    "start:rsbuild": "rsbuild dev",
+    "build:rsbuild": "rsbuild build",
     "start:turbopack": "next dev --turbo",
     "build:turbopack": "next build"
   }

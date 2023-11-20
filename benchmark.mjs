@@ -131,13 +131,22 @@ const buildTools = [
     "@farmfe/cli/bin/farm.mjs"
   ),
   new BuildTool(
-    "Rspack 0.2.8",
+    "Rspack 0.3.14",
     8080,
     "start:rspack",
     /in (.+)ms/,
     "build:rspack",
     /in (.+) (s|ms)/,
     "@rspack/cli/bin/rspack"
+  ),
+  new BuildTool(
+    "Rsbuild 0.0.27",
+    8080,
+    "start:rsbuild",
+    /in (.+) (s|ms)/,
+    "build:rsbuild",
+    /in (.+) (s|ms)/,
+    "@rsbuild/core/bin/rsbuild.js"
   ),
   new BuildTool(
     "Vite 4.4.3",
