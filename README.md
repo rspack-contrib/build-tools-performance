@@ -1,6 +1,8 @@
 # performance-compare
 
-Benchmarks for [Farm](https://github.com/farm-fe/farm), Webpack, Vite, Rspack and Turbopack.
+**Forked from [farm-fe/performance-compare](https://github.com/farm-fe/performance-compare).**
+
+Benchmarks for [Farm](https://github.com/farm-fe/farm), Webpack, Vite, Rspack, Rsbuild and Turbopack.
 
 > Using Turbopack's bench cases (1000 React components), see https://turbo.build/pack/docs/benchmarks
 
@@ -51,5 +53,6 @@ npm run start # Start Farm
 npm run start:vite # Start Vite
 npm run start:webpack # Start Webpack
 npm run start:rspack # Start Rspack
+npm run start:rsbuild # Start Rsbuild
 npm run start:turbopack # Start Turbopack
 ```
