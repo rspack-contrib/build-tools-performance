@@ -121,15 +121,15 @@ class BuildTool {
 }
 
 const buildTools = [
-  new BuildTool(
-    "Farm 0.10.5",
-    9000,
-    "start",
-    /Ready on (?:.+) in (.+)ms/,
-    "build",
-    /in (\d+)/,
-    "@farmfe/cli/bin/farm.mjs"
-  ),
+  // new BuildTool(
+  //   "Farm 0.10.5",
+  //   9000,
+  //   "start",
+  //   /Ready on (?:.+) in (.+)ms/,
+  //   "build",
+  //   /in (\d+)/,
+  //   "@farmfe/cli/bin/farm.mjs"
+  // ),
   new BuildTool(
     "Rspack 0.3.14",
     8080,
@@ -149,7 +149,7 @@ const buildTools = [
     "@rsbuild/core/bin/rsbuild.js"
   ),
   new BuildTool(
-    "Vite 4.4.3",
+    "Vite (SWC) 5.0.0",
     5173,
     "start:vite",
     /ready in (\d+) ms/,
@@ -157,17 +157,17 @@ const buildTools = [
     /built in (\d+\.\d+)(s|ms)/,
     "vite/bin/vite.js"
   ),
+  // new BuildTool(
+  //   "Turbopack 13.4.10",
+  //   3000,
+  //   "start:turbopack",
+  //   /started server on \[::\]:3000, url: http:\/\/localhost:3000/,
+  //   "build:turbopack",
+  //   /uses no initial props/,
+  //   "next/dist/bin/next"
+  // ),
   new BuildTool(
-    "Turbopack 13.4.10",
-    3000,
-    "start:turbopack",
-    /started server on \[::\]:3000, url: http:\/\/localhost:3000/,
-    "build:turbopack",
-    /uses no initial props/,
-    "next/dist/bin/next"
-  ),
-  new BuildTool(
-    "Webpack(babel) 5.88.0",
+    "Webpack (babel) 5.88.0",
     8081,
     "start:webpack",
     /compiled .+ in (.+) ms/,
@@ -210,8 +210,8 @@ async function runBenchmark() {
 
       results[buildTool.name]["startup(serverStartTime + onLoadTime)"] =
         time + loadTime;
-      results[buildTool.name].serverStartTime = time;
-      results[buildTool.name].onLoadTime = loadTime;
+      // results[buildTool.name].serverStartTime = time;
+      // results[buildTool.name].onLoadTime = loadTime;
     });
 
     console.log("Navigating to", `http://localhost:${buildTool.port}`);
