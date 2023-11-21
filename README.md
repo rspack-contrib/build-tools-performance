@@ -1,20 +1,19 @@
 # performance-compare
 
-**Forked from [farm-fe/performance-compare](https://github.com/farm-fe/performance-compare).**
+**Forked from [farm-fe/performance-compare](https://github.com/farm-fe/performance-compare), thanks to the Farm team!**
 
-Benchmarks for [Farm](https://github.com/farm-fe/farm), Webpack, Vite, Rspack, Rsbuild and Turbopack.
+Benchmarks for Rsbuild, Rspack, Webpack and Vite.
 
 > Using Turbopack's bench cases (1000 React components), see https://turbo.build/pack/docs/benchmarks
 
-|           | **Startup** | **HMR (Root)** | **HMR (Leaf)** | **Production Build** |
-| --------- | ----------- | -------------- | -------------- | -------------------- |
-| Webpack   | 8035ms      | 345ms          | 265ms          |        11321ms              |
-| Vite      | 3078ms      | 35ms           | 18ms           |        2266ms              |
-| Turbopack | 3731ms      | 62ms           | 54ms           |          6442ms            |
-| Rspack    | 831ms       | 104ms          | 96ms           |          724ms            |
-| Farm      | 403ms       | 11ms           | 10ms           |           288ms           |
+|         | **Startup** | **HMR (Root)** | **HMR (Leaf)** | **Production Build** |
+| ------- | ----------- | -------------- | -------------- | -------------------- |
+| Rspack  | 948ms       | 83ms           | 74ms           | 632ms                |
+| Rsbuild | 950ms       | 142ms          | 144ms          | 758ms                |
+| Vite    | 1564ms      | 113ms          | 118ms          | 1599ms               |
+| Webpack | 7180ms      | 234ms          | 183ms          | 9567ms               |
 
-![xx](./assets/benchmark.jpg)
+> MacBook Pro / Apple M1 Pro / 32GB / 2023-11-21
 
 Run benchmarks:
 
