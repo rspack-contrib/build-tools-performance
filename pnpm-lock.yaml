@@ -50,11 +50,11 @@ devDependencies:
     specifier: ^0.5.10
     version: 0.5.10(react-refresh@0.14.0)(webpack-dev-server@4.15.1)(webpack@5.88.1)
   '@rsbuild/core':
-    specifier: ^0.0.27
-    version: 0.0.27
+    specifier: ^0.0.28
+    version: 0.0.28
   '@rsbuild/plugin-react':
-    specifier: ^0.0.27
-    version: 0.0.27(webpack-dev-server@4.15.1)(webpack@5.88.1)
+    specifier: ^0.0.28
+    version: 0.0.28(webpack-dev-server@4.15.1)(webpack@5.88.1)
   '@rspack/cli':
     specifier: 0.3.14
     version: 0.3.14(esbuild@0.18.11)(react-refresh@0.14.0)(webpack-cli@5.1.4)
@@ -2384,12 +2384,12 @@ packages:
     dev: true
     optional: true
 
-  /@rsbuild/core@0.0.27:
-    resolution: {integrity: sha512-fZFlfJwyaI/hHbYjkC86RRiHGYORGzvmwBwSTBsR5FgRMPugfUVtZoPuiH/oIploJrIi/7Nmw9BA9aPGEy80Xw==}
+  /@rsbuild/core@0.0.28:
+    resolution: {integrity: sha512-dCdV2K2zWwy07RrmUoOLEen8NFHmggNYdY67JAcbGGHpymj1EeyPf1Nq/t5tY7sbP9XDtdrNuLX3XA6BzxEKcA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
-      '@rsbuild/shared': 0.0.27
+      '@rsbuild/shared': 0.0.28
       '@rspack/core': 0.3.14
       core-js: 3.32.2
       html-webpack-plugin: /html-rspack-plugin@5.5.7
@@ -2401,10 +2401,10 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@rsbuild/plugin-react@0.0.27(webpack-dev-server@4.15.1)(webpack@5.88.1):
-    resolution: {integrity: sha512-OQylr8RMHZOCchSoyYSDnZKlP0dR6U2SkedIBHpmmYiGI5euYF25iy/GRe1kyw8isD+PKPUnXv/UnDe1+5JTug==}
+  /@rsbuild/plugin-react@0.0.28(webpack-dev-server@4.15.1)(webpack@5.88.1):
+    resolution: {integrity: sha512-iaMn7h+0hFkAz2lhV6D2HykbvgrqbHqn3oTfh02LcT6+0nUd27JYh1/aHek+JUsH34BbGbw0DkTS+A/sc78aqQ==}
     dependencies:
-      '@rsbuild/shared': 0.0.27
+      '@rsbuild/shared': 0.0.28
       '@rspack/plugin-react-refresh': 0.3.14(react-refresh@0.14.0)(webpack-dev-server@4.15.1)(webpack@5.88.1)
       react-refresh: 0.14.0
       semver: 7.5.4
@@ -2418,8 +2418,8 @@ packages:
       - webpack-plugin-serve
     dev: true
 
-  /@rsbuild/shared@0.0.27:
-    resolution: {integrity: sha512-tOj8FNpe8MWaXdprjFlX3qS66KB7TnSYEdfm/jVnPwiQl4yy1+OGo1OBDGwhkHeTwV/QLqmGbLAMAfprssFcDw==}
+  /@rsbuild/shared@0.0.28:
+    resolution: {integrity: sha512-UPTGkiAm2DNlNmrhnQZTlTYcHb63aWY5fmQIZ4hTgfTAl991ldS9Z7Tq0dGEmuZng5pJ5dHbBUXHQGTzKq9wxA==}
     dependencies:
       '@rspack/core': 0.3.14
       caniuse-lite: 1.0.30001563
