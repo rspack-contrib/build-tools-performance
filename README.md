@@ -9,7 +9,7 @@ Benchmarks for Rsbuild, Rspack, Webpack and Vite.
 |                        | **Startup** | **HMR (Root)** | **HMR (Leaf)** | **Production Build** |
 | ---------------------- | ----------- | -------------- | -------------- | -------------------- |
 | Rspack 0.3.14          | 948ms       | 83ms           | 74ms           | 632ms                |
-| Rsbuild 0.0.28         | 950ms       | 142ms          | 144ms          | 758ms                |
+| Rsbuild 0.1.0         | 950ms       | 142ms          | 144ms          | 758ms                |
 | Vite (SWC) 5.0.0       | 1564ms      | 113ms          | 118ms          | 1599ms               |
 | Webpack (babel) 5.88.0 | 7180ms      | 234ms          | 183ms          | 9567ms               |
 

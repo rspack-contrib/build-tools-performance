@@ -140,7 +140,7 @@ const buildTools = [
     "@rspack/cli/bin/rspack"
   ),
   new BuildTool(
-    "Rsbuild 0.0.28",
+    "Rsbuild 0.1.0",
     8080,
     "start:rsbuild",
     /in (.+) (s|ms)/,
