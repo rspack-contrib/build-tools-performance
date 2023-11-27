@@ -167,6 +167,15 @@ const buildTools = [
   //   "next/dist/bin/next"
   // ),
   new BuildTool(
+    "Webpack (SWC) 5.88.0",
+    8082,
+    "start:webpack-swc",
+    /compiled .+ in (.+) ms/,
+    "build:webpack-swc",
+    /in (\d+) ms/,
+    "webpack-cli/bin/cli.js"
+  ),
+  new BuildTool(
     "Webpack (babel) 5.88.0",
     8081,
     "start:webpack",
