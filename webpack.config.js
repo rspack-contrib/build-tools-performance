@@ -38,6 +38,7 @@ module.exports = {
             plugins: isProd ? [] : [require("react-refresh/babel")],
           },
         },
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,

@@ -12,7 +12,7 @@ Benchmarks for Rsbuild, Rspack, Webpack and Vite.
 | Rsbuild 0.1.0          | 966ms       | 130ms          | 120ms          | 702ms                |
 | Vite (SWC) 5.0.0       | 1366ms      | 94ms           | 87ms           | 1462ms               |
 | Webpack (SWC) 5.88.0   | 2623ms      | 201ms          | 192ms          | 1982ms               |
-| Webpack (babel) 5.88.0 | 6508ms      | 214ms          | 173ms          | 5137ms               |
+| Webpack (babel) 5.88.0 | 5216ms      | 213ms          | 176ms          | 4750ms               |
 
 > MacBook Pro / Apple M1 Pro / 32GB / 2023-11-27
 
