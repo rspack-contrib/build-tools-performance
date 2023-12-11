@@ -8,13 +8,13 @@ Benchmarks for Rsbuild, Rspack, Webpack and Vite.
 
 |                        | **Startup** | **HMR (Root)** | **HMR (Leaf)** | **Production Build** |
 | ---------------------- | ----------- | -------------- | -------------- | -------------------- |
-| Rspack 0.3.14          | 952ms       | 87ms           | 73ms           | 661ms                |
-| Rsbuild 0.1.0          | 966ms       | 130ms          | 120ms          | 702ms                |
-| Vite (SWC) 5.0.0       | 1366ms      | 94ms           | 87ms           | 1462ms               |
-| Webpack (SWC) 5.88.0   | 2623ms      | 201ms          | 192ms          | 1982ms               |
-| Webpack (babel) 5.88.0 | 5216ms      | 213ms          | 176ms          | 4750ms               |
+| Rspack 0.4.2           | 931ms       | 85ms           | 79ms           | 557ms                |
+| Rsbuild 0.2.0          | 917ms       | 120ms          | 113ms          | 609ms                |
+| Vite (SWC) 5.0.7       | 1603ms      | 127ms          | 119ms          | 1456ms               |
+| Webpack (SWC) 5.88.0   | 2647ms      | 196ms          | 193ms          | 2071ms               |
+| Webpack (babel) 5.88.0 | 5251ms      | 204ms          | 167ms          | 4694ms               |
 
-> MacBook Pro / Apple M1 Pro / 32GB / 2023-11-27
+> MacBook Pro / Apple M1 Pro / 32GB / 2023-12-11
 
 Run benchmarks:
 
