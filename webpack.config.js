@@ -63,13 +63,6 @@ module.exports = {
   ].filter(Boolean),
   optimization: {
     minimize: isProd,
-    minimizer: isProd
-      ? [
-          new CssMinimizerPlugin(),
-          new TerserPlugin({
-            minify: TerserPlugin.swcMinify,
-          }),
-        ]
-      : [],
+    minimizer: isProd ? [new CssMinimizerPlugin(), new TerserPlugin()] : [],
   },
 };
