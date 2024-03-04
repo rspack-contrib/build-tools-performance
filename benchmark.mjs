@@ -131,16 +131,16 @@ const buildTools = [
   //   "@farmfe/cli/bin/farm.mjs"
   // ),
   new BuildTool(
-    "Rspack 0.4.2",
+    "Rspack 0.5.5",
     8080,
     "start:rspack",
-    /in (.+)ms/,
+    /in (.+) ms/,
     "build:rspack",
     /in (.+) (s|ms)/,
     "@rspack/cli/bin/rspack"
   ),
   new BuildTool(
-    "Rsbuild 0.2.0",
+    "Rsbuild 0.4.9",
     8080,
     "start:rsbuild",
     /in (.+) (s|ms)/,
@@ -149,7 +149,7 @@ const buildTools = [
     "@rsbuild/core/bin/rsbuild.js"
   ),
   new BuildTool(
-    "Vite (SWC) 5.0.7",
+    "Vite (SWC) 5.1.4",
     5173,
     "start:vite",
     /ready in (\d+) ms/,
@@ -167,7 +167,7 @@ const buildTools = [
   //   "next/dist/bin/next"
   // ),
   new BuildTool(
-    "Webpack (SWC) 5.88.0",
+    "Webpack (SWC) 5.90.3",
     8082,
     "start:webpack-swc",
     /compiled .+ in (.+) ms/,
@@ -176,7 +176,7 @@ const buildTools = [
     "webpack-cli/bin/cli.js"
   ),
   new BuildTool(
-    "Webpack (babel) 5.88.0",
+    "Webpack (babel) 5.90.3",
     8081,
     "start:webpack",
     /compiled .+ in (.+) ms/,

@@ -7,17 +7,15 @@ const isProduction = process.env.NODE_ENV === "production";
  */
 module.exports = {
   context: __dirname,
-  experiments: {
-    rspackFuture: {
-      disableTransformByDefault: true,
-    },
-  },
   entry: {
     main: "./src/index.tsx",
   },
   watchOptions: {
     poll: 0,
     aggregateTimeout: 0,
+  },
+  resolve: {
+    extensions: ["...", ".tsx", ".ts", ".jsx"],
   },
   stats: {
     timings: true,
@@ -31,6 +29,7 @@ module.exports = {
       },
       {
         test: /\.(js|ts|tsx|jsx)$/,
+        exclude: /node_modules/,
         use: {
           loader: "builtin:swc-loader",
           options: {
@@ -49,7 +48,6 @@ module.exports = {
               },
             },
           },
-          exclude: /node_modules/,
         },
       },
     ],
