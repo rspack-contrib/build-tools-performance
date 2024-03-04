@@ -6,15 +6,9 @@ Benchmarks for Rsbuild, Rspack, Webpack and Vite.
 
 > Using Turbopack's bench cases (1000 React components), see https://turbo.build/pack/docs/benchmarks
 
-|                        | **Startup** | **HMR (Root)** | **HMR (Leaf)** | **Production Build** |
-| ---------------------- | ----------- | -------------- | -------------- | -------------------- |
-| Rspack 0.4.2           | 931ms       | 85ms           | 79ms           | 557ms                |
-| Rsbuild 0.2.0          | 917ms       | 120ms          | 113ms          | 609ms                |
-| Vite (SWC) 5.0.7       | 1603ms      | 127ms          | 119ms          | 1456ms               |
-| Webpack (SWC) 5.88.0   | 2647ms      | 196ms          | 193ms          | 2071ms               |
-| Webpack (babel) 5.88.0 | 5251ms      | 204ms          | 167ms          | 4694ms               |
+<img width="986" alt="Screenshot 2024-03-04 at 13 27 39" src="https://github.com/rspack-contrib/performance-compare/assets/7237365/ac0f041f-a5bc-41b8-abb9-c4752ed5b7cb">
 
-> MacBook Pro / Apple M1 Pro / 32GB / 2023-12-11
+> MacBook Pro / Apple M1 Pro / 32GB / 2024-03-04
 
 Run benchmarks:
 
