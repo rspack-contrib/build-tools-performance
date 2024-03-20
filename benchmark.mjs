@@ -1,8 +1,11 @@
 import { spawn } from "child_process";
 import { appendFile, readFileSync, writeFileSync } from "fs";
+import { createRequire } from "module";
 import path from "path";
 import puppeteer from "puppeteer";
 import kill from "tree-kill";
+
+const require = createRequire(import.meta.url);
 
 const startConsole = "console.log('Farm Start Time', Date.now());";
 const startConsoleRegex = /Farm Start Time (\d+)/;
@@ -122,7 +125,7 @@ class BuildTool {
 
 const buildTools = [
   // new BuildTool(
-  //   "Farm 0.10.5",
+  //   "Farm " + require('@farmfe/core/package.json').version,
   //   9000,
   //   "start",
   //   /Ready on (?:.+) in (.+)ms/,
@@ -131,7 +134,7 @@ const buildTools = [
   //   "@farmfe/cli/bin/farm.mjs"
   // ),
   new BuildTool(
-    "Rspack 0.5.6",
+    "Rspack " + require('@rspack/core/package.json').version,
     8080,
     "start:rspack",
     /in (.+) ms/,
@@ -140,7 +143,7 @@ const buildTools = [
     "@rspack/cli/bin/rspack"
   ),
   new BuildTool(
-    "Rsbuild 0.4.11",
+    "Rsbuild " + require('@rsbuild/core/package.json').version,
     8080,
     "start:rsbuild",
     /in (.+) (s|ms)/,
@@ -149,7 +152,7 @@ const buildTools = [
     "@rsbuild/core/bin/rsbuild.js"
   ),
   new BuildTool(
-    "Vite (SWC) 5.1.5",
+    "Vite (SWC) " + require('vite/package.json').version,
     5173,
     "start:vite",
     /ready in (\d+) ms/,
@@ -158,7 +161,7 @@ const buildTools = [
     "vite/bin/vite.js"
   ),
   // new BuildTool(
-  //   "Turbopack 13.4.10",
+  //   "Turbopack " + require('next/package.json').version,
   //   3000,
   //   "start:turbopack",
   //   /started server on \[::\]:3000, url: http:\/\/localhost:3000/,
@@ -167,7 +170,7 @@ const buildTools = [
   //   "next/dist/bin/next"
   // ),
   new BuildTool(
-    "Webpack (SWC) 5.90.3",
+    "Webpack (SWC) " + require('webpack/package.json').version,
     8082,
     "start:webpack-swc",
     /compiled .+ in (.+) ms/,
@@ -176,7 +179,7 @@ const buildTools = [
     "webpack-cli/bin/cli.js"
   ),
   new BuildTool(
-    "Webpack (babel) 5.90.3",
+    "Webpack (babel) " + require('webpack/package.json').version,
     8081,
     "start:webpack",
     /compiled .+ in (.+) ms/,
