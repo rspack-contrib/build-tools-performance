@@ -124,15 +124,15 @@ class BuildTool {
 }
 
 const buildTools = [
-  // new BuildTool(
-  //   "Farm " + require('@farmfe/core/package.json').version,
-  //   9000,
-  //   "start",
-  //   /Ready on (?:.+) in (.+)ms/,
-  //   "build",
-  //   /in (\d+)/,
-  //   "@farmfe/cli/bin/farm.mjs"
-  // ),
+  new BuildTool(
+    "Farm " + require('@farmfe/core/package.json').version,
+    9000,
+    "start",
+    /Ready in (.+)ms/,
+    "build",
+    /in (\d+)/,
+    "@farmfe/cli/bin/farm.mjs"
+  ),
   new BuildTool(
     "Rspack " + require('@rspack/core/package.json').version,
     8080,
