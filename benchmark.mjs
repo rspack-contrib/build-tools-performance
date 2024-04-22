@@ -144,7 +144,7 @@ const buildTools = [
   ),
   new BuildTool(
     "Rsbuild " + require('@rsbuild/core/package.json').version,
-    8080,
+    3000,
     "start:rsbuild",
     /in (.+) (s|ms)/,
     "build:rsbuild",
