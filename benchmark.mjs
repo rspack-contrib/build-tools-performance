@@ -160,6 +160,15 @@ const buildTools = [
     /built in (\d+\.\d+)(s|ms)/,
     "vite/bin/vite.js"
   ),
+  new BuildTool(
+    "Mako " + require('@umijs/mako/package.json').version,
+    8081,
+    "start:mako",
+    /Built in (.+)ms/,
+    "build:mako",
+    /Built in (.+)ms/,
+    "@umijs/mako/bin/mako.js"
+  ),
   // new BuildTool(
   //   "Turbopack " + require('next/package.json').version,
   //   3000,

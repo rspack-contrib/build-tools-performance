@@ -1,25 +1,16 @@
-const rspack = require("@rspack/core");
-const ReactRefreshPlugin = require("@rspack/plugin-react-refresh");
+// @ts-check
+import { defineConfig } from "@rspack/cli";
+import { rspack } from "@rspack/core";
+import ReactRefreshPlugin from "@rspack/plugin-react-refresh";
+
 const isProduction = process.env.NODE_ENV === "production";
 
-/**
- * @type {import('@rspack/cli').Configuration}
- */
-module.exports = {
-  context: __dirname,
+export default defineConfig({
   entry: {
     main: "./src/index.tsx",
   },
-  watchOptions: {
-    poll: 0,
-    aggregateTimeout: 0,
-  },
   resolve: {
     extensions: ["...", ".tsx", ".ts", ".jsx"],
-  },
-  stats: {
-    timings: true,
-    all: false,
   },
   module: {
     rules: [
@@ -33,7 +24,6 @@ module.exports = {
         use: {
           loader: "builtin:swc-loader",
           options: {
-            sourceMap: true,
             jsc: {
               parser: {
                 syntax: "typescript",
@@ -56,4 +46,4 @@ module.exports = {
     new rspack.HtmlRspackPlugin({ template: "./index.webpack.html" }),
     !isProduction && new ReactRefreshPlugin(),
   ].filter(Boolean),
-};
+});
