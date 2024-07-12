@@ -1,14 +1,12 @@
-# performance-compare
-
 **Forked from [farm-fe/performance-compare](https://github.com/farm-fe/performance-compare), thanks to the Farm team!**
 
 Benchmarks for Rsbuild, Rspack, Webpack and Vite.
 
 > Using Turbopack's bench cases (1000 React components), see https://turbo.build/pack/docs/benchmarks
 
-<img width="986" alt="Screenshot 2024-03-04 at 13 27 39" src="https://github.com/rspack-contrib/performance-compare/assets/7237365/ac0f041f-a5bc-41b8-abb9-c4752ed5b7cb">
+<img width="1021" alt="Screenshot 2024-07-12 at 13 05 38" src="https://github.com/user-attachments/assets/21043e4d-44ae-4ee7-a5f7-e4f4bf53ce98">
 
-> MacBook Pro / Apple M1 Pro / 32GB / 2024-03-04
+> MacBook Pro / Apple M1 Pro / 32GB
 
 Run benchmarks:
 
