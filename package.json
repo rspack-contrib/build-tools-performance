@@ -43,7 +43,7 @@
   },
   "scripts": {
     "benchmark": "npm run clean && node benchmark.mjs",
-    "clean": "rm -rf ./node_modules/.cache && rm -rf ./node_modules/.vite",
+    "clean": "rm -rf ./node_modules/.cache && rm -rf ./node_modules/.vite && rm -rf ./node_modules/.farm",
     "start": "npm run clean && farm start",
     "build": "npm run clean && farm build",
     "start:vite": "npm run clean && vite",
