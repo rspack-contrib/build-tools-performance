@@ -46,11 +46,11 @@ importers:
         specifier: ^0.5.15
         version: 0.5.15(react-refresh@0.14.2)(type-fest@3.6.1)(webpack-dev-server@5.0.4(webpack-cli@5.1.4)(webpack@5.93.0))(webpack@5.93.0(@swc/core@1.6.5(@swc/helpers@0.5.11))(webpack-cli@5.1.4))
       '@rsbuild/core':
-        specifier: 1.0.0-alpha.9
-        version: 1.0.0-alpha.9
+        specifier: 1.0.1-beta.1
+        version: 1.0.1-beta.1
       '@rsbuild/plugin-react':
-        specifier: 1.0.0-alpha.9
-        version: 1.0.0-alpha.9(@rsbuild/core@1.0.0-alpha.9)
+        specifier: 1.0.1-beta.1
+        version: 1.0.1-beta.1(@rsbuild/core@1.0.1-beta.1)
       '@rspack/cli':
         specifier: 1.0.0-alpha.3
         version: 1.0.0-alpha.3(@rspack/core@1.0.0-alpha.3(@swc/helpers@0.5.11))(@types/express@4.17.21)(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.93.0))(webpack@5.93.0(@swc/core@1.6.5(@swc/helpers@0.5.11))(webpack-cli@5.1.4))
@@ -1413,15 +1413,15 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rsbuild/core@1.0.0-alpha.9':
-    resolution: {integrity: sha512-NiwBqW6sxoacX6MLy45aeNKjHtKW7wZR3hy0X1Eg/IpUTNSJJkKX9TG92SVcj6RyR8CO+76AXfdEs585Iw4FWg==}
+  '@rsbuild/core@1.0.1-beta.1':
+    resolution: {integrity: sha512-EfpuGomQIv9Hzu0A0S3WAHwwDblLQVR0QjSfkoTG9e7VhgHOoAAL4FRENGH1JRUB/veVY45oaaT1OWGjnng9dw==}
     engines: {node: '>=16.7.0'}
     hasBin: true
 
-  '@rsbuild/plugin-react@1.0.0-alpha.9':
-    resolution: {integrity: sha512-a666TIcFUP1FShaisnI5OiHpbUxJG9+3+WWr7XUteMFyCXo/x+1w7/XKCkkhnVxDS5rrYGNnkRu9RsNoPgcGCg==}
+  '@rsbuild/plugin-react@1.0.1-beta.1':
+    resolution: {integrity: sha512-IhaEeu/zSwMByqGjMImqFKvd6LTxhU1avteaUvdIe8qfhfZC32p7ZR3ANImMMImHN/PqsSQsX+ScCa5oL0zjsw==}
     peerDependencies:
-      '@rsbuild/core': ^1.0.0-alpha.9
+      '@rsbuild/core': ^1.0.1-beta.0
 
   '@rspack/binding-darwin-arm64@1.0.0-alpha.3':
     resolution: {integrity: sha512-PZLdp0tgoti/skzIMijNr2jedKa8LGbhtPs6a0jgIuLY1g0fj/aL3LLGMo4rwoy/zGXeZf40PIJQB8b+w0qt7g==}
@@ -6227,7 +6227,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.16.1':
     optional: true
 
-  '@rsbuild/core@1.0.0-alpha.9':
+  '@rsbuild/core@1.0.1-beta.1':
     dependencies:
       '@rspack/core': 1.0.0-alpha.3(@swc/helpers@0.5.11)
       '@rspack/lite-tapable': 1.0.0-alpha.3
@@ -6238,9 +6238,9 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  '@rsbuild/plugin-react@1.0.0-alpha.9(@rsbuild/core@1.0.0-alpha.9)':
+  '@rsbuild/plugin-react@1.0.1-beta.1(@rsbuild/core@1.0.1-beta.1)':
     dependencies:
-      '@rsbuild/core': 1.0.0-alpha.9
+      '@rsbuild/core': 1.0.1-beta.1
       '@rspack/plugin-react-refresh': 1.0.0-alpha.3(react-refresh@0.14.2)
       react-refresh: 0.14.2
 
