@@ -18,7 +18,7 @@ class BuildTool {
     startedRegex,
     buildScript,
     buildRegex,
-    binFilePath,
+    binFilePath
   ) {
     this.name = name;
     this.port = port;
@@ -26,9 +26,9 @@ class BuildTool {
     this.startedRegex = startedRegex;
     this.buildScript = buildScript;
     this.buildRegex = buildRegex;
-    this.binFilePath = path.join(process.cwd(), 'node_modules', binFilePath);
+    this.binFilePath = path.join(process.cwd(), "node_modules", binFilePath);
 
-    console.log('hack bin file for', this.name, 'under', this.binFilePath);
+    console.log("hack bin file for", this.name, "under", this.binFilePath);
     this.hackBinFile();
   }
 
@@ -75,7 +75,9 @@ class BuildTool {
       });
       child.on("exit", (code) => {
         if (code !== 0 && code !== null) {
-          console.log(`(${this.name} run ${this.script} failed) child process exited with code ${code}`);
+          console.log(
+            `(${this.name} run ${this.script} failed) child process exited with code ${code}`
+          );
           reject(code);
         }
       });
@@ -125,7 +127,7 @@ class BuildTool {
 
 const buildTools = [
   new BuildTool(
-    "Farm " + require('@farmfe/core/package.json').version,
+    "Farm " + require("@farmfe/core/package.json").version,
     9000,
     "start",
     /Ready in (.+)ms/,
@@ -134,7 +136,7 @@ const buildTools = [
     "@farmfe/cli/bin/farm.mjs"
   ),
   new BuildTool(
-    "Rsbuild " + require('@rsbuild/core/package.json').version,
+    "Rsbuild " + require("@rsbuild/core/package.json").version,
     3000,
     "start:rsbuild",
     /in (.+) (s|ms)/,
@@ -143,7 +145,7 @@ const buildTools = [
     "@rsbuild/core/bin/rsbuild.js"
   ),
   new BuildTool(
-    "Rspack CLI " + require('@rspack/core/package.json').version,
+    "Rspack CLI " + require("@rspack/core/package.json").version,
     8080,
     "start:rspack",
     /in (.+) ms/,
@@ -152,13 +154,31 @@ const buildTools = [
     "@rspack/cli/bin/rspack"
   ),
   new BuildTool(
-    "Vite (SWC) " + require('vite/package.json').version,
+    "Vite (SWC) " + require("vite/package.json").version,
     5173,
     "start:vite",
     /ready in (\d+) ms/,
     "build:vite",
     /built in (\d+\.\d+)(s|ms)/,
     "vite/bin/vite.js"
+  ),
+  new BuildTool(
+    "Webpack (SWC) " + require("webpack/package.json").version,
+    8082,
+    "start:webpack-swc",
+    /compiled .+ in (.+) ms/,
+    "build:webpack-swc",
+    /in (\d+) ms/,
+    "webpack-cli/bin/cli.js"
+  ),
+  new BuildTool(
+    "Webpack (babel) " + require("webpack/package.json").version,
+    8081,
+    "start:webpack",
+    /compiled .+ in (.+) ms/,
+    "build:webpack",
+    /in (\d+) ms/,
+    "webpack-cli/bin/cli.js"
   ),
   // new BuildTool(
   //   "Mako " + require('@umijs/mako/package.json').version,
@@ -178,24 +198,6 @@ const buildTools = [
   //   /uses no initial props/,
   //   "next/dist/bin/next"
   // ),
-  new BuildTool(
-    "Webpack (SWC) " + require('webpack/package.json').version,
-    8082,
-    "start:webpack-swc",
-    /compiled .+ in (.+) ms/,
-    "build:webpack-swc",
-    /in (\d+) ms/,
-    "webpack-cli/bin/cli.js"
-  ),
-  new BuildTool(
-    "Webpack (babel) " + require('webpack/package.json').version,
-    8081,
-    "start:webpack",
-    /compiled .+ in (.+) ms/,
-    "build:webpack",
-    /in (\d+) ms/,
-    "webpack-cli/bin/cli.js"
-  ),
 ];
 
 const browser = await puppeteer.launch();
@@ -229,10 +231,9 @@ async function runBenchmark() {
         results[buildTool.name] = {};
       }
 
-      results[buildTool.name]["startup(serverStartTime + onLoadTime)"] =
-        time + loadTime;
-      // results[buildTool.name].serverStartTime = time;
-      // results[buildTool.name].onLoadTime = loadTime;
+      results[buildTool.name].startup = time + loadTime;
+      results[buildTool.name].serverStart = time;
+      results[buildTool.name].onLoad = loadTime;
     });
 
     console.log("Navigating to", `http://localhost:${buildTool.port}`);
@@ -329,7 +330,7 @@ async function runBenchmark() {
     console.log("prepare build");
     const buildTime = await buildTool.build();
     console.log(buildTool.name, ": build time: " + buildTime + "ms");
-    results[buildTool.name].buildTime = buildTime;
+    results[buildTool.name].prodBuild = buildTime;
     await new Promise((resolve) => setTimeout(resolve, 500));
   }
 
