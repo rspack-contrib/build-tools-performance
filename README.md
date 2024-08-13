@@ -3,7 +3,7 @@ Benchmarks for Rspack, Rsbuild, Webpack, Vite and Farm.
 
 ## Result
 
-<img width="965" alt="Screenshot 2024-08-06 at 14 37 22" src="https://github.com/user-attachments/assets/21ce7535-582c-462e-884f-d545ae8b82df">
+<img width="962" alt="Screenshot 2024-08-13 at 13 48 41" src="https://github.com/user-attachments/assets/b250c196-a3ba-4923-b837-b95bbd9a19a6">
 
 Info:
 
