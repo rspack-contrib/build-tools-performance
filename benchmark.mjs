@@ -59,6 +59,7 @@ class BuildTool {
       let startTime = null;
 
       child.stdout.on("data", (data) => {
+        console.log(data.toString());
         const startMatch = startConsoleRegex.exec(data.toString());
         if (startMatch) {
           startTime = startMatch[1];
