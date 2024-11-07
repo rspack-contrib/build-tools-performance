@@ -10,7 +10,7 @@ Info:
 
 - MacBook Pro / Apple M1 Pro / 32GB
 - startup = serverStart + onLoad
-- 5000 components + 4000 modules in node_modules
+- 5000 components + 5000 modules in node_modules
 
 ## Run
 
