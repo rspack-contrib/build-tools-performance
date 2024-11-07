@@ -51,7 +51,8 @@ class BuildTool {
         stdio: ["pipe"],
         shell: true,
         env: {
-          FORCE_COLOR: "0",
+          ...process.env,
+          NO_COLOR: "1",
         },
       });
       this.child = child;
@@ -106,7 +107,8 @@ class BuildTool {
       stdio: ["pipe"],
       shell: true,
       env: {
-        FORCE_COLOR: "0",
+        ...process.env,
+        NO_COLOR: "1",
       },
     });
     const startTime = Date.now();
