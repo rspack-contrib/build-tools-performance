@@ -135,51 +135,51 @@ const buildTools = [
     /in (.+) (s|ms)/,
     "@rsbuild/core/bin/rsbuild.js"
   ),
-  new BuildTool(
-    "Farm " + require("@farmfe/core/package.json").version,
-    9000,
-    "start",
-    /Ready in (.+)ms/,
-    "build",
-    /in (\d+)/,
-    "@farmfe/cli/bin/farm.mjs"
-  ),
-  new BuildTool(
-    "Rspack CLI " + require("@rspack/core/package.json").version,
-    8080,
-    "start:rspack",
-    /in (.+) ms/,
-    "build:rspack",
-    /in (.+) (s|ms)/,
-    "@rspack/cli/bin/rspack"
-  ),
-  new BuildTool(
-    "Vite (SWC) " + require("vite/package.json").version,
-    5173,
-    "start:vite",
-    /ready in (\d+) ms/,
-    "build:vite",
-    /built in (\d+\.\d+)(s|ms)/,
-    "vite/bin/vite.js"
-  ),
-  new BuildTool(
-    "Webpack (SWC) " + require("webpack/package.json").version,
-    8082,
-    "start:webpack-swc",
-    /compiled .+ in (.+) ms/,
-    "build:webpack-swc",
-    /in (\d+) ms/,
-    "webpack-cli/bin/cli.js"
-  ),
-  new BuildTool(
-    "Webpack (babel) " + require("webpack/package.json").version,
-    8081,
-    "start:webpack",
-    /compiled .+ in (.+) ms/,
-    "build:webpack",
-    /in (\d+) ms/,
-    "webpack-cli/bin/cli.js"
-  ),
+  // new BuildTool(
+  //   "Farm " + require("@farmfe/core/package.json").version,
+  //   9000,
+  //   "start",
+  //   /Ready in (.+)ms/,
+  //   "build",
+  //   /in (\d+)/,
+  //   "@farmfe/cli/bin/farm.mjs"
+  // ),
+  // new BuildTool(
+  //   "Rspack CLI " + require("@rspack/core/package.json").version,
+  //   8080,
+  //   "start:rspack",
+  //   /in (.+) ms/,
+  //   "build:rspack",
+  //   /in (.+) (s|ms)/,
+  //   "@rspack/cli/bin/rspack"
+  // ),
+  // new BuildTool(
+  //   "Vite (SWC) " + require("vite/package.json").version,
+  //   5173,
+  //   "start:vite",
+  //   /ready in (\d+) ms/,
+  //   "build:vite",
+  //   /built in (\d+\.\d+)(s|ms)/,
+  //   "vite/bin/vite.js"
+  // ),
+  // new BuildTool(
+  //   "Webpack (SWC) " + require("webpack/package.json").version,
+  //   8082,
+  //   "start:webpack-swc",
+  //   /compiled .+ in (.+) ms/,
+  //   "build:webpack-swc",
+  //   /in (\d+) ms/,
+  //   "webpack-cli/bin/cli.js"
+  // ),
+  // new BuildTool(
+  //   "Webpack (babel) " + require("webpack/package.json").version,
+  //   8081,
+  //   "start:webpack",
+  //   /compiled .+ in (.+) ms/,
+  //   "build:webpack",
+  //   /in (\d+) ms/,
+  //   "webpack-cli/bin/cli.js"
+  // ),
   // new BuildTool(
   //   "Mako " + require('@umijs/mako/package.json').version,
   //   8081,
