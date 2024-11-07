@@ -134,14 +134,14 @@ const buildTools = [
     "build:rsbuild",
     "@rsbuild/core/bin/rsbuild.js"
   ),
-  // new BuildTool(
-  //   "Farm " + require("@farmfe/core/package.json").version,
-  //   9000,
-  //   "start:farm",
-  //   /Ready in (.+)ms/,
-  //   "build:farm",
-  //   "@farmfe/cli/bin/farm.mjs"
-  // ),
+  new BuildTool(
+    "Farm " + require("@farmfe/core/package.json").version,
+    9000,
+    "start:farm",
+    /Ready in (.+)ms/,
+    "build:farm",
+    "@farmfe/cli/bin/farm.mjs"
+  ),
   new BuildTool(
     "Rspack CLI " + require("@rspack/core/package.json").version,
     8080,
@@ -166,14 +166,14 @@ const buildTools = [
     "build:webpack-swc",
     "webpack-cli/bin/cli.js"
   ),
-  // new BuildTool(
-  //   "Webpack (babel) " + require("webpack/package.json").version,
-  //   8081,
-  //   "start:webpack",
-  //   /compiled .+ in (.+) ms/,
-  //   "build:webpack",
-  //   "webpack-cli/bin/cli.js"
-  // ),
+  new BuildTool(
+    "Webpack (babel) " + require("webpack/package.json").version,
+    8081,
+    "start:webpack",
+    /compiled .+ in (.+) ms/,
+    "build:webpack",
+    "webpack-cli/bin/cli.js"
+  ),
   // new BuildTool(
   //   "Mako " + require('@umijs/mako/package.json').version,
   //   8081,
