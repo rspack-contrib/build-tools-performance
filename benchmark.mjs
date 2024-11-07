@@ -11,21 +11,12 @@ const startConsole = "console.log('Farm Start Time', Date.now());";
 const startConsoleRegex = /Farm Start Time (\d+)/;
 
 class BuildTool {
-  constructor(
-    name,
-    port,
-    script,
-    startedRegex,
-    buildScript,
-    buildRegex,
-    binFilePath
-  ) {
+  constructor(name, port, script, startedRegex, buildScript, binFilePath) {
     this.name = name;
     this.port = port;
     this.script = script;
     this.startedRegex = startedRegex;
     this.buildScript = buildScript;
-    this.buildRegex = buildRegex;
     this.binFilePath = path.join(process.cwd(), "node_modules", binFilePath);
 
     console.log("hack bin file for", this.name, "under", this.binFilePath);
@@ -94,33 +85,21 @@ class BuildTool {
   }
 
   async build() {
-    return new Promise(async (resolve) => {
-      console.log(`Running build command: ${this.buildScript}`);
-      let startTime = null;
-
-      const child = spawn(`npm`, ["run", this.buildScript], {
-        stdio: ["pipe"],
-        shell: true,
-      });
-
-      child.stdout.on("data", (data) => {
-        const startMatch = startConsoleRegex.exec(data.toString());
-        if (startMatch) {
-          startTime = startMatch[1];
-        }
-
-        const match = this.buildRegex.exec(data.toString());
-        if (match) {
-          if (!startTime) {
-            throw new Error("Start time not found");
-          }
+    console.log(`Running build command: ${this.buildScript}`);
+    const child = spawn(`node --run ${this.buildScript}`, {
+      stdio: ["pipe"],
+      shell: true,
+    });
+    const startTime = Date.now();
+    return new Promise((resolve, reject) => {
+      child.on("exit", (code) => {
+        if (code === 0) {
           resolve(Date.now() - startTime);
+        } else {
+          reject(new Error(`Build failed with exit code ${code}`));
         }
       });
-      return new Promise((resolve, reject) => {
-        child.on("exit", resolve);
-        child.on("error", reject);
-      });
+      child.on("error", reject);
     });
   }
 }
@@ -132,7 +111,6 @@ const buildTools = [
     "start:rsbuild",
     /in (.+) (s|ms)/,
     "build:rsbuild",
-    /in (.+) (s|ms)/,
     "@rsbuild/core/bin/rsbuild.js"
   ),
   // new BuildTool(
@@ -141,7 +119,6 @@ const buildTools = [
   //   "start",
   //   /Ready in (.+)ms/,
   //   "build",
-  //   /in (\d+)/,
   //   "@farmfe/cli/bin/farm.mjs"
   // ),
   new BuildTool(
@@ -150,7 +127,6 @@ const buildTools = [
     "start:rspack",
     /in (.+) ms/,
     "build:rspack",
-    /in (.+) (s|ms)/,
     "@rspack/cli/bin/rspack"
   ),
   new BuildTool(
@@ -159,7 +135,6 @@ const buildTools = [
     "start:vite",
     /ready in (\d+) ms/,
     "build:vite",
-    /built in (\d+\.\d+)(s|ms)/,
     "vite/bin/vite.js"
   ),
   new BuildTool(
@@ -168,7 +143,6 @@ const buildTools = [
     "start:webpack-swc",
     /compiled .+ in (.+) ms/,
     "build:webpack-swc",
-    /in (\d+) ms/,
     "webpack-cli/bin/cli.js"
   ),
   // new BuildTool(
@@ -177,7 +151,6 @@ const buildTools = [
   //   "start:webpack",
   //   /compiled .+ in (.+) ms/,
   //   "build:webpack",
-  //   /in (\d+) ms/,
   //   "webpack-cli/bin/cli.js"
   // ),
   // new BuildTool(
@@ -186,7 +159,6 @@ const buildTools = [
   //   "start:mako",
   //   /Built in (.+)ms/,
   //   "build:mako",
-  //   /Built in (.+)ms/,
   //   "@umijs/mako/bin/mako.js"
   // ),
   // new BuildTool(
@@ -195,7 +167,6 @@ const buildTools = [
   //   "start:turbopack",
   //   /started server on \[::\]:3000, url: http:\/\/localhost:3000/,
   //   "build:turbopack",
-  //   /uses no initial props/,
   //   "next/dist/bin/next"
   // ),
 ];
@@ -328,6 +299,7 @@ async function runBenchmark() {
     await new Promise((resolve) => setTimeout(resolve, 500));
     console.log("close Server");
     console.log("prepare build");
+
     const buildTime = await buildTool.build();
     console.log(buildTool.name, ": build time: " + buildTime + "ms");
     results[buildTool.name].prodBuild = buildTime;

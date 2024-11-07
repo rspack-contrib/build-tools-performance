@@ -13,7 +13,7 @@ Info:
 
 ## Run
 
-Run benchmarks:
+Run benchmarks (node >= 22):
 
 ```bash
 node benchmark.mjs
