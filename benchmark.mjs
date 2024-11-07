@@ -7,8 +7,8 @@ import kill from "tree-kill";
 
 const require = createRequire(import.meta.url);
 
-const startConsole = "console.log('Farm Start Time', Date.now());";
-const startConsoleRegex = /Farm Start Time (\d+)/;
+const startConsole = "console.log('Benchmark Start Time', Date.now());";
+const startConsoleRegex = /Benchmark Start Time (\d+)/;
 
 class BuildTool {
   constructor(name, port, script, startedRegex, buildScript, binFilePath) {
@@ -31,7 +31,7 @@ class BuildTool {
     } catch (err) {}
   }
 
-  // Add a `console.log('Farm start', Date.now())` to the bin file's second line
+  // Add a `console.log('Benchmark start', Date.now())` to the bin file's second line
   hackBinFile() {
     const binFileContent = readFileSync(this.binFilePath, "utf-8");
 
@@ -48,13 +48,14 @@ class BuildTool {
     console.log(`Running start command: ${this.script}`);
     return new Promise((resolve, reject) => {
       const child = spawn(`node --run ${this.script}`, {
-        stdio: "pipe",
+        stdio: ["pipe"],
         shell: true,
       });
       this.child = child;
       let startTime = null;
 
       child.stdout.on("data", (data) => {
+        console.log(data.toString());
         const startMatch = startConsoleRegex.exec(data.toString());
         if (startMatch) {
           startTime = startMatch[1];
