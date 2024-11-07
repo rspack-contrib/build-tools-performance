@@ -60,6 +60,9 @@ importers:
       '@rspack/plugin-react-refresh':
         specifier: ^1.0.0
         version: 1.0.0(react-refresh@0.14.2)
+      '@swc/css':
+        specifier: ^0.0.28
+        version: 0.0.28
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.12
@@ -80,7 +83,7 @@ importers:
         version: 7.1.2(@rspack/core@1.0.14(@swc/helpers@0.5.13))(webpack@5.95.0)
       css-minimizer-webpack-plugin:
         specifier: ^7.0.0
-        version: 7.0.0(webpack@5.95.0)
+        version: 7.0.0(@swc/css@0.0.28)(webpack@5.95.0)
       html-webpack-plugin:
         specifier: ^5.6.3
         version: 5.6.3(@rspack/core@1.0.14(@swc/helpers@0.5.13))(webpack@5.95.0)
@@ -1540,6 +1543,82 @@ packages:
 
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
+
+  '@swc/css-android-arm-eabi@0.0.28':
+    resolution: {integrity: sha512-w0ou53pFLV41i67hPjPQYlidXjvBZzoNISzE2YL+Q9lkMgj0akWX1AFwa5PKO44YbRd7TTsdrO0fDnhbpCDutg==}
+    engines: {node: '>=10'}
+    cpu: [arm]
+    os: [android]
+
+  '@swc/css-android-arm64@0.0.28':
+    resolution: {integrity: sha512-AbSxU2oUtfhG3jkLEv73PkrsQip8Qsuej26lNcSoqZ1CoXMd60iiS8jPWTVkXzwQ3UaYdhrg/IQvWxb7/cs4HQ==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [android]
+
+  '@swc/css-darwin-arm64@0.0.28':
+    resolution: {integrity: sha512-14KQyYFr+lu6uyj6gZ4vIaL+EtdxQBU0CxdkctGBh3vKSxu7w3Q4mODK7RgFsSzyz29nLcRubRw+V6fPL5Esjg==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@swc/css-darwin-x64@0.0.28':
+    resolution: {integrity: sha512-T+BsXwi/WYsXTXu4h1HQUboAQ3JGVazfVb6XEG+Hd/iZgLdAGl9UQtu8bdOcqzx9xHdWK147YVt87zyriCVDWw==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@swc/css-linux-arm-gnueabihf@0.0.28':
+    resolution: {integrity: sha512-GiFM5A8cN3sgajXONfMKuY3aAsqVBZsEr/Fd9xg1fUs7Nh05Rl6pfyHz2YR4v9n/vn4FUIALNAl+gD6JNLYKpg==}
+    engines: {node: '>=10'}
+    cpu: [arm]
+    os: [linux]
+
+  '@swc/css-linux-arm64-gnu@0.0.28':
+    resolution: {integrity: sha512-0G+Q9xitlB9j3NTyB70PJ9sbM6DoRcoZL7j9O8P5CXzFZDcxxEhI9yPxJjYgcl5zPAyrdfzx7+5udrLZx1X//Q==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@swc/css-linux-arm64-musl@0.0.28':
+    resolution: {integrity: sha512-LJYzOQb8a4RPyztlZjrBYpCz1/HMaGmfyWQLL52PQ880EIk48YhV7C6OG0Pl3H4UEZ6uxNcqZno0rozWviPeZA==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@swc/css-linux-x64-gnu@0.0.28':
+    resolution: {integrity: sha512-ri63tpfmCb+jb3QJEJTWf4hH6yc6qeYtkU9HjZVJ18L/XsyY4uLxO/xc0MlLXRS8/fjTFbuDRZp/OrhY+etzrA==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@swc/css-linux-x64-musl@0.0.28':
+    resolution: {integrity: sha512-jal9cZfcbUEDjbk5gNuaKvv1GuEQb5LHB7JOEm0YrZMdxsViK0Qael2QVCK9rN8oPsZLGk/IWDqt81h5XD//4A==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@swc/css-win32-arm64-msvc@0.0.28':
+    resolution: {integrity: sha512-fmse2l8u6rZ5zK7XKsg5fpY9bMeKNgMca/npnvFNmv9XokSf0fOWKPYJpbAL10hFSC3biJL4xObiMvZDjdSQ4A==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@swc/css-win32-ia32-msvc@0.0.28':
+    resolution: {integrity: sha512-D5FRhNrez+8brNbDB7NJE2AYutw/mIqkA5NocSJ3r+AXauDy91cOJm1p/+7EtKZyWHcCTGWPnYKaX6o9SA3WjQ==}
+    engines: {node: '>=10'}
+    cpu: [ia32]
+    os: [win32]
+
+  '@swc/css-win32-x64-msvc@0.0.28':
+    resolution: {integrity: sha512-AkWbfQxzLTzmpWWGgP3Z0OOs8TszOtt8U6nOaqXKpT97s1e/6or6LSvUdDgcbQI2/pb6+d9LSNjB7yQcLsWUow==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [win32]
+
+  '@swc/css@0.0.28':
+    resolution: {integrity: sha512-jfwefaQL0QbZkSAcOG2q1PhsTBGNkxs1Otk+/AzOmd3ZzTrteSF40Giy65QxRsRI+lCPsg+ZuFT16VufbFDzIA==}
+    engines: {node: '>=14'}
 
   '@swc/helpers@0.5.1':
     resolution: {integrity: sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==}
@@ -6602,6 +6681,57 @@ snapshots:
 
   '@swc/counter@0.1.3': {}
 
+  '@swc/css-android-arm-eabi@0.0.28':
+    optional: true
+
+  '@swc/css-android-arm64@0.0.28':
+    optional: true
+
+  '@swc/css-darwin-arm64@0.0.28':
+    optional: true
+
+  '@swc/css-darwin-x64@0.0.28':
+    optional: true
+
+  '@swc/css-linux-arm-gnueabihf@0.0.28':
+    optional: true
+
+  '@swc/css-linux-arm64-gnu@0.0.28':
+    optional: true
+
+  '@swc/css-linux-arm64-musl@0.0.28':
+    optional: true
+
+  '@swc/css-linux-x64-gnu@0.0.28':
+    optional: true
+
+  '@swc/css-linux-x64-musl@0.0.28':
+    optional: true
+
+  '@swc/css-win32-arm64-msvc@0.0.28':
+    optional: true
+
+  '@swc/css-win32-ia32-msvc@0.0.28':
+    optional: true
+
+  '@swc/css-win32-x64-msvc@0.0.28':
+    optional: true
+
+  '@swc/css@0.0.28':
+    optionalDependencies:
+      '@swc/css-android-arm-eabi': 0.0.28
+      '@swc/css-android-arm64': 0.0.28
+      '@swc/css-darwin-arm64': 0.0.28
+      '@swc/css-darwin-x64': 0.0.28
+      '@swc/css-linux-arm-gnueabihf': 0.0.28
+      '@swc/css-linux-arm64-gnu': 0.0.28
+      '@swc/css-linux-arm64-musl': 0.0.28
+      '@swc/css-linux-x64-gnu': 0.0.28
+      '@swc/css-linux-x64-musl': 0.0.28
+      '@swc/css-win32-arm64-msvc': 0.0.28
+      '@swc/css-win32-ia32-msvc': 0.0.28
+      '@swc/css-win32-x64-msvc': 0.0.28
+
   '@swc/helpers@0.5.1':
     dependencies:
       tslib: 2.5.0
@@ -7484,7 +7614,7 @@ snapshots:
       '@rspack/core': 1.0.14(@swc/helpers@0.5.13)
       webpack: 5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13))(webpack-cli@5.1.4)
 
-  css-minimizer-webpack-plugin@7.0.0(webpack@5.95.0):
+  css-minimizer-webpack-plugin@7.0.0(@swc/css@0.0.28)(webpack@5.95.0):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       cssnano: 7.0.3(postcss@8.4.38)
@@ -7493,6 +7623,8 @@ snapshots:
       schema-utils: 4.2.0
       serialize-javascript: 6.0.2
       webpack: 5.95.0(@swc/core@1.7.26(@swc/helpers@0.5.13))(webpack-cli@5.1.4)
+    optionalDependencies:
+      '@swc/css': 0.0.28
 
   css-select@4.3.0:
     dependencies:
