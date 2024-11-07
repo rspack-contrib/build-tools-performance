@@ -139,7 +139,7 @@ const buildTools = [
     "start:rspack",
     /in (.+) (s|ms)/,
     "build:rspack",
-    "@rspack/cli/bin/rspack"
+    "@rspack/cli/bin/rspack.js"
   ),
   new BuildTool(
     "Farm " + require("@farmfe/core/package.json").version,
