@@ -50,6 +50,9 @@ class BuildTool {
       const child = spawn(`node --run ${this.script}`, {
         stdio: ["pipe"],
         shell: true,
+        env: {
+          FORCE_COLOR: "0",
+        },
       });
       this.child = child;
       let startTime = null;
@@ -102,6 +105,9 @@ class BuildTool {
     const child = spawn(`node --run ${this.buildScript}`, {
       stdio: ["pipe"],
       shell: true,
+      env: {
+        FORCE_COLOR: "0",
+      },
     });
     const startTime = Date.now();
     return new Promise((resolve, reject) => {
