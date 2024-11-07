@@ -1,5 +1,5 @@
 import { spawn } from "child_process";
-import { appendFile, readFileSync, writeFileSync } from "fs";
+import { rmSync, appendFile, readFileSync, writeFileSync } from "fs";
 import { createRequire } from "module";
 import path from "path";
 import puppeteer from "puppeteer";
@@ -23,6 +23,14 @@ class BuildTool {
     this.hackBinFile();
   }
 
+  cleanCache() {
+    try {
+      rmSync("./node_modules/.cache", { recursive: true, force: true });
+      rmSync("./node_modules/.vite", { recursive: true, force: true });
+      rmSync("./node_modules/.farm", { recursive: true, force: true });
+    } catch (err) {}
+  }
+
   // Add a `console.log('Farm start', Date.now())` to the bin file's second line
   hackBinFile() {
     const binFileContent = readFileSync(this.binFilePath, "utf-8");
@@ -35,8 +43,11 @@ class BuildTool {
   }
 
   async startServer() {
+    this.cleanCache();
+
+    console.log(`Running start command: ${this.script}`);
     return new Promise((resolve, reject) => {
-      const child = spawn(`npm`, ["run", this.script], {
+      const child = spawn(`node --run ${this.script}`, {
         stdio: "pipe",
         shell: true,
       });
@@ -44,7 +55,6 @@ class BuildTool {
       let startTime = null;
 
       child.stdout.on("data", (data) => {
-        // console.log(data.toString());
         const startMatch = startConsoleRegex.exec(data.toString());
         if (startMatch) {
           startTime = startMatch[1];
@@ -85,6 +95,8 @@ class BuildTool {
   }
 
   async build() {
+    this.cleanCache();
+
     console.log(`Running build command: ${this.buildScript}`);
     const child = spawn(`node --run ${this.buildScript}`, {
       stdio: ["pipe"],
@@ -116,9 +128,9 @@ const buildTools = [
   // new BuildTool(
   //   "Farm " + require("@farmfe/core/package.json").version,
   //   9000,
-  //   "start",
+  //   "start:farm",
   //   /Ready in (.+)ms/,
-  //   "build",
+  //   "build:farm",
   //   "@farmfe/cli/bin/farm.mjs"
   // ),
   new BuildTool(
