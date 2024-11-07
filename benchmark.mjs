@@ -202,7 +202,7 @@ const buildTools = [
 
 const browser = await puppeteer.launch();
 
-const n = 3;
+const n = 4;
 
 console.log("Running benchmark " + n + " times, please wait...");
 
@@ -339,6 +339,9 @@ async function runBenchmark() {
 
 // average results
 const averageResults = {};
+
+// drop the first run as warmup
+totalResults.shift();
 
 for (const result of totalResults) {
   for (const [name, values] of Object.entries(result)) {
