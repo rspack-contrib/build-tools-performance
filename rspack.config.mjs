@@ -25,6 +25,7 @@ export default defineConfig({
           loader: "builtin:swc-loader",
           options: {
             jsc: {
+              target: 'esnext',
               parser: {
                 syntax: "typescript",
                 tsx: true,
