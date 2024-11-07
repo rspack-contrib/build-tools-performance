@@ -59,7 +59,6 @@ class BuildTool {
       let startTime = null;
 
       child.stdout.on("data", (data) => {
-        console.log(data.toString());
         const startMatch = startConsoleRegex.exec(data.toString());
         if (startMatch) {
           startTime = startMatch[1];
@@ -138,7 +137,7 @@ const buildTools = [
     "Rspack CLI " + require("@rspack/core/package.json").version,
     8080,
     "start:rspack",
-    /in (.+) ms/,
+    /in (.+) (s|ms)/,
     "build:rspack",
     "@rspack/cli/bin/rspack"
   ),
@@ -146,7 +145,7 @@ const buildTools = [
     "Farm " + require("@farmfe/core/package.json").version,
     9000,
     "start:farm",
-    /Ready in (.+)ms/,
+    /Ready in (.+)(s|ms)/,
     "build:farm",
     "@farmfe/cli/bin/farm.mjs"
   ),
@@ -154,7 +153,7 @@ const buildTools = [
     "Vite (SWC) " + require("vite/package.json").version,
     5173,
     "start:vite",
-    /ready in (\d+) ms/,
+    /ready in (\d+) (s|ms)/,
     "build:vite",
     "vite/bin/vite.js"
   ),
@@ -162,7 +161,7 @@ const buildTools = [
     "Webpack (SWC) " + require("webpack/package.json").version,
     8082,
     "start:webpack",
-    /compiled .+ in (.+) ms/,
+    /compiled .+ in (.+) (s|ms)/,
     "build:webpack",
     "webpack-cli/bin/cli.js"
   ),
@@ -170,7 +169,7 @@ const buildTools = [
   //   "Mako " + require('@umijs/mako/package.json').version,
   //   8081,
   //   "start:mako",
-  //   /Built in (.+)ms/,
+  //   /Built in (.+)(s|ms)/,
   //   "build:mako",
   //   "@umijs/mako/bin/mako.js"
   // ),
