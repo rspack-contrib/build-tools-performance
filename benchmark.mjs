@@ -153,24 +153,24 @@ const buildTools = [
     /in (.+) (s|ms)/,
     "@rspack/cli/bin/rspack"
   ),
-  // new BuildTool(
-  //   "Vite (SWC) " + require("vite/package.json").version,
-  //   5173,
-  //   "start:vite",
-  //   /ready in (\d+) ms/,
-  //   "build:vite",
-  //   /built in (\d+\.\d+)(s|ms)/,
-  //   "vite/bin/vite.js"
-  // ),
-  // new BuildTool(
-  //   "Webpack (SWC) " + require("webpack/package.json").version,
-  //   8082,
-  //   "start:webpack-swc",
-  //   /compiled .+ in (.+) ms/,
-  //   "build:webpack-swc",
-  //   /in (\d+) ms/,
-  //   "webpack-cli/bin/cli.js"
-  // ),
+  new BuildTool(
+    "Vite (SWC) " + require("vite/package.json").version,
+    5173,
+    "start:vite",
+    /ready in (\d+) ms/,
+    "build:vite",
+    /built in (\d+\.\d+)(s|ms)/,
+    "vite/bin/vite.js"
+  ),
+  new BuildTool(
+    "Webpack (SWC) " + require("webpack/package.json").version,
+    8082,
+    "start:webpack-swc",
+    /compiled .+ in (.+) ms/,
+    "build:webpack-swc",
+    /in (\d+) ms/,
+    "webpack-cli/bin/cli.js"
+  ),
   // new BuildTool(
   //   "Webpack (babel) " + require("webpack/package.json").version,
   //   8081,
