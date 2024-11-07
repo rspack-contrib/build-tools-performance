@@ -15,27 +15,24 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(js|ts|tsx|jsx)$/,
         use: {
-          loader: "babel-loader",
+          loader: "swc-loader",
           options: {
-            presets: [
-              "@babel/preset-env",
-              "@babel/preset-react",
-              "@babel/preset-typescript",
-            ],
-            plugins: isProd ? [] : [require("react-refresh/babel")],
-          },
-        },
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.jsx?$/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
-            plugins: isProd ? [] : [require("react-refresh/babel")],
+            sourceMap: true,
+            jsc: {
+              parser: {
+                syntax: "typescript",
+                tsx: true,
+              },
+              transform: {
+                react: {
+                  runtime: "automatic",
+                  development: !isProd,
+                  refresh: !isProd,
+                },
+              },
+            },
           },
         },
         exclude: /node_modules/,
@@ -51,7 +48,7 @@ module.exports = {
     ],
   },
   devServer: {
-    port: 8081,
+    port: 8082,
     hot: true,
   },
   plugins: [
@@ -63,6 +60,15 @@ module.exports = {
   ].filter(Boolean),
   optimization: {
     minimize: isProd,
-    minimizer: isProd ? [new CssMinimizerPlugin(), new TerserPlugin()] : [],
+    minimizer: isProd
+      ? [
+          new CssMinimizerPlugin({
+            minify: CssMinimizerPlugin.swcMinify,
+          }),
+          new TerserPlugin({
+            minify: TerserPlugin.swcMinify,
+          }),
+        ]
+      : [],
   },
 };

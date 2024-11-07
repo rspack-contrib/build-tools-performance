@@ -160,14 +160,6 @@ const buildTools = [
   new BuildTool(
     "Webpack (SWC) " + require("webpack/package.json").version,
     8082,
-    "start:webpack-swc",
-    /compiled .+ in (.+) ms/,
-    "build:webpack-swc",
-    "webpack-cli/bin/cli.js"
-  ),
-  new BuildTool(
-    "Webpack (babel) " + require("webpack/package.json").version,
-    8081,
     "start:webpack",
     /compiled .+ in (.+) ms/,
     "build:webpack",
