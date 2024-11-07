@@ -1,14 +1,24 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
+import React from "react";
+import ReactDom from "react-dom/client";
+import App1 from "./f0";
+import App2 from "./f1";
+import App3 from "./f2";
+import App4 from "./f3";
+import App5 from "./f4";
+import App6 from "./f5";
+import App7 from "./f6";
+import App8 from "./f7";
+import './index.css'
 
-import { Main } from './main';
-const container = document.querySelector('#root')!;
-
-if (!container) {
-  const root = document.createElement('div');
-  root.id = 'root';
-  document.body.appendChild(root);
-  createRoot(root).render(<Main />);
-} else {
-  createRoot(container).render(<Main />);
-}
+ReactDom.createRoot(document.getElementById("root")).render(
+	<React.StrictMode>
+		<App1 />
+		<App2 />
+		<App3 />
+		<App4 />
+		<App5 />
+		<App6 />
+		<App7 />
+		<App8 />
+	</React.StrictMode>
+);

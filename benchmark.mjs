@@ -59,7 +59,6 @@ class BuildTool {
       let startTime = null;
 
       child.stdout.on("data", (data) => {
-        console.log(data.toString());
         const startMatch = startConsoleRegex.exec(data.toString());
         if (startMatch) {
           startTime = startMatch[1];
@@ -135,20 +134,20 @@ const buildTools = [
     "@rsbuild/core/bin/rsbuild.js"
   ),
   new BuildTool(
-    "Farm " + require("@farmfe/core/package.json").version,
-    9000,
-    "start:farm",
-    /Ready in (.+)ms/,
-    "build:farm",
-    "@farmfe/cli/bin/farm.mjs"
-  ),
-  new BuildTool(
     "Rspack CLI " + require("@rspack/core/package.json").version,
     8080,
     "start:rspack",
     /in (.+) ms/,
     "build:rspack",
     "@rspack/cli/bin/rspack"
+  ),
+  new BuildTool(
+    "Farm " + require("@farmfe/core/package.json").version,
+    9000,
+    "start:farm",
+    /Ready in (.+)ms/,
+    "build:farm",
+    "@farmfe/cli/bin/farm.mjs"
   ),
   new BuildTool(
     "Vite (SWC) " + require("vite/package.json").version,
@@ -270,13 +269,11 @@ async function runBenchmark() {
     });
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const originalRootFileContent = readFileSync(
-      path.resolve("src", "comps", "triangle.jsx"),
-      "utf-8"
-    );
+    const rootFilePath = path.resolve("src/f0.jsx");
+    const originalRootFileContent = readFileSync(rootFilePath, "utf-8");
 
     appendFile(
-      path.resolve("src", "comps", "triangle.jsx"),
+      rootFilePath,
       `
     console.log('root hmr', Date.now());
     `,
@@ -288,12 +285,10 @@ async function runBenchmark() {
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const originalLeafFileContent = readFileSync(
-      path.resolve("src", "comps", "triangle_1_1_2_1_2_2_1.jsx"),
-      "utf-8"
-    );
+    const leafFilePath = path.resolve("src/d0/d0/d0/d0/f0.jsx");
+    const originalLeafFileContent = readFileSync(leafFilePath, "utf-8");
     appendFile(
-      path.resolve("src", "comps", "triangle_1_1_2_1_2_2_1.jsx"),
+      leafFilePath,
       `
       console.log('leaf hmr', Date.now());
       `,
@@ -306,14 +301,8 @@ async function runBenchmark() {
     await waitPromise;
 
     // restore files
-    writeFileSync(
-      path.resolve("src", "comps", "triangle.jsx"),
-      originalRootFileContent
-    );
-    writeFileSync(
-      path.resolve("src", "comps", "triangle_1_1_2_1_2_2_1.jsx"),
-      originalLeafFileContent
-    );
+    writeFileSync(rootFilePath, originalRootFileContent);
+    writeFileSync(leafFilePath, originalLeafFileContent);
 
     buildTool.stopServer();
 

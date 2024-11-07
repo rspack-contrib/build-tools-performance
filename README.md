@@ -10,6 +10,7 @@ Info:
 
 - MacBook Pro / Apple M1 Pro / 32GB
 - startup = serverStart + onLoad
+- 5000 components + 4000 modules in node_modules
 
 ## Run
 
@@ -34,5 +35,5 @@ npm run start:turbopack # Start Turbopack
 
 ## Credits
 
-- Forked from [farm-fe/performance-compare](https://github.com/farm-fe/performance-compare), thanks to the Farm team!
-- Using Turbopack's bench cases (1000 React components), see https://turbo.build/pack/docs/benchmarks
+Forked from [farm-fe/performance-compare](https://github.com/farm-fe/performance-compare), thanks to the Farm team!
+
