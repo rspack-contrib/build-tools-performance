@@ -367,3 +367,5 @@ for (const [name, values] of Object.entries(averageResults)) {
 
 console.log("average results of " + totalResults.length + " runs:");
 console.table(averageResults);
+
+process.exit(0);

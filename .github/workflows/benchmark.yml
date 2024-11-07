@@ -22,14 +22,14 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Install Pnpm
-        run: corepack enable
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'pnpm'
+
+      - name: Install Pnpm
+        run: corepack enable
 
       - name: Install Dependencies
         run: pnpm install
