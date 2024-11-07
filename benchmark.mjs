@@ -185,7 +185,7 @@ const buildTools = [
 
 const browser = await puppeteer.launch();
 
-const n = 4;
+const n = 6;
 
 console.log("Running benchmark " + n + " times, please wait...");
 
