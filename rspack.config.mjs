@@ -48,5 +48,6 @@ export default defineConfig({
   ].filter(Boolean),
   experiments: {
     css: true,
+    incremental: true,
   },
 });
