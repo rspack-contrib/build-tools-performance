@@ -25,6 +25,7 @@ export default defineConfig({
           loader: "builtin:swc-loader",
           options: {
             jsc: {
+              target: ["chrome >= 87", "edge >= 88", "firefox >= 78", "safari >= 14"],
               parser: {
                 syntax: "typescript",
                 tsx: true,
@@ -48,5 +49,6 @@ export default defineConfig({
   ].filter(Boolean),
   experiments: {
     css: true,
+    lazyCompilation: !isProduction // lazyCompilation should only be enabled in development mode
   },
 });
