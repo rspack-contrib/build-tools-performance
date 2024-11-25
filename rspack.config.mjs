@@ -23,9 +23,17 @@ export default defineConfig({
         exclude: /node_modules/,
         use: {
           loader: "builtin:swc-loader",
+          /** @type {import('@rspack/core').SwcLoaderOptions} */
           options: {
+            env: {
+              targets: [
+                "chrome >= 87",
+                "edge >= 88",
+                "firefox >= 78",
+                "safari >= 14",
+              ],
+            },
             jsc: {
-              target: ["chrome >= 87", "edge >= 88", "firefox >= 78", "safari >= 14"],
               parser: {
                 syntax: "typescript",
                 tsx: true,
@@ -49,6 +57,6 @@ export default defineConfig({
   ].filter(Boolean),
   experiments: {
     css: true,
-    lazyCompilation: !isProduction // lazyCompilation should only be enabled in development mode
+    lazyCompilation: !isProduction, // lazyCompilation should only be enabled in development mode
   },
 });
