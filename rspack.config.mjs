@@ -12,6 +12,9 @@ export default defineConfig({
   resolve: {
     extensions: ["...", ".tsx", ".ts", ".jsx"],
   },
+  watchOptions: {
+    ignored: /[\\/](?:\.git|node_modules)[\\/]/,
+  },
   module: {
     rules: [
       {
