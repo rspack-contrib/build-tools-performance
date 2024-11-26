@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@farmfe/cli": "^1.0.4",
-    "@farmfe/core": "^1.4.3",
+    "@farmfe/core": "1.4.2",
     "@farmfe/plugin-react": "^1.2.6",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
     "@rsbuild/core": "^1.1.5",
