@@ -141,6 +141,15 @@ const buildTools = [
     "build:rspack",
     "@rspack/cli/bin/rspack.js"
   ),
+  new BuildTool(
+    "Rspack CLI (Lazy Compilation) " +
+      require("@rspack/core/package.json").version,
+    8080,
+    "start:rspack:lazy",
+    /in (.+) (s|ms)/,
+    "build:rspack",
+    "@rspack/cli/bin/rspack.js"
+  ),
   // new BuildTool(
   //   "Farm " + require("@farmfe/core/package.json").version,
   //   9000,

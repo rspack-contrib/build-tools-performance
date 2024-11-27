@@ -54,7 +54,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
-      template: "./index.webpack.html",
+      template: "./index.rspack.html",
     }),
     isProd ? null : new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),

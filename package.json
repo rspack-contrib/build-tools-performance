@@ -52,6 +52,7 @@
     "start:webpack": "NODE_ENV=development webpack serve --mode development",
     "build:webpack": "NODE_ENV=production webpack build --mode production",
     "start:rspack": "NODE_ENV=development rspack serve",
+    "start:rspack:lazy": "NODE_ENV=development LAZY=true rspack serve",
     "build:rspack": "NODE_ENV=production rspack build",
     "start:rsbuild": "rsbuild dev",
     "build:rsbuild": "rsbuild build",

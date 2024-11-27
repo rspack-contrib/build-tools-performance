@@ -52,11 +52,11 @@ export default defineConfig({
     ],
   },
   plugins: [
-    new rspack.HtmlRspackPlugin({ template: "./index.webpack.html" }),
+    new rspack.HtmlRspackPlugin({ template: "./index.rspack.html" }),
     !isProduction && new ReactRefreshPlugin(),
   ].filter(Boolean),
   experiments: {
     css: true,
-    lazyCompilation: !isProduction, // lazyCompilation should only be enabled in development mode
+    lazyCompilation: Boolean(process.env.LAZY) && !isProduction, // lazyCompilation should only be enabled in development mode
   },
 });
