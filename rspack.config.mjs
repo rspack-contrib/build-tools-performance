@@ -51,6 +51,10 @@ export default defineConfig({
       },
     ],
   },
+  watchOptions: {
+    // TODO: will be default in Rspack v1.2.0
+    ignored: /[\\/](?:\.git|node_modules)[\\/]/,
+  },
   plugins: [
     new rspack.HtmlRspackPlugin({ template: "./index.rspack.html" }),
     !isProduction && new ReactRefreshPlugin(),
@@ -59,6 +63,7 @@ export default defineConfig({
     css: true,
     // lazyCompilation should only be enabled in development mode
     lazyCompilation: Boolean(process.env.LAZY) && !isProduction,
-    incremental: Boolean(process.env.INCREMENTAL) && !isProduction,
+    incremental:
+      Boolean(process.env.INCREMENTAL) && !isProduction ? true : undefined,
   },
 });

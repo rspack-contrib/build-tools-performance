@@ -56,6 +56,8 @@
     "start:rspack:incremental": "NODE_ENV=development INCREMENTAL=true rspack serve",
     "build:rspack": "NODE_ENV=production rspack build",
     "start:rsbuild": "rsbuild dev",
+    "start:rsbuild:lazy": "LAZY=true rsbuild dev",
+    "start:rsbuild:incremental": "INCREMENTAL=true rsbuild dev",
     "build:rsbuild": "rsbuild build",
     "start:turbopack": "next dev --turbo",
     "build:turbopack": "next build",
