@@ -142,6 +142,14 @@ const buildTools = [
     "@rspack/cli/bin/rspack.js"
   ),
   new BuildTool(
+    "Rspack CLI (Incremental) " + require("@rspack/core/package.json").version,
+    8080,
+    "start:rspack:incremental",
+    /in (.+) (s|ms)/,
+    "build:rspack",
+    "@rspack/cli/bin/rspack.js"
+  ),
+  new BuildTool(
     "Rspack CLI (Lazy Compilation) " +
       require("@rspack/core/package.json").version,
     8080,
