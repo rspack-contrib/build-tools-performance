@@ -134,18 +134,18 @@ const buildTools = [
     "@rsbuild/core/bin/rsbuild.js"
   ),
   new BuildTool(
-    "Rsbuild (Lazy Compilation) " +
-      require("@rsbuild/core/package.json").version,
+    "Rsbuild (Incremental) " + require("@rsbuild/core/package.json").version,
     3000,
-    "start:rsbuild:lazy",
+    "start:rsbuild:incremental",
     /in (.+) (s|ms)/,
     "build:rsbuild",
     "@rsbuild/core/bin/rsbuild.js"
   ),
   new BuildTool(
-    "Rsbuild (Incremental) " + require("@rsbuild/core/package.json").version,
+    "Rsbuild (Lazy Compilation) " +
+      require("@rsbuild/core/package.json").version,
     3000,
-    "start:rsbuild:incremental",
+    "start:rsbuild:lazy",
     /in (.+) (s|ms)/,
     "build:rsbuild",
     "@rsbuild/core/bin/rsbuild.js"
