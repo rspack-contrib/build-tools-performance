@@ -141,14 +141,14 @@ const buildTools = [
     "build:rspack",
     "@rspack/cli/bin/rspack.js"
   ),
-  new BuildTool(
-    "Farm " + require("@farmfe/core/package.json").version,
-    9000,
-    "start:farm",
-    /Ready in (.+)(s|ms)/,
-    "build:farm",
-    "@farmfe/cli/bin/farm.mjs"
-  ),
+  // new BuildTool(
+  //   "Farm " + require("@farmfe/core/package.json").version,
+  //   9000,
+  //   "start:farm",
+  //   /Ready in (.+)(s|ms)/,
+  //   "build:farm",
+  //   "@farmfe/cli/bin/farm.mjs"
+  // ),
   new BuildTool(
     "Vite (SWC) " + require("vite/package.json").version,
     5173,
