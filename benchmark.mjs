@@ -175,14 +175,15 @@ const buildTools = [
     "build:rspack",
     "@rspack/cli/bin/rspack.js"
   ),
-  // new BuildTool(
-  //   "Farm " + require("@farmfe/core/package.json").version,
-  //   9000,
-  //   "start:farm",
-  //   /Ready in (.+)(s|ms)/,
-  //   "build:farm",
-  //   "@farmfe/cli/bin/farm.mjs"
-  // ),
+  process.env.ENABLE_FARM &&
+    new BuildTool(
+      "Farm " + require("@farmfe/core/package.json").version,
+      9000,
+      "start:farm",
+      /Ready in (.+)(s|ms)/,
+      "build:farm",
+      "@farmfe/cli/bin/farm.mjs"
+    ),
   new BuildTool(
     "Vite (SWC) " + require("vite/package.json").version,
     5173,
@@ -199,23 +200,25 @@ const buildTools = [
     "build:webpack",
     "webpack-cli/bin/cli.js"
   ),
-  // new BuildTool(
-  //   "Mako " + require('@umijs/mako/package.json').version,
-  //   8081,
-  //   "start:mako",
-  //   /Built in (.+)(s|ms)/,
-  //   "build:mako",
-  //   "@umijs/mako/bin/mako.js"
-  // ),
-  // new BuildTool(
-  //   "Turbopack " + require('next/package.json').version,
-  //   3000,
-  //   "start:turbopack",
-  //   /started server on \[::\]:3000, url: http:\/\/localhost:3000/,
-  //   "build:turbopack",
-  //   "next/dist/bin/next"
-  // ),
-];
+  process.env.ENABLE_MAKO &&
+    new BuildTool(
+      "Mako " + require("@umijs/mako/package.json").version,
+      8081,
+      "start:mako",
+      /Built in (.+)(s|ms)/,
+      "build:mako",
+      "@umijs/mako/bin/mako.js"
+    ),
+  process.env.ENABLE_TURBOPACK &&
+    new BuildTool(
+      "Turbopack " + require("next/package.json").version,
+      3000,
+      "start:turbopack",
+      /started server on \[::\]:3000, url: http:\/\/localhost:3000/,
+      "build:turbopack",
+      "next/dist/bin/next"
+    ),
+].filter(Boolean);
 
 const browser = await puppeteer.launch();
 
