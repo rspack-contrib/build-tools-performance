@@ -13,8 +13,11 @@ on:
 
 jobs:
   benchmark:
-    runs-on: macos-15
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 15
+    strategy:
+      matrix:
+        os: [macos-15, windows-latest]
 
     steps:
       - name: Checkout
