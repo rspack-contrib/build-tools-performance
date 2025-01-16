@@ -124,6 +124,8 @@ class BuildTool {
   }
 }
 
+const isMac = process.platform === "darwin";
+
 const buildTools = [
   new BuildTool(
     "Rsbuild " + require("@rsbuild/core/package.json").version,
@@ -133,7 +135,7 @@ const buildTools = [
     "build:rsbuild",
     "@rsbuild/core/bin/rsbuild.js"
   ),
-  new BuildTool(
+  isMac && new BuildTool(
     "Rsbuild (Incremental) " + require("@rsbuild/core/package.json").version,
     3000,
     "start:rsbuild:incremental",
@@ -141,7 +143,7 @@ const buildTools = [
     "build:rsbuild",
     "@rsbuild/core/bin/rsbuild.js"
   ),
-  new BuildTool(
+  isMac && new BuildTool(
     "Rsbuild (Lazy Compilation) " +
       require("@rsbuild/core/package.json").version,
     3000,
@@ -158,7 +160,7 @@ const buildTools = [
     "build:rspack",
     "@rspack/cli/bin/rspack.js"
   ),
-  new BuildTool(
+  isMac && new BuildTool(
     "Rspack CLI (Incremental) " + require("@rspack/core/package.json").version,
     8080,
     "start:rspack:incremental",
@@ -166,7 +168,7 @@ const buildTools = [
     "build:rspack",
     "@rspack/cli/bin/rspack.js"
   ),
-  new BuildTool(
+  isMac && new BuildTool(
     "Rspack CLI (Lazy Compilation) " +
       require("@rspack/core/package.json").version,
     8080,
