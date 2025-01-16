@@ -127,8 +127,6 @@ class BuildTool {
   }
 }
 
-const isMac = process.platform === "darwin";
-
 const buildTools = [
   new BuildTool(
     "Rsbuild " + require("@rsbuild/core/package.json").version,
@@ -138,25 +136,23 @@ const buildTools = [
     "build:rsbuild",
     "@rsbuild/core/bin/rsbuild.js"
   ),
-  isMac &&
-    new BuildTool(
-      "Rsbuild (Incremental) " + require("@rsbuild/core/package.json").version,
-      3000,
-      "start:rsbuild:incremental",
-      /in (.+) (s|ms)/,
-      "build:rsbuild",
-      "@rsbuild/core/bin/rsbuild.js"
-    ),
-  isMac &&
-    new BuildTool(
-      "Rsbuild (Lazy Compilation) " +
-        require("@rsbuild/core/package.json").version,
-      3000,
-      "start:rsbuild:lazy",
-      /in (.+) (s|ms)/,
-      "build:rsbuild",
-      "@rsbuild/core/bin/rsbuild.js"
-    ),
+  new BuildTool(
+    "Rsbuild (Incremental) " + require("@rsbuild/core/package.json").version,
+    3000,
+    "start:rsbuild:incremental",
+    /in (.+) (s|ms)/,
+    "build:rsbuild",
+    "@rsbuild/core/bin/rsbuild.js"
+  ),
+  new BuildTool(
+    "Rsbuild (Lazy Compilation) " +
+      require("@rsbuild/core/package.json").version,
+    3000,
+    "start:rsbuild:lazy",
+    /in (.+) (s|ms)/,
+    "build:rsbuild",
+    "@rsbuild/core/bin/rsbuild.js"
+  ),
   new BuildTool(
     "Rspack CLI " + require("@rspack/core/package.json").version,
     8080,
@@ -165,26 +161,23 @@ const buildTools = [
     "build:rspack",
     "@rspack/cli/bin/rspack.js"
   ),
-  isMac &&
-    new BuildTool(
-      "Rspack CLI (Incremental) " +
-        require("@rspack/core/package.json").version,
-      8080,
-      "start:rspack:incremental",
-      /in (.+) (s|ms)/,
-      "build:rspack",
-      "@rspack/cli/bin/rspack.js"
-    ),
-  isMac &&
-    new BuildTool(
-      "Rspack CLI (Lazy Compilation) " +
-        require("@rspack/core/package.json").version,
-      8080,
-      "start:rspack:lazy",
-      /in (.+) (s|ms)/,
-      "build:rspack",
-      "@rspack/cli/bin/rspack.js"
-    ),
+  new BuildTool(
+    "Rspack CLI (Incremental) " + require("@rspack/core/package.json").version,
+    8080,
+    "start:rspack:incremental",
+    /in (.+) (s|ms)/,
+    "build:rspack",
+    "@rspack/cli/bin/rspack.js"
+  ),
+  new BuildTool(
+    "Rspack CLI (Lazy Compilation) " +
+      require("@rspack/core/package.json").version,
+    8080,
+    "start:rspack:lazy",
+    /in (.+) (s|ms)/,
+    "build:rspack",
+    "@rspack/cli/bin/rspack.js"
+  ),
   process.env.ENABLE_FARM &&
     new BuildTool(
       "Farm " + require("@farmfe/core/package.json").version,
