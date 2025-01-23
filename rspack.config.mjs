@@ -51,10 +51,6 @@ export default defineConfig({
       },
     ],
   },
-  watchOptions: {
-    // TODO: will be default in Rspack v1.2.0
-    ignored: /[\\/](?:\.git|node_modules)[\\/]/,
-  },
   plugins: [
     new rspack.HtmlRspackPlugin({ template: "./index.rspack.html" }),
     !isProduction && new ReactRefreshPlugin(),
