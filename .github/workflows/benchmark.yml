@@ -35,7 +35,7 @@ jobs:
           corepack enable
 
       - name: Install Dependencies
-        run: pnpm install
+        run: pnpm install && npx puppeteer browsers install chrome
 
       - name: Run Benchmark
         run: pnpm run benchmark
