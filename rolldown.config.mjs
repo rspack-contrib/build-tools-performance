@@ -1,8 +1,15 @@
 import { defineConfig } from "rolldown";
 
-// TODO make rolldown work
+const isProduction = process.env.NODE_ENV === "production";
+
 export default defineConfig({
   input: {
-    entry: "./src/index.tsx",
+    main: "./src/index.tsx",
+  },
+  define: {
+    "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+  },
+  output: {
+    minify: isProduction,
   },
 });
