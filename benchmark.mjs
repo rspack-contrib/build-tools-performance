@@ -137,14 +137,6 @@ const buildTools = [
     "@rsbuild/core/bin/rsbuild.js"
   ),
   new BuildTool(
-    "Rsbuild (Incremental) " + require("@rsbuild/core/package.json").version,
-    3000,
-    "start:rsbuild:incremental",
-    /in (.+) (s|ms)/,
-    "build:rsbuild",
-    "@rsbuild/core/bin/rsbuild.js"
-  ),
-  new BuildTool(
     "Rsbuild (Lazy Compilation) " +
       require("@rsbuild/core/package.json").version,
     3000,
@@ -157,14 +149,6 @@ const buildTools = [
     "Rspack CLI " + require("@rspack/core/package.json").version,
     8080,
     "start:rspack",
-    /in (.+) (s|ms)/,
-    "build:rspack",
-    "@rspack/cli/bin/rspack.js"
-  ),
-  new BuildTool(
-    "Rspack CLI (Incremental) " + require("@rspack/core/package.json").version,
-    8080,
-    "start:rspack:incremental",
     /in (.+) (s|ms)/,
     "build:rspack",
     "@rspack/cli/bin/rspack.js"
