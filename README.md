@@ -4,11 +4,11 @@ Benchmarks for Rspack, Rsbuild, Webpack, Vite and Farm.
 
 ## Result
 
-![image](https://github.com/user-attachments/assets/9d8518b7-0745-4b52-b8ef-b7770351c8ca)
+![image](https://github.com/user-attachments/assets/178448c9-d2d9-4b38-b7a4-5b27d6e89c0c)
 
 Info:
 
-- MacBook Pro / Apple M1 Pro / 32GB
+- Run in GitHub Actions (macos 15)
 - startup = serverStart + onLoad
 - 5000 components + 5000 modules in node_modules
 
