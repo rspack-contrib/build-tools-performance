@@ -6,6 +6,7 @@ import ReactRefreshPlugin from "@rspack/plugin-react-refresh";
 const isProduction = process.env.NODE_ENV === "production";
 
 export default defineConfig({
+  context: import.meta.dirname,
   devtool: isProduction ? false : undefined,
   entry: {
     main: "./src/index.tsx",
@@ -61,5 +62,6 @@ export default defineConfig({
     // lazyCompilation should only be enabled in development mode
     lazyCompilation: Boolean(process.env.LAZY) && !isProduction,
     incremental: !isProduction ? true : undefined,
+    
   },
 });
