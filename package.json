@@ -63,5 +63,16 @@
     "start:mako": "mako build --mode development --watch --open false",
     "build:mako": "mako build --mode production",
     "build:rolldown": "cross-env NODE_ENV=production rolldown -c ./rolldown.config.mjs"
+  },
+  "pnpm": {
+    "overrides": {
+      "@rspack/core": "npm:@rspack-canary/core@1.2.7-canary-543da440-20250303033228",
+      "@rspack/cli": "npm:@rspack-canary/cli@1.2.7-canary-543da440-20250303033228"
+    },
+    "peerDependencyRules": {
+      "allowAny": [
+        "@rspack/*"
+      ]
+    }
   }
 }
