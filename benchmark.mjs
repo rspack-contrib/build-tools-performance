@@ -6,9 +6,14 @@ import puppeteer from "puppeteer";
 import kill from "tree-kill";
 
 const require = createRequire(import.meta.url);
+const __dirname = import.meta.dirname;
 
 const startConsole = "console.log('Benchmark Start Time', Date.now());";
 const startConsoleRegex = /Benchmark Start Time (\d+)/;
+
+const caseName = process.argv[2];
+
+process.env.CASE = caseName;
 
 class BuildTool {
   constructor(name, port, script, startedRegex, buildScript, binFilePath) {
@@ -28,7 +33,7 @@ class BuildTool {
       rmSync("./node_modules/.cache", { recursive: true, force: true });
       rmSync("./node_modules/.vite", { recursive: true, force: true });
       rmSync("./node_modules/.farm", { recursive: true, force: true });
-    } catch (err) {}
+    } catch (err) { }
   }
 
   // Add a `console.log('Benchmark start', Date.now())` to the bin file's second line
@@ -138,7 +143,7 @@ const buildTools = [
   ),
   new BuildTool(
     "Rsbuild (Lazy Compilation) " +
-      require("@rsbuild/core/package.json").version,
+    require("@rsbuild/core/package.json").version,
     3000,
     "start:rsbuild:lazy",
     /in (.+) (s|ms)/,
@@ -155,7 +160,7 @@ const buildTools = [
   ),
   new BuildTool(
     "Rspack CLI (Lazy Compilation) " +
-      require("@rspack/core/package.json").version,
+    require("@rspack/core/package.json").version,
     8080,
     "start:rspack:lazy",
     /in (.+) (s|ms)/,
@@ -163,14 +168,14 @@ const buildTools = [
     "@rspack/cli/bin/rspack.js"
   ),
   process.env.ENABLE_FARM &&
-    new BuildTool(
-      "Farm " + require("@farmfe/core/package.json").version,
-      9000,
-      "start:farm",
-      /Ready in (.+)(s|ms)/,
-      "build:farm",
-      "@farmfe/cli/bin/farm.mjs"
-    ),
+  new BuildTool(
+    "Farm " + require("@farmfe/core/package.json").version,
+    9000,
+    "start:farm",
+    /Ready in (.+)(s|ms)/,
+    "build:farm",
+    "@farmfe/cli/bin/farm.mjs"
+  ),
   new BuildTool(
     "Vite (SWC) " + require("vite/package.json").version,
     5173,
@@ -187,24 +192,6 @@ const buildTools = [
     "build:webpack",
     "webpack-cli/bin/cli.js"
   ),
-  process.env.ENABLE_MAKO &&
-    new BuildTool(
-      "Mako " + require("@umijs/mako/package.json").version,
-      8081,
-      "start:mako",
-      /Built in (.+)(s|ms)/,
-      "build:mako",
-      "@umijs/mako/bin/mako.js"
-    ),
-  process.env.ENABLE_TURBOPACK &&
-    new BuildTool(
-      "Turbopack " + require("next/package.json").version,
-      3000,
-      "start:turbopack",
-      /started server on \[::\]:3000, url: http:\/\/localhost:3000/,
-      "build:turbopack",
-      "next/dist/bin/next"
-    ),
 ].filter(Boolean);
 
 const browser = await puppeteer.launch();
@@ -231,7 +218,7 @@ async function runBenchmark() {
       const loadTime = Date.now() - start;
       console.log(
         buildTool.name,
-        ": startup time: " + (time + loadTime) + "ms"
+        "startup time: " + (time + loadTime) + "ms"
       );
 
       if (!results[buildTool.name]) {
@@ -285,7 +272,7 @@ async function runBenchmark() {
     });
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const rootFilePath = path.resolve("src/f0.jsx");
+    const rootFilePath = path.join(__dirname, "src", caseName, "f0.jsx");
     const originalRootFileContent = readFileSync(rootFilePath, "utf-8");
 
     appendFile(
@@ -301,7 +288,7 @@ async function runBenchmark() {
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const leafFilePath = path.resolve("src/d0/d0/d0/d0/f0.jsx");
+    const leafFilePath = path.join(__dirname, "src", caseName, "d0/d0/d0/f0.jsx");
     const originalLeafFileContent = readFileSync(leafFilePath, "utf-8");
     appendFile(
       leafFilePath,
