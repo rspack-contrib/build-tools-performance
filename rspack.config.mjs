@@ -1,15 +1,17 @@
 // @ts-check
+import path from "node:path";
 import { defineConfig } from "@rspack/cli";
 import { rspack } from "@rspack/core";
 import ReactRefreshPlugin from "@rspack/plugin-react-refresh";
 
 const isProduction = process.env.NODE_ENV === "production";
+const caseName = process.env.CASE ?? 'medium';
 
 export default defineConfig({
   context: import.meta.dirname,
   devtool: isProduction ? false : undefined,
   entry: {
-    main: "./src/index.tsx",
+    main: path.join(import.meta.dirname, "./src", caseName, "index.jsx"),
   },
   resolve: {
     extensions: ["...", ".tsx", ".ts", ".jsx"],
@@ -54,7 +56,7 @@ export default defineConfig({
     ],
   },
   plugins: [
-    new rspack.HtmlRspackPlugin({ template: "./index.rspack.html" }),
+    new rspack.HtmlRspackPlugin(),
     !isProduction && new ReactRefreshPlugin(),
   ],
   experiments: {
@@ -62,6 +64,5 @@ export default defineConfig({
     // lazyCompilation should only be enabled in development mode
     lazyCompilation: Boolean(process.env.LAZY) && !isProduction,
     incremental: !isProduction ? true : undefined,
-    
   },
 });

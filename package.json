@@ -22,9 +22,9 @@
     "@rspack/core": "^1.2.8",
     "@rspack/plugin-react-refresh": "^1.0.1",
     "@swc/css": "^0.0.28",
+    "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "@umijs/mako": "^0.11.6",
     "@vitejs/plugin-react-swc": "^3.8.0",
     "babel-loader": "^10.0.0",
     "cross-env": "^7.0.3",
@@ -32,7 +32,6 @@
     "css-minimizer-webpack-plugin": "^7.0.2",
     "html-webpack-plugin": "^5.6.3",
     "mini-css-extract-plugin": "^2.9.2",
-    "next": "^15.2.2",
     "react-refresh": "^0.16.0",
     "rolldown": "^1.0.0-beta.4",
     "swc-loader": "^0.2.6",
@@ -58,10 +57,6 @@
     "start:rsbuild": "rsbuild dev",
     "start:rsbuild:lazy": "cross-env LAZY=true rsbuild dev",
     "build:rsbuild": "rsbuild build",
-    "start:turbopack": "next dev --turbo",
-    "build:turbopack": "next build",
-    "start:mako": "mako build --mode development --watch --open false",
-    "build:mako": "mako build --mode production",
     "build:rolldown": "cross-env NODE_ENV=production rolldown -c ./rolldown.config.mjs"
   }
 }

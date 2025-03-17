@@ -1,6 +1,6 @@
 # Build Tools Performance Compare
 
-Benchmarks for Rspack, Rsbuild, Webpack, Vite and Farm.
+Benchmarks for Rspack, Rsbuild, webpack, Vite and Farm.
 
 ## Result
 
@@ -10,7 +10,11 @@ Info:
 
 - Run in GitHub Actions (macos 15)
 - startup = serverStart + onLoad
-- 5000 components + 5000 modules in node_modules
+
+## Cases
+
+- small: 1000 components + 1500 modules in node_modules
+- medium: 5000 components + 5000 modules in node_modules
 
 ## Run
 
@@ -36,4 +40,3 @@ npm run start:turbopack # Start Turbopack
 ## Credits
 
 Forked from [farm-fe/performance-compare](https://github.com/farm-fe/performance-compare), thanks to the Farm team!
-

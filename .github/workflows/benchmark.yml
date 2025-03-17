@@ -18,6 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-15, windows-latest]
+        case: [small, medium]
 
     steps:
       - name: Checkout
@@ -28,14 +29,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 23
+          node-version: 22
 
       - name: Install Pnpm
         run: |
-          corepack enable
+          npm i -g corepack@latest -g --force && corepack enable
 
       - name: Install Dependencies
-        run: pnpm install && npx puppeteer browsers install chrome
+        run: pnpm install && npx puppeteer browsers install chrome && npm i cross-env -g
 
       - name: Run Benchmark
-        run: pnpm run benchmark
+        run: cross-env CASE=${{ matrix.os }} pnpm run benchmark
