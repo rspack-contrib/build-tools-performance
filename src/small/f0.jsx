@@ -29,3 +29,5 @@ import C8 from './d0/f8.jsx'
   }
   
   export default Component
+    console.log('root hmr', Date.now());
+    

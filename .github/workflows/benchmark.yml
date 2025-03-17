@@ -36,7 +36,7 @@ jobs:
           npm i -g corepack@latest -g --force && corepack enable
 
       - name: Install Dependencies
-        run: pnpm install && npx puppeteer browsers install chrome && npm i cross-env -g
+        run: pnpm install && npx puppeteer browsers install chrome
 
       - name: Run Benchmark
-        run: cross-env CASE=${{ matrix.os }} pnpm run benchmark
+        run: pnpm run benchmark ${{ matrix.case }}

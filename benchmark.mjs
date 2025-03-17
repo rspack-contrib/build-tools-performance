@@ -6,9 +6,14 @@ import puppeteer from "puppeteer";
 import kill from "tree-kill";
 
 const require = createRequire(import.meta.url);
+const __dirname = import.meta.dirname;
 
 const startConsole = "console.log('Benchmark Start Time', Date.now());";
 const startConsoleRegex = /Benchmark Start Time (\d+)/;
+
+const caseName = process.argv[2];
+
+process.env.CASE = caseName;
 
 class BuildTool {
   constructor(name, port, script, startedRegex, buildScript, binFilePath) {
@@ -267,7 +272,7 @@ async function runBenchmark() {
     });
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const rootFilePath = path.resolve("src/f0.jsx");
+    const rootFilePath = path.join(__dirname, "src", caseName, "f0.jsx");
     const originalRootFileContent = readFileSync(rootFilePath, "utf-8");
 
     appendFile(
@@ -283,7 +288,7 @@ async function runBenchmark() {
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const leafFilePath = path.resolve("src/d0/d0/d0/d0/f0.jsx");
+    const leafFilePath = path.join(__dirname, "src", caseName, "d0/d0/d0/f0.jsx");
     const originalLeafFileContent = readFileSync(leafFilePath, "utf-8");
     appendFile(
       leafFilePath,
