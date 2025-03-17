@@ -34,8 +34,8 @@ importers:
         specifier: ^1.0.4
         version: 1.0.4
       '@farmfe/core':
-        specifier: 1.6.7
-        version: 1.6.7
+        specifier: 1.7.1
+        version: 1.7.1
       '@farmfe/plugin-react':
         specifier: ^1.2.6
         version: 1.2.6
@@ -43,11 +43,11 @@ importers:
         specifier: ^0.5.15
         version: 0.5.15(react-refresh@0.16.0)(type-fest@3.6.1)(webpack-dev-server@5.2.0)(webpack@5.98.0)
       '@rsbuild/core':
-        specifier: ^1.2.18
-        version: 1.2.18
+        specifier: ^1.2.19
+        version: 1.2.19
       '@rsbuild/plugin-react':
         specifier: ^1.1.1
-        version: 1.1.1(@rsbuild/core@1.2.18)
+        version: 1.1.1(@rsbuild/core@1.2.19)
       '@rspack/cli':
         specifier: ^1.2.8
         version: 1.2.8(@rspack/core@1.2.8(@swc/helpers@0.5.15))(@types/express@4.17.21)(webpack-cli@6.0.1)(webpack@5.98.0)
@@ -71,7 +71,7 @@ importers:
         version: 19.0.4(@types/react@19.0.10)
       '@vitejs/plugin-react-swc':
         specifier: ^3.8.0
-        version: 3.8.0(@swc/helpers@0.5.15)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0))
+        version: 3.8.0(@swc/helpers@0.5.15)(vite@6.2.2(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0))
       babel-loader:
         specifier: ^10.0.0
         version: 10.0.0(@babel/core@7.25.9)(webpack@5.98.0)
@@ -106,8 +106,8 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
       vite:
-        specifier: ^6.2.1
-        version: 6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0)
+        specifier: ^6.2.2
+        version: 6.2.2(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0)
       webpack:
         specifier: ^5.98.0
         version: 5.98.0(@swc/core@1.10.15(@swc/helpers@0.5.15))(webpack-cli@6.0.1)
@@ -418,64 +418,64 @@ packages:
     engines: {node: '>= 16'}
     hasBin: true
 
-  '@farmfe/core-darwin-arm64@1.6.7':
-    resolution: {integrity: sha512-iYRFSlcr/xYOfKKr/XfgA9B3/TBxoxW2y1Uf+0ynI1JJDzDs2STdMxUCmpjrkvH6MGVinrSJ2W9CDDJzus1INQ==}
+  '@farmfe/core-darwin-arm64@1.7.1':
+    resolution: {integrity: sha512-tIoPQ/q0Aum8r0WDYqt1zjGVksZxeKqiABq1XP+2P8grvKqvZYn3/SI85jSIynovSxJSoVw3EZdtTQuYwhgxKQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@farmfe/core-darwin-x64@1.6.7':
-    resolution: {integrity: sha512-gHC1NO+3WxQG2LN+C2oa5P0B6DKAulbJuSi6vzbYcJ3GHdTb/QF8Jzzi9PA1x86Elq9S6imELQF1gpLfE9Z71Q==}
+  '@farmfe/core-darwin-x64@1.7.1':
+    resolution: {integrity: sha512-aJGPqsn8PW/kp82OHDCIDM5DEIglA6ajCA7VTlUQ8AxGNiSH0Xs/s+2rcae52t2WEECvdTI7/XuQPOC1dzPhyA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@farmfe/core-linux-arm64-gnu@1.6.7':
-    resolution: {integrity: sha512-OuO52OjADVgOWoLpbQKTR5s150copsJd4anZoWUzLeZYU/FTFd89nLKkfAEfNGmFqRLubnOueWibjhHKBA4Ykg==}
+  '@farmfe/core-linux-arm64-gnu@1.7.1':
+    resolution: {integrity: sha512-Da2JbcBpsbMey/YtvcWnGU/d7hqHVQ8ZjRWccWgwSTW3zooRFiTgEk/bMIsSMRl0VYYoCPMovJugciNtsEcxDQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@farmfe/core-linux-arm64-musl@1.6.7':
-    resolution: {integrity: sha512-WI5AElz46dgC/i+qYjUqKi4EnfRWVlb8ULIxtnZcQrVAEQ0xBA1hQAuO4XjF0/X4VsNrGcsgvExdv35rSpk5oA==}
+  '@farmfe/core-linux-arm64-musl@1.7.1':
+    resolution: {integrity: sha512-SJKttRH7tp9jRmdZaZSlYLvQzYzcSm8zh7cT5g7R4spSkojV14NfzlYLRuY19K0fXN8T9jD5/kVd5oDtJN8jkA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@farmfe/core-linux-x64-gnu@1.6.7':
-    resolution: {integrity: sha512-GVP6uWTFMo1YMAv3oHwtIIFOAWl7m5wf6hvPczh9C0sOs4ryMcRyg/AUcDjT6zrXnExOWZ+5iU4cwFW90AuDNA==}
+  '@farmfe/core-linux-x64-gnu@1.7.1':
+    resolution: {integrity: sha512-D+37H8m7pMBLxWinYoX/RmIhRkcvP0/yLD96LoPYpHOoR2+rUH1tfGxlfmH8yjHRUz1qbSNrnAwpx3qj/84TuQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@farmfe/core-linux-x64-musl@1.6.7':
-    resolution: {integrity: sha512-GchJAkwAs6/euDtr2FjbbzMWqJUaIfpnmHvjjft23OoNsGEiKT3VuwjLaGfmOzzkrNSw3k5yWauZo6+/WQVS8A==}
+  '@farmfe/core-linux-x64-musl@1.7.1':
+    resolution: {integrity: sha512-T98uWNE46Ydepnl4K5GBbJ3kDyLv3FvCDAhK7/rHvyFeP3XcRFCULX6BTAED+c406L5hK75kIGa4o8ps7eX0tw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@farmfe/core-win32-arm64-msvc@1.6.7':
-    resolution: {integrity: sha512-98GYSn96mAsrilrU18JR0ZLWp9rdk3/pZp0PD1XpwRiLRobkZgYHntugVkwpX71daYkQ3S1lid3EXy83qPABjQ==}
+  '@farmfe/core-win32-arm64-msvc@1.7.1':
+    resolution: {integrity: sha512-UPHEGBGbN8AbF2esIXoG1W8Mjcn/y2hfbEov2+Y2q1oPtn6y6ue1MDbqmpX6uM0ZZ/PFGOS97wa4+kOaHY6l9A==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@farmfe/core-win32-ia32-msvc@1.6.7':
-    resolution: {integrity: sha512-6aM9+3VZx9YRiGT3tMyNig4G/AGcVNotGkhs1E02+YPgum4fpVLKzJj87qCjlJrHcxlXvrtF/fZtKMZLaVvJrQ==}
+  '@farmfe/core-win32-ia32-msvc@1.7.1':
+    resolution: {integrity: sha512-IHmwt9qfwuesW5QEsNxGZHrLgit3B2FuqIU2iZb+0m3x6w2RVjdvami7L8WJDj2uSbZOcZwbYu6pgcv4EHweUA==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
 
-  '@farmfe/core-win32-x64-msvc@1.6.7':
-    resolution: {integrity: sha512-UPppAGlYp+m8PlMPu3gzoZrqn3kBjEXV6oaVdzXbLPYvWdpUnbsLT6vtt1ReNY2Z2j3FtEUqqXk0F0CIbMHZlw==}
+  '@farmfe/core-win32-x64-msvc@1.7.1':
+    resolution: {integrity: sha512-QT3NvJVQtSv46UKjgYnIPKOaQ5qisTRBd04Ps/cDKrQhDLKHoO7FdXoq5tMnAA0Xkgw3P4kTWBiVxBpdKap0Aw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
 
-  '@farmfe/core@1.6.7':
-    resolution: {integrity: sha512-ZNE0mr8t1n3vxYO3EkVifd6dSkN0b0KCCQOTCVktWM9lCphqmxPtgV9oeS7MYs04f40SO8G2b0Kq6Fd4BnRoUQ==}
+  '@farmfe/core@1.7.1':
+    resolution: {integrity: sha512-ou4Ec8cy/MBLeHj6tLqTtLu5w3pHI3dMp11mIcWD4ESXEPaXDoIyERYvnYs5JCMcw5SjCRPmFFJLbjyQ5RmZwg==}
     engines: {node: '>=16.15.1'}
 
   '@farmfe/plugin-react-darwin-arm64@1.2.6':
@@ -857,8 +857,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rsbuild/core@1.2.18':
-    resolution: {integrity: sha512-hnqYu75ewn4X4f+/FqLZ5DUv1CaqLuzJl1HGgkOMWg1gj8b5kmidGHcGFCgRMQqJacdMGJGAy0yJHGLVuDPYNg==}
+  '@rsbuild/core@1.2.19':
+    resolution: {integrity: sha512-k76is4HygmbYYMLG2V1d1yQeurHHC+ZEtGs/nwE11y6HmwSndoFhmjOeQbQ2Ul0b2B8HErksqSMtlCxd37YPPQ==}
     engines: {node: '>=16.7.0'}
     hasBin: true
 
@@ -4023,8 +4023,8 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  vite@6.2.1:
-    resolution: {integrity: sha512-n2GnqDb6XPhlt9B8olZPrgMD/es/Nd1RdChF6CBD/fHW6pUyUTt2sQW2fPRX5GiD9XEa6+8A6A4f2vT6pSsE7Q==}
+  vite@6.2.2:
+    resolution: {integrity: sha512-yW7PeMM+LkDzc7CgJuRLMW2Jz0FxMOsVJ8Lv3gpgW9WLcb9cTW+121UEr1hvmfR7w3SegR5ItvYyzVz1vxNJgQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -4632,34 +4632,34 @@ snapshots:
       inquirer: 9.2.12
       walkdir: 0.4.1
 
-  '@farmfe/core-darwin-arm64@1.6.7':
+  '@farmfe/core-darwin-arm64@1.7.1':
     optional: true
 
-  '@farmfe/core-darwin-x64@1.6.7':
+  '@farmfe/core-darwin-x64@1.7.1':
     optional: true
 
-  '@farmfe/core-linux-arm64-gnu@1.6.7':
+  '@farmfe/core-linux-arm64-gnu@1.7.1':
     optional: true
 
-  '@farmfe/core-linux-arm64-musl@1.6.7':
+  '@farmfe/core-linux-arm64-musl@1.7.1':
     optional: true
 
-  '@farmfe/core-linux-x64-gnu@1.6.7':
+  '@farmfe/core-linux-x64-gnu@1.7.1':
     optional: true
 
-  '@farmfe/core-linux-x64-musl@1.6.7':
+  '@farmfe/core-linux-x64-musl@1.7.1':
     optional: true
 
-  '@farmfe/core-win32-arm64-msvc@1.6.7':
+  '@farmfe/core-win32-arm64-msvc@1.7.1':
     optional: true
 
-  '@farmfe/core-win32-ia32-msvc@1.6.7':
+  '@farmfe/core-win32-ia32-msvc@1.7.1':
     optional: true
 
-  '@farmfe/core-win32-x64-msvc@1.6.7':
+  '@farmfe/core-win32-x64-msvc@1.7.1':
     optional: true
 
-  '@farmfe/core@1.6.7':
+  '@farmfe/core@1.7.1':
     dependencies:
       '@farmfe/runtime': 0.12.10
       '@farmfe/runtime-plugin-hmr': 3.5.10
@@ -4689,15 +4689,15 @@ snapshots:
       zod: 3.24.1
       zod-validation-error: 1.5.0(zod@3.24.1)
     optionalDependencies:
-      '@farmfe/core-darwin-arm64': 1.6.7
-      '@farmfe/core-darwin-x64': 1.6.7
-      '@farmfe/core-linux-arm64-gnu': 1.6.7
-      '@farmfe/core-linux-arm64-musl': 1.6.7
-      '@farmfe/core-linux-x64-gnu': 1.6.7
-      '@farmfe/core-linux-x64-musl': 1.6.7
-      '@farmfe/core-win32-arm64-msvc': 1.6.7
-      '@farmfe/core-win32-ia32-msvc': 1.6.7
-      '@farmfe/core-win32-x64-msvc': 1.6.7
+      '@farmfe/core-darwin-arm64': 1.7.1
+      '@farmfe/core-darwin-x64': 1.7.1
+      '@farmfe/core-linux-arm64-gnu': 1.7.1
+      '@farmfe/core-linux-arm64-musl': 1.7.1
+      '@farmfe/core-linux-x64-gnu': 1.7.1
+      '@farmfe/core-linux-x64-musl': 1.7.1
+      '@farmfe/core-win32-arm64-msvc': 1.7.1
+      '@farmfe/core-win32-ia32-msvc': 1.7.1
+      '@farmfe/core-win32-x64-msvc': 1.7.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -5011,7 +5011,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.31.0':
     optional: true
 
-  '@rsbuild/core@1.2.18':
+  '@rsbuild/core@1.2.19':
     dependencies:
       '@rspack/core': 1.2.8(@swc/helpers@0.5.15)
       '@rspack/lite-tapable': 1.0.1
@@ -5021,9 +5021,9 @@ snapshots:
     transitivePeerDependencies:
       - '@rspack/tracing'
 
-  '@rsbuild/plugin-react@1.1.1(@rsbuild/core@1.2.18)':
+  '@rsbuild/plugin-react@1.1.1(@rsbuild/core@1.2.19)':
     dependencies:
-      '@rsbuild/core': 1.2.18
+      '@rsbuild/core': 1.2.19
       '@rspack/plugin-react-refresh': 1.0.1(react-refresh@0.16.0)
       react-refresh: 0.16.0
 
@@ -5376,10 +5376,10 @@ snapshots:
     dependencies:
       valibot: 1.0.0-rc.3(typescript@5.8.2)
 
-  '@vitejs/plugin-react-swc@3.8.0(@swc/helpers@0.5.15)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0))':
+  '@vitejs/plugin-react-swc@3.8.0(@swc/helpers@0.5.15)(vite@6.2.2(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0))':
     dependencies:
       '@swc/core': 1.10.15(@swc/helpers@0.5.15)
-      vite: 6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0)
+      vite: 6.2.2(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0)
     transitivePeerDependencies:
       - '@swc/helpers'
 
@@ -6347,7 +6347,7 @@ snapshots:
       '@types/semver': 7.5.8
       '@types/ua-parser-js': 0.7.39
       browserslist: 4.24.4
-      caniuse-lite: 1.0.30001701
+      caniuse-lite: 1.0.30001703
       isbot: 3.8.0
       object-path: 0.11.8
       semver: 7.7.1
@@ -8258,7 +8258,7 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0):
+  vite@6.2.2(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0):
     dependencies:
       esbuild: 0.25.0
       postcss: 8.5.3

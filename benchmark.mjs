@@ -218,7 +218,7 @@ async function runBenchmark() {
       const loadTime = Date.now() - start;
       console.log(
         buildTool.name,
-        ": startup time: " + (time + loadTime) + "ms"
+        "startup time: " + (time + loadTime) + "ms"
       );
 
       if (!results[buildTool.name]) {
