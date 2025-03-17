@@ -7,6 +7,7 @@ import "./index.css";
 const App2 = React.lazy(() => import("./f1"));
 const App3 = React.lazy(() => import("./f2"));
 const App4 = React.lazy(() => import("./f3"));
+const App5 = React.lazy(() => import("./f4"));
 
 ReactDom.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
@@ -17,6 +18,7 @@ ReactDom.createRoot(document.getElementById("root")).render(
 					<Route path="/f1" element={<App2 />} />
 					<Route path="/f2" element={<App3 />} />
 					<Route path="/f3" element={<App4 />} />
+					<Route path="/f4" element={<App5 />} />
 				</Routes>
 			</React.Suspense>
 		</BrowserRouter>
