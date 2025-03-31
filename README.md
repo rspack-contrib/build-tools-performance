@@ -4,17 +4,26 @@ Benchmarks for Rspack, Rsbuild, webpack, Vite and Farm.
 
 ## Result
 
-![image](https://github.com/user-attachments/assets/178448c9-d2d9-4b38-b7a4-5b27d6e89c0c)
+### 2.5k modules
 
-Info:
+1000 components + 1500 modules in node_modules.
 
-- Run in GitHub Actions (macos 15)
-- startup = serverStart + onLoad
+```bash
+pnpm run benchmark small
+```
 
-## Cases
+![image](https://github.com/user-attachments/assets/b7e5bc2a-d9d8-41de-bf19-ffd6c6ac6def)
 
-- small: 1000 components + 1500 modules in node_modules
-- medium: 5000 components + 5000 modules in node_modules
+
+### 10k modules
+
+5000 components + 5000 modules in node_modules.
+
+```bash
+pnpm run benchmark medium
+```
+
+![image](https://github.com/user-attachments/assets/e80ed3a7-35e0-4240-9f93-d467bad90f49)
 
 ## Run
 
