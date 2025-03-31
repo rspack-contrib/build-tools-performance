@@ -13,11 +13,12 @@ export default defineConfig({
       index: path.join(import.meta.dirname, "src", caseName, "index.jsx"),
     }
   },
+  dev: {
+    lazyCompilation: Boolean(process.env.LAZY)
+  },
   tools: {
     rspack: {
       experiments: {
-        // lazyCompilation should only be enabled in development mode
-        lazyCompilation: Boolean(process.env.LAZY) && !isProduction,
         incremental: !isProduction ? true : undefined,
       },
     },
