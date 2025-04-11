@@ -12,8 +12,7 @@ Benchmarks for Rspack, Rsbuild, webpack, Vite and Farm.
 pnpm run benchmark small
 ```
 
-![image](https://github.com/user-attachments/assets/b7e5bc2a-d9d8-41de-bf19-ffd6c6ac6def)
-
+![image](https://github.com/user-attachments/assets/87798e21-e344-477b-acf5-ce6e4a6490eb)
 
 ### 10k modules
 
@@ -23,7 +22,7 @@ pnpm run benchmark small
 pnpm run benchmark medium
 ```
 
-![image](https://github.com/user-attachments/assets/e80ed3a7-35e0-4240-9f93-d467bad90f49)
+![image](https://github.com/user-attachments/assets/22428a44-3572-4ddb-9161-66899be33dd8)
 
 ## Run
 
