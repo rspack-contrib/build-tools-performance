@@ -141,56 +141,56 @@ class BuildTool {
 }
 
 const buildTools = [
-  // new BuildTool({
-  //   name: "Rsbuild " + require("@rsbuild/core/package.json").version,
-  //   port: 3000,
-  //   startScript: "start:rsbuild",
-  //   startedRegex: /in (.+) (s|ms)/,
-  //   buildScript: "build:rsbuild",
-  //   binFilePath: "@rsbuild/core/bin/rsbuild.js",
-  // }),
-  // new BuildTool({
-  //   name: "Rsbuild (Lazy) " +
-  //     require("@rsbuild/core/package.json").version,
-  //   port: 3000,
-  //   startScript: "start:rsbuild:lazy",
-  //   startedRegex: /in (.+) (s|ms)/,
-  //   buildScript: "build:rsbuild",
-  //   binFilePath: "@rsbuild/core/bin/rsbuild.js"
-  // }),
-  // new BuildTool({
-  //   name: "Rspack CLI " + require("@rspack/core/package.json").version,
-  //   port: 8080,
-  //   startScript: "start:rspack",
-  //   startedRegex: /in (.+) (s|ms)/,
-  //   buildScript: "build:rspack",
-  //   binFilePath: "@rspack/cli/bin/rspack.js"
-  // }),
-  // new BuildTool({
-  //   name: "Rspack CLI (Lazy) " +
-  //     require("@rspack/core/package.json").version,
-  //   port: 8080,
-  //   startScript: "start:rspack:lazy",
-  //   startedRegex: /in (.+) (s|ms)/,
-  //   buildScript: "build:rspack",
-  //   binFilePath: "@rspack/cli/bin/rspack.js"
-  // }),
-  // new BuildTool({
-  //   name: "Vite (SWC) " + require("vite/package.json").version,
-  //   port: 5173,
-  //   startScript: "start:vite",
-  //   startedRegex: /ready in (\d+) (s|ms)/,
-  //   buildScript: "build:vite",
-  //   binFilePath: "vite/bin/vite.js"
-  // }),
-  // new BuildTool({
-  //   name: "webpack (SWC) " + require("webpack/package.json").version,
-  //   port: 8082,
-  //   startScript: "start:webpack",
-  //   startedRegex: /compiled .+ in (.+) (s|ms)/,
-  //   buildScript: "build:webpack",
-  //   binFilePath: "webpack-cli/bin/cli.js"
-  // }),
+  new BuildTool({
+    name: "Rsbuild " + require("@rsbuild/core/package.json").version,
+    port: 3000,
+    startScript: "start:rsbuild",
+    startedRegex: /in (.+) (s|ms)/,
+    buildScript: "build:rsbuild",
+    binFilePath: "@rsbuild/core/bin/rsbuild.js",
+  }),
+  new BuildTool({
+    name: "Rsbuild (Lazy) " +
+      require("@rsbuild/core/package.json").version,
+    port: 3000,
+    startScript: "start:rsbuild:lazy",
+    startedRegex: /in (.+) (s|ms)/,
+    buildScript: "build:rsbuild",
+    binFilePath: "@rsbuild/core/bin/rsbuild.js"
+  }),
+  new BuildTool({
+    name: "Rspack CLI " + require("@rspack/core/package.json").version,
+    port: 8080,
+    startScript: "start:rspack",
+    startedRegex: /in (.+) (s|ms)/,
+    buildScript: "build:rspack",
+    binFilePath: "@rspack/cli/bin/rspack.js"
+  }),
+  new BuildTool({
+    name: "Rspack CLI (Lazy) " +
+      require("@rspack/core/package.json").version,
+    port: 8080,
+    startScript: "start:rspack:lazy",
+    startedRegex: /in (.+) (s|ms)/,
+    buildScript: "build:rspack",
+    binFilePath: "@rspack/cli/bin/rspack.js"
+  }),
+  new BuildTool({
+    name: "Vite (SWC) " + require("vite/package.json").version,
+    port: 5173,
+    startScript: "start:vite",
+    startedRegex: /ready in (\d+) (s|ms)/,
+    buildScript: "build:vite",
+    binFilePath: "vite/bin/vite.js"
+  }),
+  new BuildTool({
+    name: "webpack (SWC) " + require("webpack/package.json").version,
+    port: 8082,
+    startScript: "start:webpack",
+    startedRegex: /compiled .+ in (.+) (s|ms)/,
+    buildScript: "build:webpack",
+    binFilePath: "webpack-cli/bin/cli.js"
+  }),
   // Failed to run farm in GitHub Actions
   // so we need to manually enable it via env variable
   process.env.FARM && new BuildTool({
