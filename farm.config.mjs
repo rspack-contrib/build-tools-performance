@@ -9,8 +9,8 @@ export default defineConfig({
     sourcemap: !isProduction,
     presetEnv: false,
     input: {
-      index: path.resolve(__dirname, "src", caseName, "index.jsx"),
-    }
+      index: path.resolve(__dirname, "src", caseName, "index.html"),
+    },
   },
   plugins: ["@farmfe/plugin-react"],
 });

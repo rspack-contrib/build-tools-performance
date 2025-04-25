@@ -29,7 +29,11 @@ pnpm benchmark medium
 Run the `benchmark.mjs` script to get the results (requires Node.js >= 22):
 
 ```bash
+# Run the benchmark for the medium case
 node benchmark.mjs
+
+# Run the benchmark for the small case
+node benchmark.mjs small
 ```
 
 If you want to start the project with the specified tool, try:

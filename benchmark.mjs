@@ -11,15 +11,15 @@ const __dirname = import.meta.dirname;
 const startConsole = "console.log('Benchmark Start Time', Date.now());";
 const startConsoleRegex = /Benchmark Start Time (\d+)/;
 
-const caseName = process.argv[2];
+const caseName = process.argv[2] || "medium";
 
 process.env.CASE = caseName;
 
 class BuildTool {
-  constructor(name, port, script, startedRegex, buildScript, binFilePath) {
+  constructor({ name, port, startScript, startedRegex, buildScript, binFilePath }) {
     this.name = name;
     this.port = port;
-    this.script = script;
+    this.startScript = startScript;
     this.startedRegex = startedRegex;
     this.buildScript = buildScript;
     this.binFilePath = path.join(process.cwd(), "node_modules", binFilePath);
@@ -50,9 +50,9 @@ class BuildTool {
   async startServer() {
     this.cleanCache();
 
-    console.log(`Running start command: ${this.script}`);
+    console.log(`Running start command: ${this.startScript}`);
     return new Promise((resolve, reject) => {
-      const child = spawn(`node --run ${this.script}`, {
+      const child = spawn(`node --run ${this.startScript}`, {
         stdio: ["pipe"],
         shell: true,
         env: {
@@ -64,12 +64,18 @@ class BuildTool {
       let startTime = null;
 
       child.stdout.on("data", (data) => {
-        const startMatch = startConsoleRegex.exec(data.toString());
+        const text = data.toString();
+
+        if (process.env.DEBUG) {
+          console.log(text);
+        }
+
+        const startMatch = startConsoleRegex.exec(text);
         if (startMatch) {
           startTime = startMatch[1];
         }
 
-        const match = this.startedRegex.exec(data.toString());
+        const match = this.startedRegex.exec(text);
         if (match) {
           if (!startTime) {
             throw new Error("Start time not found");
@@ -79,9 +85,11 @@ class BuildTool {
           resolve(time);
         }
       });
+
       child.stderr.on("data", (data) => {
         console.error(`stderr: ${data}`);
       });
+
       child.on("error", (error) => {
         console.log(`error: ${error.message}`);
         reject(error);
@@ -89,7 +97,7 @@ class BuildTool {
       child.on("exit", (code) => {
         if (code !== 0 && code !== null) {
           console.log(
-            `(${this.name} run ${this.script} failed) child process exited with code ${code}`
+            `(${this.name} run ${this.startScript} failed) child process exited with code ${code}`
           );
           reject(code);
         }
@@ -133,65 +141,66 @@ class BuildTool {
 }
 
 const buildTools = [
-  new BuildTool(
-    "Rsbuild " + require("@rsbuild/core/package.json").version,
-    3000,
-    "start:rsbuild",
-    /in (.+) (s|ms)/,
-    "build:rsbuild",
-    "@rsbuild/core/bin/rsbuild.js"
-  ),
-  new BuildTool(
-    "Rsbuild (Lazy Compilation) " +
-    require("@rsbuild/core/package.json").version,
-    3000,
-    "start:rsbuild:lazy",
-    /in (.+) (s|ms)/,
-    "build:rsbuild",
-    "@rsbuild/core/bin/rsbuild.js"
-  ),
-  new BuildTool(
-    "Rspack CLI " + require("@rspack/core/package.json").version,
-    8080,
-    "start:rspack",
-    /in (.+) (s|ms)/,
-    "build:rspack",
-    "@rspack/cli/bin/rspack.js"
-  ),
-  new BuildTool(
-    "Rspack CLI (Lazy Compilation) " +
-    require("@rspack/core/package.json").version,
-    8080,
-    "start:rspack:lazy",
-    /in (.+) (s|ms)/,
-    "build:rspack",
-    "@rspack/cli/bin/rspack.js"
-  ),
-  process.env.ENABLE_FARM &&
-  new BuildTool(
-    "Farm " + require("@farmfe/core/package.json").version,
-    9000,
-    "start:farm",
-    /Ready in (.+)(s|ms)/,
-    "build:farm",
-    "@farmfe/cli/bin/farm.mjs"
-  ),
-  new BuildTool(
-    "Vite (SWC) " + require("vite/package.json").version,
-    5173,
-    "start:vite",
-    /ready in (\d+) (s|ms)/,
-    "build:vite",
-    "vite/bin/vite.js"
-  ),
-  new BuildTool(
-    "Webpack (SWC) " + require("webpack/package.json").version,
-    8082,
-    "start:webpack",
-    /compiled .+ in (.+) (s|ms)/,
-    "build:webpack",
-    "webpack-cli/bin/cli.js"
-  ),
+  // new BuildTool({
+  //   name: "Rsbuild " + require("@rsbuild/core/package.json").version,
+  //   port: 3000,
+  //   startScript: "start:rsbuild",
+  //   startedRegex: /in (.+) (s|ms)/,
+  //   buildScript: "build:rsbuild",
+  //   binFilePath: "@rsbuild/core/bin/rsbuild.js",
+  // }),
+  // new BuildTool({
+  //   name: "Rsbuild (Lazy) " +
+  //     require("@rsbuild/core/package.json").version,
+  //   port: 3000,
+  //   startScript: "start:rsbuild:lazy",
+  //   startedRegex: /in (.+) (s|ms)/,
+  //   buildScript: "build:rsbuild",
+  //   binFilePath: "@rsbuild/core/bin/rsbuild.js"
+  // }),
+  // new BuildTool({
+  //   name: "Rspack CLI " + require("@rspack/core/package.json").version,
+  //   port: 8080,
+  //   startScript: "start:rspack",
+  //   startedRegex: /in (.+) (s|ms)/,
+  //   buildScript: "build:rspack",
+  //   binFilePath: "@rspack/cli/bin/rspack.js"
+  // }),
+  // new BuildTool({
+  //   name: "Rspack CLI (Lazy) " +
+  //     require("@rspack/core/package.json").version,
+  //   port: 8080,
+  //   startScript: "start:rspack:lazy",
+  //   startedRegex: /in (.+) (s|ms)/,
+  //   buildScript: "build:rspack",
+  //   binFilePath: "@rspack/cli/bin/rspack.js"
+  // }),
+  // new BuildTool({
+  //   name: "Vite (SWC) " + require("vite/package.json").version,
+  //   port: 5173,
+  //   startScript: "start:vite",
+  //   startedRegex: /ready in (\d+) (s|ms)/,
+  //   buildScript: "build:vite",
+  //   binFilePath: "vite/bin/vite.js"
+  // }),
+  // new BuildTool({
+  //   name: "webpack (SWC) " + require("webpack/package.json").version,
+  //   port: 8082,
+  //   startScript: "start:webpack",
+  //   startedRegex: /compiled .+ in (.+) (s|ms)/,
+  //   buildScript: "build:webpack",
+  //   binFilePath: "webpack-cli/bin/cli.js"
+  // }),
+  // Failed to run farm in GitHub Actions
+  // so we need to manually enable it via env variable
+  process.env.FARM && new BuildTool({
+    name: "Farm " + require("@farmfe/core/package.json").version,
+    port: 9000,
+    startScript: "start:farm",
+    startedRegex: /Ready in (.+)(s|ms)/,
+    buildScript: "build:farm",
+    binFilePath: "@farmfe/cli/bin/farm.mjs"
+  }),
 ].filter(Boolean);
 
 const browser = await puppeteer.launch();
