@@ -432,7 +432,7 @@ async function runBenchmark() {
       color.dim(buildTool.name) +
         ' total size: ' +
         color.green(sizes.totalSize) +
-        'gzipped size: ' +
+        ' gzipped size: ' +
         color.green(sizes.totalGzipSize),
     );
 
@@ -455,7 +455,7 @@ function convertPath(path) {
 
 function calcFileSize(len) {
   const val = len / 1000;
-  return `${val.toFixed(val < 1 ? 2 : 1)} kB`;
+  return `${val.toFixed(val < 1 ? 2 : 1)}kB`;
 }
 
 async function getFileSizes(targetDir) {
