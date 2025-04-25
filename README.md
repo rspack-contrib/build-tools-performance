@@ -6,7 +6,7 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 
 ### small (2.5k modules)
 
-1000 React components + 1500 modules in node_modules.
+1000 React components + 1500 modules in node_modules. (Most components are dynamic imported)
 
 ```bash
 pnpm benchmark small
@@ -16,7 +16,7 @@ pnpm benchmark small
 
 ### medium (10k modules)
 
-5000 React components + 5000 modules in node_modules.
+5000 React components + 5000 modules in node_modules. (Most components are dynamic imported)
 
 ```bash
 pnpm benchmark medium
@@ -26,7 +26,7 @@ pnpm benchmark medium
 
 ### large (20k modules)
 
-10000 React components + 10000 modules in node_modules.
+10000 React components + 10000 modules in node_modules. (Most components are dynamic imported)
 
 ```bash
 pnpm benchmark large

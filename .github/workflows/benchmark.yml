@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-15, windows-latest]
-        case: [small, medium]
+        case: [small, medium, large]
 
     steps:
       - name: Checkout

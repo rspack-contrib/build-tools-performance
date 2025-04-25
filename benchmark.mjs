@@ -64,7 +64,9 @@ class BuildTool {
     this.cleanCache();
 
     logger.log('');
-    logger.start(`Running start command: ${color.yellow(this.startScript)}`);
+    logger.start(
+      `Running start command: ${color.bold(color.yellow(this.startScript))}`,
+    );
     return new Promise((resolve, reject) => {
       const child = spawn(`node --run ${this.startScript}`, {
         stdio: ['pipe'],
@@ -132,7 +134,9 @@ class BuildTool {
     this.cleanCache();
 
     logger.log('');
-    logger.start(`Running build command: ${color.yellow(this.buildScript)}`);
+    logger.start(
+      `Running build command: ${color.bold(color.yellow(this.buildScript))}`,
+    );
     const child = spawn(`node --run ${this.buildScript}`, {
       stdio: ['pipe'],
       shell: true,
@@ -289,7 +293,11 @@ async function runBenchmark() {
 
     page.on('load', () => {
       const loadTime = Date.now() - start;
-      console.log(buildTool.name, 'startup time: ' + (time + loadTime) + 'ms');
+      logger.success(
+        color.dim(buildTool.name) +
+          ' startup in ' +
+          color.green(time + loadTime + 'ms'),
+      );
 
       if (!results[buildTool.name]) {
         results[buildTool.name] = {};
@@ -300,7 +308,9 @@ async function runBenchmark() {
       results[buildTool.name].onLoad = loadTime;
     });
 
-    console.log('Navigating to', `http://localhost:${buildTool.port}`);
+    logger.info(
+      color.dim('navigating to' + ` http://localhost:${buildTool.port}`),
+    );
 
     await page.goto(`http://localhost:${buildTool.port}`, {
       timeout: 60000,
@@ -323,7 +333,11 @@ async function runBenchmark() {
       if (event.text().includes('root hmr')) {
         const clientDateNow = /(\d+)/.exec(event.text())[1];
         const hmrTime = clientDateNow - hmrRootStart;
-        console.log(buildTool.name, ' Root HMR time: ' + hmrTime + 'ms');
+        logger.success(
+          color.dim(buildTool.name) +
+            ' root HMR in ' +
+            color.green(hmrTime + 'ms'),
+        );
 
         results[buildTool.name].rootHmr = hmrTime;
         if (isFinished()) {
@@ -332,7 +346,11 @@ async function runBenchmark() {
         }
       } else if (event.text().includes('leaf hmr')) {
         const hmrTime = Date.now() - hmrLeafStart;
-        console.log(buildTool.name, ' Leaf HMR time: ' + hmrTime + 'ms');
+        logger.success(
+          color.dim(buildTool.name) +
+            ' leaf HMR in ' +
+            color.green(hmrTime + 'ms'),
+        );
         results[buildTool.name].leafHmr = hmrTime;
         if (isFinished()) {
           page.close();
@@ -385,11 +403,11 @@ async function runBenchmark() {
     buildTool.stopServer();
 
     await new Promise((resolve) => setTimeout(resolve, 500));
-    logger.success('Dev server closed');
+    logger.success(color.dim(buildTool.name) + ' dev server closed');
 
     const buildTime = await buildTool.build();
     logger.success(
-      buildTool.name + ' built in ' + color.green(buildTime + ' ms'),
+      color.dim(buildTool.name) + ' built in ' + color.green(buildTime + ' ms'),
     );
     results[buildTool.name].prodBuild = buildTime;
     await new Promise((resolve) => setTimeout(resolve, 500));
