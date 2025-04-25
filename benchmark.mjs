@@ -1,11 +1,15 @@
+// @ts-check
 import { spawn } from 'child_process';
-import { rmSync, appendFile, readFileSync, writeFileSync } from 'fs';
+import { rmSync, appendFile, readFileSync, writeFileSync } from 'node:fs';
+import fse from 'fs-extra';
 import { createRequire } from 'module';
 import path from 'path';
 import puppeteer from 'puppeteer';
 import kill from 'tree-kill';
 import { logger } from 'rslog';
 import color from 'picocolors';
+import glob from 'fast-glob';
+import { gzipSizeSync } from 'gzip-size';
 
 const require = createRequire(import.meta.url);
 const __dirname = import.meta.dirname;
@@ -103,16 +107,16 @@ class BuildTool {
       });
 
       child.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
+        console.log(`stderr: ${data}`);
       });
 
       child.on('error', (error) => {
-        console.log(`error: ${error.message}`);
+        logger.error(`${error.message}`);
         reject(error);
       });
       child.on('exit', (code) => {
         if (code !== 0 && code !== null) {
-          console.log(
+          logger.error(
             `(${this.name} run ${this.startScript} failed) child process exited with code ${code}`,
           );
           reject(code);
@@ -123,10 +127,9 @@ class BuildTool {
 
   stopServer() {
     if (this.child) {
-      this.child.stdin.pause();
       this.child.stdout.destroy();
       this.child.stderr.destroy();
-      kill(this.child.pid);
+      kill(this.child.pid ?? 0);
     }
   }
 
@@ -277,14 +280,16 @@ logger.info(
     ' times',
 );
 
-let totalResults = [];
+let perfResults = [];
+let sizeResults = {};
 
 for (let i = 0; i < totalTimes; i++) {
   await runBenchmark();
 }
 
 async function runBenchmark() {
-  const results = {};
+  const perfResult = {};
+  const sizeResult = {};
 
   for (const buildTool of buildTools) {
     const time = await buildTool.startServer();
@@ -299,13 +304,13 @@ async function runBenchmark() {
           color.green(time + loadTime + 'ms'),
       );
 
-      if (!results[buildTool.name]) {
-        results[buildTool.name] = {};
+      if (!perfResult[buildTool.name]) {
+        perfResult[buildTool.name] = {};
       }
 
-      results[buildTool.name].startup = time + loadTime;
-      results[buildTool.name].serverStart = time;
-      results[buildTool.name].onLoad = loadTime;
+      perfResult[buildTool.name].startup = time + loadTime;
+      perfResult[buildTool.name].serverStart = time;
+      perfResult[buildTool.name].onLoad = loadTime;
     });
 
     logger.info(
@@ -327,11 +332,17 @@ async function runBenchmark() {
     page.on('console', (event) => {
       const isFinished = () => {
         return (
-          results[buildTool.name]?.rootHmr && results[buildTool.name]?.leafHmr
+          perfResult[buildTool.name]?.rootHmr &&
+          perfResult[buildTool.name]?.leafHmr
         );
       };
       if (event.text().includes('root hmr')) {
-        const clientDateNow = /(\d+)/.exec(event.text())[1];
+        const match = /(\d+)/.exec(event.text());
+        if (!match) {
+          throw new Error('Failed to match root HMR time.');
+        }
+
+        const clientDateNow = Number(match[1]);
         const hmrTime = clientDateNow - hmrRootStart;
         logger.success(
           color.dim(buildTool.name) +
@@ -339,7 +350,7 @@ async function runBenchmark() {
             color.green(hmrTime + 'ms'),
         );
 
-        results[buildTool.name].rootHmr = hmrTime;
+        perfResult[buildTool.name].rootHmr = hmrTime;
         if (isFinished()) {
           page.close();
           waitResolve();
@@ -351,7 +362,7 @@ async function runBenchmark() {
             ' leaf HMR in ' +
             color.green(hmrTime + 'ms'),
         );
-        results[buildTool.name].leafHmr = hmrTime;
+        perfResult[buildTool.name].leafHmr = hmrTime;
         if (isFinished()) {
           page.close();
           waitResolve();
@@ -405,24 +416,79 @@ async function runBenchmark() {
     await new Promise((resolve) => setTimeout(resolve, 500));
     logger.success(color.dim(buildTool.name) + ' dev server closed');
 
+    // Clean up dist dir
+    const distDir = path.join(__dirname, 'dist');
+    await fse.remove(distDir);
+
     const buildTime = await buildTool.build();
+
+    const sizes = sizeResults[buildTool.name] || (await getFileSizes(distDir));
+    sizeResults[buildTool.name] = sizes;
+
     logger.success(
       color.dim(buildTool.name) + ' built in ' + color.green(buildTime + ' ms'),
     );
-    results[buildTool.name].prodBuild = buildTime;
+    logger.success(
+      color.dim(buildTool.name) +
+        ' total size: ' +
+        color.green(sizes.totalSize) +
+        'gzipped size: ' +
+        color.green(sizes.totalGzipSize),
+    );
+
+    perfResult[buildTool.name].prodBuild = buildTime;
+
     await new Promise((resolve) => setTimeout(resolve, 500));
   }
 
-  totalResults.push(results);
+  perfResults.push(perfResult);
+}
+
+// fast-glob only accepts posix path
+// https://github.com/mrmlnc/fast-glob#convertpathtopatternpath
+function convertPath(path) {
+  if (process.platform === 'win32') {
+    return glob.convertPathToPattern(path);
+  }
+  return path;
+}
+
+function calcFileSize(len) {
+  const val = len / 1000;
+  return `${val.toFixed(val < 1 ? 2 : 1)} kB`;
+}
+
+async function getFileSizes(targetDir) {
+  let files = await glob(convertPath(path.join(targetDir, '**/*')));
+  let totalSize = 0;
+  let totalGzipSize = 0;
+
+  files = files.filter((file) => {
+    return !(file.endsWith('.map') || file.endsWith('.LICENSE.txt'));
+  });
+
+  await Promise.all(
+    files.map((file) =>
+      fse.readFile(file, 'utf-8').then((content) => {
+        totalSize += Buffer.byteLength(content);
+        totalGzipSize += gzipSizeSync(content);
+      }),
+    ),
+  );
+
+  return {
+    totalSize: calcFileSize(totalSize),
+    totalGzipSize: calcFileSize(totalGzipSize),
+  };
 }
 
 // average results
 const averageResults = {};
 
 // drop the warmup results
-totalResults = totalResults.slice(warmupTimes);
+perfResults = perfResults.slice(warmupTimes);
 
-for (const result of totalResults) {
+for (const result of perfResults) {
   for (const [name, values] of Object.entries(result)) {
     if (!averageResults[name]) {
       averageResults[name] = {};
@@ -440,13 +506,18 @@ for (const result of totalResults) {
 
 for (const [name, values] of Object.entries(averageResults)) {
   for (const [key, value] of Object.entries(values)) {
-    averageResults[name][key] = Math.floor(value / totalResults.length) + 'ms';
+    averageResults[name][key] = Math.floor(value / perfResults.length) + 'ms';
   }
 }
 
 logger.log('');
-logger.success('Benchmark finished');
-logger.success('Average results of ' + totalResults.length + ' runs:');
+logger.success('Benchmark finished!\n');
+
+logger.success('Build performance:');
 console.table(averageResults);
+
+logger.log('');
+logger.success('Bundle sizes:');
+console.table(sizeResults);
 
 process.exit(0);
