@@ -4,6 +4,8 @@ import { createRequire } from "module";
 import path from "path";
 import puppeteer from "puppeteer";
 import kill from "tree-kill";
+import { logger } from 'rslog';
+import color from 'picocolors';
 
 const require = createRequire(import.meta.url);
 const __dirname = import.meta.dirname;
@@ -11,7 +13,7 @@ const __dirname = import.meta.dirname;
 const startConsole = "console.log('Benchmark Start Time', Date.now());";
 const startConsoleRegex = /Benchmark Start Time (\d+)/;
 
-const caseName = process.argv[2] || "medium";
+const caseName = process.env.CASE ?? "medium";
 
 process.env.CASE = caseName;
 
@@ -23,8 +25,6 @@ class BuildTool {
     this.startedRegex = startedRegex;
     this.buildScript = buildScript;
     this.binFilePath = path.join(process.cwd(), "node_modules", binFilePath);
-
-    console.log("hack bin file for", this.name, "under", this.binFilePath);
     this.hackBinFile();
   }
 
@@ -38,6 +38,8 @@ class BuildTool {
 
   // Add a `console.log('Benchmark start', Date.now())` to the bin file's second line
   hackBinFile() {
+    logger.info("Setup bin file for", color.green(this.name), color.dim(`(${this.binFilePath.split('node_modules/')[1]})`));
+
     const binFileContent = readFileSync(this.binFilePath, "utf-8");
 
     if (!binFileContent.includes(startConsole)) {
@@ -50,7 +52,8 @@ class BuildTool {
   async startServer() {
     this.cleanCache();
 
-    console.log(`Running start command: ${this.startScript}`);
+    logger.log('');
+    logger.start(`Running start command: ${color.yellow(this.startScript)}`);
     return new Promise((resolve, reject) => {
       const child = spawn(`node --run ${this.startScript}`, {
         stdio: ["pipe"],
@@ -117,7 +120,8 @@ class BuildTool {
   async build() {
     this.cleanCache();
 
-    console.log(`Running build command: ${this.buildScript}`);
+    logger.log('');
+    logger.start(`Running build command: ${color.yellow(this.buildScript)}`);
     const child = spawn(`node --run ${this.buildScript}`, {
       stdio: ["pipe"],
       shell: true,
@@ -205,13 +209,23 @@ const buildTools = [
 
 const browser = await puppeteer.launch();
 
-const n = 6;
+const warmupTimes = 1;
+const runTimes = Number(process.env.RUN_TIMES) || 5;
 
-console.log("Running benchmark " + n + " times, please wait...");
+logger.log('');
+logger.start(
+  'Benchmark case ' +
+  color.green(`"${caseName}"`) +
+  ' will run ' +
+  color.green(warmupTimes + ' warmup') +
+  ' + ' +
+  color.green(runTimes + ' measured') +
+  ' times'
+);
 
-const totalResults = [];
+let totalResults = [];
 
-for (let i = 0; i < n; i++) {
+for (let i = 0; i < runTimes; i++) {
   await runBenchmark();
 }
 
@@ -319,11 +333,10 @@ async function runBenchmark() {
     buildTool.stopServer();
 
     await new Promise((resolve) => setTimeout(resolve, 500));
-    console.log("close Server");
-    console.log("prepare build");
+    logger.success("Dev server closed");
 
     const buildTime = await buildTool.build();
-    console.log(buildTool.name, ": build time: " + buildTime + "ms");
+    logger.success(buildTool.name + ' built in ' + color.green(buildTime + ' ms'));
     results[buildTool.name].prodBuild = buildTime;
     await new Promise((resolve) => setTimeout(resolve, 500));
   }
@@ -334,8 +347,8 @@ async function runBenchmark() {
 // average results
 const averageResults = {};
 
-// drop the first run as warmup
-totalResults.shift();
+// drop the warmup results
+totalResults = totalResults.slice(warmupTimes);
 
 for (const result of totalResults) {
   for (const [name, values] of Object.entries(result)) {

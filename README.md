@@ -30,10 +30,10 @@ Run the `benchmark.mjs` script to get the results (requires Node.js >= 22):
 
 ```bash
 # Run the benchmark for the medium case
-node benchmark.mjs
+pnpm benchmark
 
 # Run the benchmark for the small case
-node benchmark.mjs small
+CASE=small pnpm benchmark
 ```
 
 If you want to start the project with the specified tool, try:
@@ -54,10 +54,27 @@ pnpm build:rspack # Build Rspack
 pnpm build:rsbuild # Build Rsbuild
 pnpm build:vite # Build Vite
 pnpm build:webpack # Build webpack
+```
 
-# Switch cases
-CASE=small pnpm build:rsbuild
-CASE=medium pnpm build:rsbuild
+### Options
+
+Use `CASE` to switch the benchmark case:
+
+```bash
+CASE=small pnpm benchmark
+CASE=medium pnpm benchmark
+```
+
+Use `RUN_TIMES` to specify the number of runs (defaults to `5`):
+
+```bash
+RUN_TIMES=3 pnpm benchmark
+```
+
+Use `FARM=true` to run Farm:
+
+```bash
+FARM=true pnpm benchmark
 ```
 
 ## Credits
