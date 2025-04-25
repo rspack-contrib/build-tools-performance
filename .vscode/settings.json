@@ -1,9 +1,7 @@
 {
-    "cSpell.words": [
-        "clsx",
-        "farmfe",
-        "pmmmwh",
-        "rspack",
-        "turbopack"
-    ]
+  "cSpell.words": ["clsx", "farmfe", "pmmmwh", "rspack", "turbopack"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

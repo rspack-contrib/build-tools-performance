@@ -93,6 +93,9 @@ importers:
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
       react-refresh:
         specifier: ^0.17.0
         version: 0.17.0
@@ -3363,6 +3366,11 @@ packages:
   prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
+    hasBin: true
+
+  prettier@3.5.3:
+    resolution: {integrity: sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==}
+    engines: {node: '>=14'}
     hasBin: true
 
   pretty-error@4.0.0:
@@ -7454,6 +7462,8 @@ snapshots:
       which-pm: 2.2.0
 
   prettier@2.8.8: {}
+
+  prettier@3.5.3: {}
 
   pretty-error@4.0.0:
     dependencies:
