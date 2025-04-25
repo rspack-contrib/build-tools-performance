@@ -4,7 +4,7 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 
 ## Bench cases
 
-### 2.5k modules
+### small (2.5k modules)
 
 1000 React components + 1500 modules in node_modules.
 
@@ -14,7 +14,7 @@ pnpm benchmark small
 
 ![image](https://github.com/user-attachments/assets/87798e21-e344-477b-acf5-ce6e4a6490eb)
 
-### 10k modules
+### medium (10k modules)
 
 5000 React components + 5000 modules in node_modules.
 
@@ -23,6 +23,14 @@ pnpm benchmark medium
 ```
 
 ![image](https://github.com/user-attachments/assets/22428a44-3572-4ddb-9161-66899be33dd8)
+
+### large (20k modules)
+
+10000 React components + 10000 modules in node_modules.
+
+```bash
+pnpm benchmark large
+```
 
 ## Run locally
 
