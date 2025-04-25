@@ -65,6 +65,16 @@ CASE=small pnpm benchmark
 CASE=medium pnpm benchmark
 ```
 
+Use `TOOLS` to specify the build tools or bundlers:
+
+```bash
+# Run with all tools
+TOOLS=all pnpm benchmark
+
+# Run Rspack and Rsbuild
+TOOLS=rspack,rsbuild pnpm benchmark
+```
+
 Use `RUN_TIMES` to specify the number of runs (defaults to `5`):
 
 ```bash

@@ -144,68 +144,106 @@ class BuildTool {
   }
 }
 
-const buildTools = [
-  new BuildTool({
-    name: "Rsbuild " + require("@rsbuild/core/package.json").version,
-    port: 3000,
-    startScript: "start:rsbuild",
-    startedRegex: /in (.+) (s|ms)/,
-    buildScript: "build:rsbuild",
-    binFilePath: "@rsbuild/core/bin/rsbuild.js",
-  }),
-  new BuildTool({
-    name: "Rsbuild (Lazy) " +
-      require("@rsbuild/core/package.json").version,
-    port: 3000,
-    startScript: "start:rsbuild:lazy",
-    startedRegex: /in (.+) (s|ms)/,
-    buildScript: "build:rsbuild",
-    binFilePath: "@rsbuild/core/bin/rsbuild.js"
-  }),
-  new BuildTool({
-    name: "Rspack CLI " + require("@rspack/core/package.json").version,
-    port: 8080,
-    startScript: "start:rspack",
-    startedRegex: /in (.+) (s|ms)/,
-    buildScript: "build:rspack",
-    binFilePath: "@rspack/cli/bin/rspack.js"
-  }),
-  new BuildTool({
-    name: "Rspack CLI (Lazy) " +
-      require("@rspack/core/package.json").version,
-    port: 8080,
-    startScript: "start:rspack:lazy",
-    startedRegex: /in (.+) (s|ms)/,
-    buildScript: "build:rspack",
-    binFilePath: "@rspack/cli/bin/rspack.js"
-  }),
-  new BuildTool({
-    name: "Vite (SWC) " + require("vite/package.json").version,
-    port: 5173,
-    startScript: "start:vite",
-    startedRegex: /ready in (\d+) (s|ms)/,
-    buildScript: "build:vite",
-    binFilePath: "vite/bin/vite.js"
-  }),
-  new BuildTool({
-    name: "webpack (SWC) " + require("webpack/package.json").version,
-    port: 8082,
-    startScript: "start:webpack",
-    startedRegex: /compiled .+ in (.+) (s|ms)/,
-    buildScript: "build:webpack",
-    binFilePath: "webpack-cli/bin/cli.js"
-  }),
-  // Failed to run farm in GitHub Actions
-  // so we need to manually enable it via env variable
-  process.env.FARM && new BuildTool({
-    name: "Farm " + require("@farmfe/core/package.json").version,
-    port: 9000,
-    startScript: "start:farm",
-    startedRegex: /Ready in (.+)(s|ms)/,
-    buildScript: "build:farm",
-    binFilePath: "@farmfe/cli/bin/farm.mjs"
-  }),
-].filter(Boolean);
+const allTools = [
+  'rsbuild',
+  'rspack',
+  'vite',
+  'webpack',
+  'farm',
+];
+// Failed to run Farm in GitHub Actions
+// so it is excluded from the default tools
+const defaultTools = [
+  'rsbuild',
+  'rspack',
+  'vite',
+  'webpack',
+];
+const toolNames = process.env.TOOLS === 'all' ? allTools : process.env.TOOLS?.split(',').map(item => item.toLowerCase()) || defaultTools;
+const buildTools = [];
+
+toolNames.forEach(name => {
+  switch (name) {
+    case 'rspack':
+      buildTools.push(
+        new BuildTool({
+          name: "Rspack CLI " + require("@rspack/core/package.json").version,
+          port: 8080,
+          startScript: "start:rspack",
+          startedRegex: /in (.+) (s|ms)/,
+          buildScript: "build:rspack",
+          binFilePath: "@rspack/cli/bin/rspack.js"
+        }),
+        new BuildTool({
+          name: "Rspack CLI (Lazy) " +
+            require("@rspack/core/package.json").version,
+          port: 8080,
+          startScript: "start:rspack:lazy",
+          startedRegex: /in (.+) (s|ms)/,
+          buildScript: "build:rspack",
+          binFilePath: "@rspack/cli/bin/rspack.js"
+        }),
+      );
+      break;
+    case 'rsbuild':
+      buildTools.push(
+        new BuildTool({
+          name: "Rsbuild " + require("@rsbuild/core/package.json").version,
+          port: 3000,
+          startScript: "start:rsbuild",
+          startedRegex: /in (.+) (s|ms)/,
+          buildScript: "build:rsbuild",
+          binFilePath: "@rsbuild/core/bin/rsbuild.js",
+        }),
+        new BuildTool({
+          name: "Rsbuild (Lazy) " +
+            require("@rsbuild/core/package.json").version,
+          port: 3000,
+          startScript: "start:rsbuild:lazy",
+          startedRegex: /in (.+) (s|ms)/,
+          buildScript: "build:rsbuild",
+          binFilePath: "@rsbuild/core/bin/rsbuild.js"
+        })
+      );
+      break;
+    case 'vite':
+      buildTools.push(
+        new BuildTool({
+          name: "Vite (SWC) " + require("vite/package.json").version,
+          port: 5173,
+          startScript: "start:vite",
+          startedRegex: /ready in (\d+) (s|ms)/,
+          buildScript: "build:vite",
+          binFilePath: "vite/bin/vite.js"
+        }),
+      );
+      break;
+    case 'webpack':
+      buildTools.push(
+        new BuildTool({
+          name: "webpack (SWC) " + require("webpack/package.json").version,
+          port: 8082,
+          startScript: "start:webpack",
+          startedRegex: /compiled .+ in (.+) (s|ms)/,
+          buildScript: "build:webpack",
+          binFilePath: "webpack-cli/bin/cli.js"
+        }),
+      );
+      break;
+    case 'farm':
+      buildTools.push(
+        new BuildTool({
+          name: "Farm " + require("@farmfe/core/package.json").version,
+          port: 9000,
+          startScript: "start:farm",
+          startedRegex: /Ready in (.+)(s|ms)/,
+          buildScript: "build:farm",
+          binFilePath: "@farmfe/cli/bin/farm.mjs"
+        })
+      );
+      break;
+  }
+})
 
 const browser = await puppeteer.launch();
 const warmupTimes = Number(process.env.WARMUP_TIMES) || 1;
@@ -372,6 +410,8 @@ for (const [name, values] of Object.entries(averageResults)) {
   }
 }
 
+logger.log('');
+logger.success('Benchmark finished');
 logger.success("Average results of " + totalResults.length + " runs:");
 console.table(averageResults);
 
