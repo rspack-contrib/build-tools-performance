@@ -1,6 +1,7 @@
-# Build Tools Performance Compare
+# Build Tools Comparison
 
-Benchmarks for Rspack, Rsbuild, webpack, Vite and Farm.
+Benchmark comparing JavaScript bundlers and build tools (Rspack, Rsbuild, webpack, Vite and Farm)
+for dev server startup time, build performance and bundle size for applications with different module sizes.
 
 ## Result
 
@@ -9,7 +10,7 @@ Benchmarks for Rspack, Rsbuild, webpack, Vite and Farm.
 1000 components + 1500 modules in node_modules.
 
 ```bash
-pnpm run benchmark small
+pnpm benchmark small
 ```
 
 ![image](https://github.com/user-attachments/assets/87798e21-e344-477b-acf5-ce6e4a6490eb)
@@ -19,14 +20,14 @@ pnpm run benchmark small
 5000 components + 5000 modules in node_modules.
 
 ```bash
-pnpm run benchmark medium
+pnpm benchmark medium
 ```
 
 ![image](https://github.com/user-attachments/assets/22428a44-3572-4ddb-9161-66899be33dd8)
 
-## Run
+## Run locally
 
-Run benchmarks (node >= 22):
+Run the `benchmark.mjs` script to get the results (requires Node.js >= 22):
 
 ```bash
 node benchmark.mjs
@@ -37,12 +38,19 @@ If you want to start the project with the specified tool, try:
 ```bash
 pnpm i # install dependencies
 
-npm run start:farm # Start Farm
-npm run start:rspack # Start Rspack
-npm run start:rsbuild # Start Rsbuild
-npm run start:vite # Start Vite
-npm run start:webpack # Start Webpack
-npm run start:turbopack # Start Turbopack
+# Dev server
+pnpm start:farm # Start Farm
+pnpm start:rspack # Start Rspack
+pnpm start:rsbuild # Start Rsbuild
+pnpm start:vite # Start Vite
+pnpm start:webpack # Start webpack
+
+# Build
+pnpm build:farm # Build Farm
+pnpm build:rspack # Build Rspack
+pnpm build:rsbuild # Build Rsbuild
+pnpm build:vite # Build Vite
+pnpm build:webpack # Build webpack
 ```
 
 ## Credits
