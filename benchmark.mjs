@@ -208,9 +208,9 @@ const buildTools = [
 ].filter(Boolean);
 
 const browser = await puppeteer.launch();
-
-const warmupTimes = 1;
+const warmupTimes = Number(process.env.WARMUP_TIMES) || 1;
 const runTimes = Number(process.env.RUN_TIMES) || 5;
+const totalTimes = warmupTimes + runTimes;
 
 logger.log('');
 logger.start(
@@ -225,7 +225,7 @@ logger.start(
 
 let totalResults = [];
 
-for (let i = 0; i < runTimes; i++) {
+for (let i = 0; i < totalTimes; i++) {
   await runBenchmark();
 }
 
@@ -372,7 +372,7 @@ for (const [name, values] of Object.entries(averageResults)) {
   }
 }
 
-console.log("average results of " + totalResults.length + " runs:");
+logger.success("Average results of " + totalResults.length + " runs:");
 console.table(averageResults);
 
 process.exit(0);
