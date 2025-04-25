@@ -1,35 +1,35 @@
-const path = require("node:path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const path = require('node:path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
-const isProd = process.env.NODE_ENV === "production";
+const isProd = process.env.NODE_ENV === 'production';
 const caseName = process.env.CASE ?? 'medium';
 
 // webpack.config.js
 module.exports = {
-  entry: path.join(__dirname, "./src", caseName, "index.jsx"),
+  entry: path.join(__dirname, './src', caseName, 'index.jsx'),
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx", ".ts", ".tsx"],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
     rules: [
       {
         test: /\.(js|ts|tsx|jsx)$/,
         use: {
-          loader: "swc-loader",
+          loader: 'swc-loader',
           options: {
             sourceMap: true,
             jsc: {
               parser: {
-                syntax: "typescript",
+                syntax: 'typescript',
                 tsx: true,
               },
               transform: {
                 react: {
-                  runtime: "automatic",
+                  runtime: 'automatic',
                   development: !isProd,
                   refresh: !isProd,
                 },
@@ -41,11 +41,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.svg$/,
-        type: "asset",
+        type: 'asset',
       },
     ],
   },
@@ -62,13 +62,13 @@ module.exports = {
     minimize: isProd,
     minimizer: isProd
       ? [
-        new CssMinimizerPlugin({
-          minify: CssMinimizerPlugin.swcMinify,
-        }),
-        new TerserPlugin({
-          minify: TerserPlugin.swcMinify,
-        }),
-      ]
+          new CssMinimizerPlugin({
+            minify: CssMinimizerPlugin.swcMinify,
+          }),
+          new TerserPlugin({
+            minify: TerserPlugin.swcMinify,
+          }),
+        ]
       : [],
   },
 };

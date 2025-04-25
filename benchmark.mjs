@@ -513,11 +513,11 @@ for (const [name, values] of Object.entries(averageResults)) {
 logger.log('');
 logger.success('Benchmark finished!\n');
 
-logger.success('Build performance:');
+logger.info('Build performance:');
 console.table(averageResults);
 
 logger.log('');
-logger.success('Bundle sizes:');
+logger.info('Bundle sizes:');
 console.table(sizeResults);
 
 process.exit(0);
