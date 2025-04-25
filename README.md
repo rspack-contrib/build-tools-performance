@@ -83,7 +83,7 @@ TOOLS=all pnpm benchmark
 TOOLS=rspack,rsbuild pnpm benchmark
 ```
 
-Use `RUN_TIMES` to specify the number of runs (defaults to `5`):
+Use `RUN_TIMES` to specify the number of runs (defaults to `3`):
 
 ```bash
 RUN_TIMES=3 pnpm benchmark

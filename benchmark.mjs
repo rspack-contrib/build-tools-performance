@@ -263,11 +263,11 @@ toolNames.forEach((name) => {
 
 const browser = await puppeteer.launch();
 const warmupTimes = Number(process.env.WARMUP_TIMES) || 1;
-const runTimes = Number(process.env.RUN_TIMES) || 5;
+const runTimes = Number(process.env.RUN_TIMES) || 3;
 const totalTimes = warmupTimes + runTimes;
 
 logger.log('');
-logger.start(
+logger.info(
   'Benchmark case ' +
     color.green(`"${caseName}"`) +
     ' will run ' +
