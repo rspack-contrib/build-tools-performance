@@ -42,4 +42,4 @@ jobs:
         run: pnpm install && npx puppeteer browsers install chrome
 
       - name: Run Benchmark
-        run: cross-env ${{ matrix.case }} pnpm benchmark
+        run: cross-env CASE=${{ matrix.case }} pnpm benchmark
