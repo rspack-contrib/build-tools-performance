@@ -273,8 +273,8 @@ toolNames.forEach((name) => {
 });
 
 const browser = await puppeteer.launch();
-const warmupTimes = Number(process.env.WARMUP_TIMES) || 2;
-const runTimes = Number(process.env.RUN_TIMES) || 3;
+const warmupTimes = Number(process.env.WARMUP_TIMES) ?? 2;
+const runTimes = Number(process.env.RUN_TIMES) ?? 3;
 const totalTimes = warmupTimes + runTimes;
 
 logger.log('');
@@ -306,7 +306,7 @@ for (let i = 0; i < totalTimes; i++) {
 async function runBenchmark() {
   const perfResult = {};
   // Shuffle the build tools to avoid the cache effect
-  const shuffledBuildTools = shuffleArray(buildTools);
+  const shuffledBuildTools = shuffleArray([...buildTools]);
 
   for (const buildTool of shuffledBuildTools) {
     const time = await buildTool.startServer();
@@ -545,7 +545,7 @@ console.log(
       'Leaf HMR',
       'Prod build',
     ],
-    ...Object.keys(averageResults).map((name) => [
+    ...buildTools.map(({ name }) => [
       name,
       averageResults[name].startup,
       averageResults[name].serverStart,
@@ -562,7 +562,7 @@ logger.info('Bundle sizes:\n');
 console.log(
   markdownTable([
     ['Name', 'Total size', 'Gzipped size'],
-    ...Object.keys(sizeResults).map((name) => [
+    ...buildTools.map(({ name }) => [
       name,
       sizeResults[name].totalSize,
       sizeResults[name].totalGzipSize,
