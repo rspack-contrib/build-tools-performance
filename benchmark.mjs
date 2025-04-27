@@ -164,7 +164,7 @@ class BuildTool {
 }
 
 const parseToolNames = () => {
-  const allTools = ['rsbuild', 'rspack', 'vite', 'webpack', 'farm'];
+  const allTools = ['farm', 'vite', 'webpack', 'rspack', 'rsbuild'];
 
   if (process.env.TOOLS === 'all') {
     return allTools;
@@ -175,7 +175,7 @@ const parseToolNames = () => {
 
   // Failed to run Farm in GitHub Actions
   // so it is excluded from the default tools
-  const defaultTools = ['rsbuild', 'rspack', 'vite', 'webpack'];
+  const defaultTools = ['vite', 'webpack', 'rspack', 'rsbuild'];
   return defaultTools;
 };
 
@@ -266,7 +266,7 @@ toolNames.forEach((name) => {
 });
 
 const browser = await puppeteer.launch();
-const warmupTimes = Number(process.env.WARMUP_TIMES) || 1;
+const warmupTimes = Number(process.env.WARMUP_TIMES) || 2;
 const runTimes = Number(process.env.RUN_TIMES) || 3;
 const totalTimes = warmupTimes + runTimes;
 
