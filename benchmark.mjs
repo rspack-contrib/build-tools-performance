@@ -10,6 +10,7 @@ import { logger } from 'rslog';
 import color from 'picocolors';
 import glob from 'fast-glob';
 import { gzipSizeSync } from 'gzip-size';
+import { markdownTable } from 'markdown-table';
 
 const require = createRequire(import.meta.url);
 const __dirname = import.meta.dirname;
@@ -516,11 +517,41 @@ for (const [name, values] of Object.entries(averageResults)) {
 logger.log('');
 logger.success('Benchmark finished!\n');
 
-logger.info('Build performance:');
-console.table(averageResults);
+logger.info('Build performance:\n');
+console.log(
+  markdownTable([
+    [
+      'Name',
+      'Startup',
+      'Server start',
+      'Page load',
+      'Root HMR',
+      'Leaf HMR',
+      'Prod build',
+    ],
+    ...Object.keys(averageResults).map((name) => [
+      name,
+      averageResults[name].startup,
+      averageResults[name].serverStart,
+      averageResults[name].onLoad,
+      averageResults[name].rootHmr,
+      averageResults[name].leafHmr,
+      averageResults[name].prodBuild,
+    ]),
+  ]),
+);
 
 logger.log('');
-logger.info('Bundle sizes:');
-console.table(sizeResults);
+logger.info('Bundle sizes:\n');
+console.log(
+  markdownTable([
+    ['Name', 'Total size', 'Gzipped size'],
+    ...Object.keys(sizeResults).map((name) => [
+      name,
+      sizeResults[name].totalSize,
+      sizeResults[name].totalGzipSize,
+    ]),
+  ]),
+);
 
 process.exit(0);
