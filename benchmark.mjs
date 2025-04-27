@@ -180,10 +180,7 @@ const parseToolNames = () => {
     return process.env.TOOLS?.split(',').map((item) => item.toLowerCase());
   }
 
-  // Failed to run Farm in GitHub Actions
-  // so it is excluded from the default tools
-  const defaultTools = ['rspack', 'rsbuild', 'vite', 'webpack'];
-  return defaultTools;
+  return allTools
 };
 
 const toolNames = parseToolNames();
