@@ -171,7 +171,7 @@ class BuildTool {
 }
 
 const parseToolNames = () => {
-  const allTools = ['farm', 'vite', 'webpack', 'rspack', 'rsbuild'];
+  const allTools = ['rspack', 'rsbuild', 'vite', 'webpack', 'farm'];
 
   if (process.env.TOOLS === 'all') {
     return allTools;
@@ -182,7 +182,7 @@ const parseToolNames = () => {
 
   // Failed to run Farm in GitHub Actions
   // so it is excluded from the default tools
-  const defaultTools = ['vite', 'webpack', 'rspack', 'rsbuild'];
+  const defaultTools = ['rspack', 'rsbuild', 'vite', 'webpack'];
   return defaultTools;
 };
 
@@ -291,14 +291,24 @@ logger.info(
 let perfResults = [];
 let sizeResults = {};
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 for (let i = 0; i < totalTimes; i++) {
   await runBenchmark();
 }
 
 async function runBenchmark() {
   const perfResult = {};
+  // Shuffle the build tools to avoid the cache effect
+  const shuffledBuildTools = shuffleArray(buildTools);
 
-  for (const buildTool of buildTools) {
+  for (const buildTool of shuffledBuildTools) {
     const time = await buildTool.startServer();
     const page = await browser.newPage();
     const start = Date.now();
