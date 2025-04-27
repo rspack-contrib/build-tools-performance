@@ -431,7 +431,10 @@ async function runBenchmark() {
     logger.success(
       color.dim(buildTool.name) +
         ' total size: ' +
-        color.green(sizes.totalSize) +
+        color.green(sizes.totalSize),
+    );
+    logger.success(
+      color.dim(buildTool.name) +
         ' gzipped size: ' +
         color.green(sizes.totalGzipSize),
     );
