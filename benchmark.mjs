@@ -12,6 +12,14 @@ import glob from 'fast-glob';
 import { gzipSizeSync } from 'gzip-size';
 import { markdownTable } from 'markdown-table';
 
+async function coolDown() {
+  if (global.gc) {
+    global.gc();
+  }
+  const COOL_DOWN_TIME = 3000;
+  await new Promise((resolve) => setTimeout(resolve, COOL_DOWN_TIME));
+}
+
 const require = createRequire(import.meta.url);
 const __dirname = import.meta.dirname;
 
@@ -19,7 +27,6 @@ const startConsole = "console.log('Benchmark Start Time', Date.now());";
 const startConsoleRegex = /Benchmark Start Time (\d+)/;
 
 const caseName = process.env.CASE ?? 'medium';
-
 process.env.CASE = caseName;
 
 class BuildTool {
@@ -42,9 +49,9 @@ class BuildTool {
 
   cleanCache() {
     try {
-      rmSync('./node_modules/.cache', { recursive: true, force: true });
-      rmSync('./node_modules/.vite', { recursive: true, force: true });
-      rmSync('./node_modules/.farm', { recursive: true, force: true });
+      fse.removeSync('./node_modules/.cache');
+      fse.removeSync('./node_modules/.vite');
+      fse.removeSync('./node_modules/.farm');
     } catch (err) {}
   }
 
@@ -290,7 +297,6 @@ for (let i = 0; i < totalTimes; i++) {
 
 async function runBenchmark() {
   const perfResult = {};
-  const sizeResult = {};
 
   for (const buildTool of buildTools) {
     const time = await buildTool.startServer();
@@ -414,7 +420,7 @@ async function runBenchmark() {
 
     buildTool.stopServer();
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await coolDown();
     logger.success(color.dim(buildTool.name) + ' dev server closed');
 
     // Clean up dist dir
@@ -442,7 +448,7 @@ async function runBenchmark() {
 
     perfResult[buildTool.name].prodBuild = buildTime;
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await coolDown();
   }
 
   perfResults.push(perfResult);
