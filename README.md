@@ -19,7 +19,7 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 
 > Data from GitHub Actions: https://github.com/rspack-contrib/build-tools-performance/actions/runs/14692853785
 
-## Small app (2.5k modules)
+### Small app (2.5k modules)
 
 1000 React components + 1500 modules in node_modules. (Most components are dynamic imported)
 
@@ -27,7 +27,7 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 pnpm benchmark small
 ```
 
-### Build performance
+#### Build performance
 
 | Name                    | Startup | Server start | Page load | Root HMR | Leaf HMR | Prod build |
 | ----------------------- | ------- | ------------ | --------- | -------- | -------- | ---------- |
@@ -38,7 +38,7 @@ pnpm benchmark small
 | Vite (SWC) 6.3.3        | 3533ms  | 95ms         | 3438ms    | 176ms    | 140ms    | 1925ms     |
 | webpack (SWC) 5.99.6    | 3176ms  | 2585ms       | 591ms     | 352ms    | 272ms    | 2802ms     |
 
-### Bundle size
+#### Bundle size
 
 | Name                    | Total size | Gzipped size |
 | ----------------------- | ---------- | ------------ |
@@ -49,7 +49,7 @@ pnpm benchmark small
 | Vite (SWC) 6.3.3        | 837.8kB    | 216.9kB      |
 | webpack (SWC) 5.99.6    | 910.4kB    | 234.9kB      |
 
-## Medium app (10k modules)
+### Medium app (10k modules)
 
 5000 React components + 5000 modules in node_modules. (Most components are dynamic imported)
 
@@ -57,7 +57,7 @@ pnpm benchmark small
 pnpm benchmark medium
 ```
 
-### Build performance
+#### Build performance
 
 | Name                    | Startup | Server start | Page load | Root HMR | Leaf HMR | Prod build |
 | ----------------------- | ------- | ------------ | --------- | -------- | -------- | ---------- |
@@ -68,7 +68,7 @@ pnpm benchmark medium
 | Vite (SWC) 6.3.3        | 2983ms  | 138ms        | 2845ms    | 136ms    | 146ms    | 4977ms     |
 | webpack (SWC) 5.99.6    | 7291ms  | 6646ms       | 645ms     | 772ms    | 679ms    | 5773ms     |
 
-### Bundle size
+#### Bundle size
 
 | Name                    | Total size | Gzipped size |
 | ----------------------- | ---------- | ------------ |
@@ -79,7 +79,7 @@ pnpm benchmark medium
 | Vite (SWC) 6.3.3        | 2579.3kB   | 688.6kB      |
 | webpack (SWC) 5.99.6    | 2862.9kB   | 708.8kB      |
 
-## Large app (20k modules)
+### Large app (20k modules)
 
 10000 React components + 10000 modules in node_modules. (Most components are dynamic imported)
 
@@ -87,7 +87,7 @@ pnpm benchmark medium
 pnpm benchmark large
 ```
 
-### Build performance
+#### Build performance
 
 | Name                    | Startup | Server start | Page load | Root HMR | Leaf HMR | Prod build |
 | ----------------------- | ------- | ------------ | --------- | -------- | -------- | ---------- |
@@ -98,7 +98,7 @@ pnpm benchmark large
 | Vite (SWC) 6.3.3        | 5077ms  | 177ms        | 4900ms    | 172ms    | 142ms    | 9653ms     |
 | webpack (SWC) 5.99.6    | 13344ms | 12380ms      | 964ms     | 3449ms   | 2452ms   | 11438ms    |
 
-### Bundle size
+#### Bundle size
 
 | Name                    | Total size | Gzipped size |
 | ----------------------- | ---------- | ------------ |
