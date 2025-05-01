@@ -4,7 +4,7 @@
   "packageManager": "pnpm@10.9.0",
   "dependencies": {
     "@iconify-icons/material-symbols": "^1.2.58",
-    "@iconify/react": "^5.2.1",
+    "@iconify/react": "^6.0.0",
     "puppeteer": "^24.7.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
