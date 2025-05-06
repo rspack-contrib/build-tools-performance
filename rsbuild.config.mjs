@@ -16,11 +16,4 @@ export default defineConfig({
   dev: {
     lazyCompilation: Boolean(process.env.LAZY),
   },
-  tools: {
-    rspack: {
-      experiments: {
-        incremental: !isProduction ? true : undefined,
-      },
-    },
-  },
 });
