@@ -17,8 +17,10 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        os: [macos-15, windows-latest]
-        case: [small, medium]
+        os: [macos-15]
+        # Failed to run Vite on Windows
+        # os: [macos-15, windows-latest]
+        case: [small, medium, large]
 
     steps:
       - name: Checkout
@@ -34,9 +36,10 @@ jobs:
       - name: Install Pnpm
         run: |
           npm i -g corepack@latest -g --force && corepack enable
+          npm i cross-env -g
 
       - name: Install Dependencies
         run: pnpm install && npx puppeteer browsers install chrome
 
       - name: Run Benchmark
-        run: pnpm run benchmark ${{ matrix.case }}
+        run: cross-env CASE=${{ matrix.case }} pnpm benchmark

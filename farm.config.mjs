@@ -1,7 +1,7 @@
-import path from "node:path";
-import { defineConfig } from "@farmfe/core";
+import path from 'node:path';
+import { defineConfig } from '@farmfe/core';
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === 'production';
 const caseName = process.env.CASE ?? 'medium';
 
 export default defineConfig({
@@ -9,8 +9,8 @@ export default defineConfig({
     sourcemap: !isProduction,
     presetEnv: false,
     input: {
-      index: path.resolve(__dirname, "src", caseName, "index.jsx"),
-    }
+      index: path.resolve(__dirname, 'src', caseName, 'index.html'),
+    },
   },
-  plugins: ["@farmfe/plugin-react"],
+  plugins: ['@farmfe/plugin-react'],
 });
