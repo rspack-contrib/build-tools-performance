@@ -1,4 +1,3 @@
-ignoredBuiltDependencies:
 onlyBuiltDependencies:
   - puppeteer
   - rolldown
