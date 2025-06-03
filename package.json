@@ -65,5 +65,8 @@
     "start:rsbuild:lazy": "cross-env LAZY=true rsbuild dev",
     "build:rsbuild": "rsbuild build",
     "build:rolldown": "cross-env NODE_ENV=production rolldown -c ./rolldown.config.mjs"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }
