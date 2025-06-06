@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'rolldown-vite';
 import react from '@vitejs/plugin-react-oxc';
 
 export default defineConfig({
@@ -12,4 +12,7 @@ export default defineConfig({
     // pre-bundle "@iconify-icons/material-symbols/*" is quite slow and should be excluded
     exclude: ['@iconify-icons/material-symbols'],
   },
+  experimental: {
+    enableNativePlugin: 'resolver',
+  }
 });
