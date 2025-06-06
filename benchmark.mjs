@@ -245,6 +245,19 @@ toolNames.forEach((name) => {
         }),
       );
       break;
+    case 'rolldown-vite':
+      buildTools.push(
+        new BuildTool({
+          name:
+            'Vite (Rolldown) ' + require('rolldown-vite/package.json').version,
+          port: 5173,
+          startScript: 'start:rolldown-vite',
+          startedRegex: /ready in (\d+) (s|ms)/,
+          buildScript: 'build:rolldown-vite',
+          binFilePath: 'rolldown-vite/bin/vite.js',
+        }),
+      );
+      break;
     case 'webpack':
       buildTools.push(
         new BuildTool({
