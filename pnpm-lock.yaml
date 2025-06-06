@@ -4,6 +4,8 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+pnpmfileChecksum: sha256-rzaSHlQw20RDhGT9cX5dFTAg3eeoLw43h/LHnLXp+0o=
+
 importers:
 
   .:
@@ -117,6 +119,9 @@ importers:
       rolldown:
         specifier: ^1.0.0-beta.10
         version: 1.0.0-beta.10
+      rolldown-vite:
+        specifier: ^6.3.18
+        version: 6.3.18(@types/node@22.15.29)(esbuild@0.25.3)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0)
       rslog:
         specifier: ^1.2.3
         version: 1.2.3
@@ -130,7 +135,7 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
       vite:
-        specifier: npm:rolldown-vite@6.3.18
+        specifier: ^6.3.5
         version: rolldown-vite@6.3.18(@types/node@22.15.29)(esbuild@0.25.3)(jiti@2.4.2)(less@4.2.0)(terser@5.37.0)
       webpack:
         specifier: ^5.99.9
