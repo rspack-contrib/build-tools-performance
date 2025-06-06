@@ -171,7 +171,14 @@ class BuildTool {
 }
 
 const parseToolNames = () => {
-  const allTools = ['rspack', 'rsbuild', 'vite', 'webpack', 'farm'];
+  const allTools = [
+    'rspack',
+    'rsbuild',
+    'vite',
+    'rolldown-vite',
+    'webpack',
+    'farm',
+  ];
 
   if (process.env.TOOLS === 'all') {
     return allTools;
@@ -182,7 +189,13 @@ const parseToolNames = () => {
 
   // Failed to run Farm in GitHub Actions
   // so it is excluded from the default tools
-  const defaultTools = ['rspack', 'rsbuild', 'vite', 'webpack'];
+  const defaultTools = [
+    'rspack',
+    'rsbuild',
+    'vite',
+    'rolldown-vite',
+    'webpack',
+  ];
   return defaultTools;
 };
 
