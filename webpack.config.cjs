@@ -7,10 +7,11 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
 const caseName = process.env.CASE ?? 'medium';
+const caseDir = path.join(__dirname, './src', caseName);
 
 // webpack.config.js
 module.exports = {
-  entry: path.join(__dirname, './src', caseName, 'index.jsx'),
+  entry: path.join(caseDir, 'index.jsx'),
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.ts', '.tsx'],
   },
@@ -55,7 +56,9 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(caseDir, 'index-rspack.html'),
+    }),
     isProd ? null : new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),
   optimization: {

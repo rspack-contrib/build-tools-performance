@@ -6,12 +6,13 @@ import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const caseName = process.env.CASE ?? 'medium';
+const caseDir = path.join(import.meta.dirname, './src', caseName);
 
 export default defineConfig({
   context: import.meta.dirname,
   devtool: isProduction ? false : undefined,
   entry: {
-    main: path.join(import.meta.dirname, './src', caseName, 'index.jsx'),
+    main: path.join(caseDir, 'index.jsx'),
   },
   resolve: {
     extensions: ['...', '.tsx', '.ts', '.jsx'],
@@ -56,7 +57,9 @@ export default defineConfig({
     ],
   },
   plugins: [
-    new rspack.HtmlRspackPlugin(),
+    new rspack.HtmlRspackPlugin({
+      template: path.join(caseDir, 'index-rspack.html'),
+    }),
     !isProduction && new ReactRefreshPlugin(),
   ],
   experiments: {
