@@ -5,7 +5,7 @@ import React from 'react'
   function Component() {
   
     return (
-      <div className="/home/victor/Documents/rolldown-rs/performance-compare-ext/apps/1000/src/d4/d3/d4/f2.jsx">
+      <div className="d4/d3/d4/f2.jsx">
         
         
 

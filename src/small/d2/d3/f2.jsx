@@ -8,7 +8,7 @@ import C3 from './d2/f3.jsx'
   function Component() {
   
     return (
-      <div className="/home/victor/Documents/rolldown-rs/performance-compare-ext/apps/1000/src/d2/d3/f2.jsx">
+      <div className="d2/d3/f2.jsx">
         <C0/>
 <C1/>
 <C2/>
