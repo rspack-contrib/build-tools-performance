@@ -174,8 +174,8 @@ const parseToolNames = () => {
   const allTools = [
     'rspack',
     'rsbuild',
-    'vite',
     'rolldown-vite',
+    'vite',
     'webpack',
     'farm',
   ];
@@ -192,8 +192,8 @@ const parseToolNames = () => {
   const defaultTools = [
     'rspack',
     'rsbuild',
-    'vite',
     'rolldown-vite',
+    'vite',
     'webpack',
   ];
   return defaultTools;
