@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: path.resolve(__dirname, 'dist'),
+    target: ['chrome87', 'edge88', 'firefox78', 'safari14'],
   },
   optimizeDeps: {
     // pre-bundle "@iconify-icons/material-symbols/*" is quite slow and should be excluded
