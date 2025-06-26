@@ -41,7 +41,7 @@
     "prettier": "^3.6.1",
     "react-refresh": "^0.17.0",
     "rolldown": "^1.0.0-beta.20",
-    "rolldown-vite": "^6.3.21",
+    "rolldown-vite": "^7.0.2",
     "rslog": "^1.2.8",
     "swc-loader": "^0.2.6",
     "terser-webpack-plugin": "^5.3.14",
