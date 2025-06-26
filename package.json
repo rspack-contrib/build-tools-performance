@@ -1,32 +1,32 @@
 {
   "name": "performance-compare",
   "version": "0.0.0",
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@10.12.3",
   "dependencies": {
     "@iconify-icons/material-symbols": "^1.2.58",
     "@iconify/react": "^6.0.0",
-    "puppeteer": "^24.9.0",
+    "puppeteer": "^24.10.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.1",
+    "react-router-dom": "^7.6.2",
     "tree-kill": "^1.2.2"
   },
   "devDependencies": {
-    "@farmfe/cli": "^1.0.4",
-    "@farmfe/core": "1.7.5",
+    "@farmfe/cli": "^1.0.5",
+    "@farmfe/core": "1.7.7",
     "@farmfe/plugin-react": "^1.2.6",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.6.0",
-    "@rsbuild/core": "^1.4.0-beta.4",
-    "@rsbuild/plugin-react": "^1.3.1",
-    "@rspack/cli": "^1.4.0-beta.1",
-    "@rspack/core": "^1.4.0-beta.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.6.1",
+    "@rsbuild/core": "^1.4.0",
+    "@rsbuild/plugin-react": "^1.3.2",
+    "@rspack/cli": "^1.4.0",
+    "@rspack/core": "^1.4.0",
     "@rspack/plugin-react-refresh": "^1.4.3",
     "@swc/css": "^0.0.28",
-    "@types/node": "^22.15.29",
-    "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5",
-    "@vitejs/plugin-react-oxc": "^0.2.1",
-    "@vitejs/plugin-react-swc": "^3.10.0",
+    "@types/node": "^22.15.33",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react-oxc": "^0.2.3",
+    "@vitejs/plugin-react-swc": "^3.10.2",
     "babel-loader": "^10.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
@@ -38,18 +38,18 @@
     "markdown-table": "^3.0.4",
     "mini-css-extract-plugin": "^2.9.2",
     "picocolors": "^1.1.1",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.1",
     "react-refresh": "^0.17.0",
-    "rolldown": "^1.0.0-beta.10",
-    "rolldown-vite": "^6.3.18",
-    "rslog": "^1.2.3",
+    "rolldown": "^1.0.0-beta.20",
+    "rolldown-vite": "^6.3.21",
+    "rslog": "^1.2.8",
     "swc-loader": "^0.2.6",
     "terser-webpack-plugin": "^5.3.14",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.1"
+    "webpack-dev-server": "^5.2.2"
   },
   "scripts": {
     "benchmark": "node benchmark.mjs",
@@ -71,6 +71,6 @@
     "build:rolldown": "cross-env NODE_ENV=production rolldown -c ./rolldown.config.mjs"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.17.0"
   }
 }
