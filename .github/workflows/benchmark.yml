@@ -45,7 +45,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install && npx puppeteer browsers install chrome
 
-      - name: Run 1.4.1
+      - name: Run benchmark
         run: |
           echo "Rspack 1.4.0"
           hyperfine --warmup 2 --runs 10  'CASE=large node --run build:rspack'
