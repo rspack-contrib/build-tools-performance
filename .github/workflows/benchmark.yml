@@ -40,7 +40,7 @@ jobs:
 
       - name: Install hyperfine
         run: |
-          run: brew install hyperfine
+          brew install hyperfine
 
       - name: Install Dependencies
         run: pnpm install && npx puppeteer browsers install chrome
