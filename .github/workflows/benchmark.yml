@@ -40,8 +40,8 @@ jobs:
 
       - name: Install hyperfine
         run: |
-          wget https://github.com/sharkdp/hyperfine/releases/latest/download/hyperfine_1.19.0_amd64.deb
-          sudo dpkg -i hyperfine_1.19.0_amd64.deb
+          sudo apt update
+          sudo apt install hyperfine
 
       - name: Install Dependencies
         run: pnpm install && npx puppeteer browsers install chrome
@@ -50,6 +50,10 @@ jobs:
         run: |
           echo "Rspack 1.4.0"
           hyperfine --warmup 2 --runs 10  'CASE=large node --run build:rspack'
+          hyperfine --warmup 2 --runs 10  'CASE=large node --run build:rspack'
+          hyperfine --warmup 2 --runs 10  'CASE=large node --run build:rspack'
           pnpm add @rspack/core@1.4.1 @rspack/cli@1.4.1 -D
           echo "Rspack 1.4.1"
+          hyperfine --warmup 2 --runs 10  'CASE=large node --run build:rspack'
+          hyperfine --warmup 2 --runs 10  'CASE=large node --run build:rspack'
           hyperfine --warmup 2 --runs 10  'CASE=large node --run build:rspack'
