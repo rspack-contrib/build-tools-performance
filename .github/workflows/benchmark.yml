@@ -38,8 +38,18 @@ jobs:
           npm i -g corepack@latest -g --force && corepack enable
           npm i cross-env -g
 
+      - name: Install hyperfine
+        run: |
+          wget https://github.com/sharkdp/hyperfine/releases/latest/download/hyperfine_1.19.0_amd64.deb
+          sudo dpkg -i hyperfine_1.19.0_amd64.deb
+
       - name: Install Dependencies
         run: pnpm install && npx puppeteer browsers install chrome
 
-      - name: Run Benchmark
-        run: cross-env CASE=${{ matrix.case }} pnpm benchmark
+      - name: Run 1.4.1
+        run: |
+          echo "Rspack 1.4.0"
+          hyperfine --warmup 2 --runs 10  'CASE=large node --run build:rspack'
+          pnpm add @rspack/core@1.4.1 @rspack/cli@1.4.1 -D
+          echo "Rspack 1.4.1"
+          hyperfine --warmup 2 --runs 10  'CASE=large node --run build:rspack'
