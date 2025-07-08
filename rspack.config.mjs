@@ -9,20 +9,14 @@ const caseName = process.env.CASE ?? 'medium';
 const caseDir = path.join(import.meta.dirname, './src', caseName);
 
 export default defineConfig({
-  context: import.meta.dirname,
+  target: ['web', 'es2022'],
   devtool: isProduction ? false : undefined,
-  entry: {
-    main: path.join(caseDir, 'index.jsx'),
-  },
+  entry: path.join(caseDir, 'index.jsx'),
   resolve: {
     extensions: ['...', '.tsx', '.ts', '.jsx'],
   },
   module: {
     rules: [
-      {
-        test: /\.svg$/,
-        type: 'asset',
-      },
       {
         test: /\.(js|ts|tsx|jsx)$/,
         exclude: /node_modules/,
@@ -30,15 +24,8 @@ export default defineConfig({
           loader: 'builtin:swc-loader',
           /** @type {import('@rspack/core').SwcLoaderOptions} */
           options: {
-            env: {
-              targets: [
-                'chrome >= 87',
-                'edge >= 88',
-                'firefox >= 78',
-                'safari >= 14',
-              ],
-            },
             jsc: {
+              target: 'es2022',
               parser: {
                 syntax: 'typescript',
                 tsx: true,

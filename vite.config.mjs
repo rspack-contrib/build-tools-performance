@@ -7,7 +7,7 @@ export default defineConfig({
   root: path.resolve(__dirname, 'src', process.env.CASE ?? 'medium'),
   build: {
     outDir: path.resolve(__dirname, 'dist'),
-    target: ['chrome87', 'edge88', 'firefox78', 'safari14'],
+    target: 'es2022',
   },
   plugins: [react()],
   optimizeDeps: {

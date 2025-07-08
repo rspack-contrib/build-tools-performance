@@ -15,6 +15,12 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 | **Total size**   | Total size of the bundle                        | Minified by the default minifier        |
 | **Gzipped size** | Gzipped size of the bundle                      | Represents actual network transfer size |
 
+## Notes
+
+- Build target is set to `es2022` (`Chrome >= 93`) for all tools.
+- Minification is enabled in production for all tools.
+- Source map is enabled in development and disabled in production for all tools.
+
 ## Bench cases
 
 > Data from GitHub Actions: https://github.com/rspack-contrib/build-tools-performance/actions/runs/15903592726 (2025-06-26)

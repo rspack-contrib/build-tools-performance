@@ -14,4 +14,7 @@ export default defineConfig({
   output: {
     minify: isProduction,
   },
+  transform: {
+    target: 'es2022',
+  },
 });

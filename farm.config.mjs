@@ -11,6 +11,9 @@ export default defineConfig({
     input: {
       index: path.resolve(__dirname, 'src', caseName, 'index.html'),
     },
+    output: {
+      targetEnv: 'browser-es2022',
+    },
   },
   plugins: ['@farmfe/plugin-react'],
 });
