@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { defineConfig } from 'rolldown-vite';
 import react from '@vitejs/plugin-react-oxc';
-import { caseName, target, isProd } from './shared.mjs';
+import { caseName, target } from './shared.mjs';
 
 export default defineConfig({
   root: path.resolve(__dirname, 'src', caseName),
@@ -15,6 +15,6 @@ export default defineConfig({
     exclude: ['@iconify-icons/material-symbols'],
   },
   experimental: {
-    enableNativePlugin: 'resolver',
+    enableNativePlugin: true,
   }
 });
