@@ -15,4 +15,7 @@ export default defineConfig({
   dev: {
     lazyCompilation: Boolean(process.env.LAZY),
   },
+  output: {
+    overrideBrowserslist: ['Chrome >= 93'],
+  },
 });

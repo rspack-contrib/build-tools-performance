@@ -4,25 +4,19 @@ import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
 import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === 'production';
 const caseName = process.env.CASE ?? 'medium';
 const caseDir = path.join(import.meta.dirname, './src', caseName);
 
 export default defineConfig({
-  context: import.meta.dirname,
-  devtool: isProduction ? false : undefined,
-  entry: {
-    main: path.join(caseDir, 'index.jsx'),
-  },
+  target: ['web', 'es2022'],
+  devtool: isProd ? false : undefined,
+  entry: path.join(caseDir, 'index.jsx'),
   resolve: {
     extensions: ['...', '.tsx', '.ts', '.jsx'],
   },
   module: {
     rules: [
-      {
-        test: /\.svg$/,
-        type: 'asset',
-      },
       {
         test: /\.(js|ts|tsx|jsx)$/,
         exclude: /node_modules/,
@@ -30,15 +24,8 @@ export default defineConfig({
           loader: 'builtin:swc-loader',
           /** @type {import('@rspack/core').SwcLoaderOptions} */
           options: {
-            env: {
-              targets: [
-                'chrome >= 87',
-                'edge >= 88',
-                'firefox >= 78',
-                'safari >= 14',
-              ],
-            },
             jsc: {
+              target: 'es2022',
               parser: {
                 syntax: 'typescript',
                 tsx: true,
@@ -46,8 +33,8 @@ export default defineConfig({
               transform: {
                 react: {
                   runtime: 'automatic',
-                  development: !isProduction,
-                  refresh: !isProduction,
+                  development: !isProd,
+                  refresh: !isProd,
                 },
               },
             },
@@ -60,11 +47,11 @@ export default defineConfig({
     new rspack.HtmlRspackPlugin({
       template: path.join(caseDir, 'index-rspack.html'),
     }),
-    !isProduction && new ReactRefreshPlugin(),
+    !isProd && new ReactRefreshPlugin(),
   ],
   experiments: {
     css: true,
     // lazyCompilation should only be enabled in development mode
-    lazyCompilation: Boolean(process.env.LAZY) && !isProduction,
+    lazyCompilation: Boolean(process.env.LAZY) && !isProd,
   },
 });
