@@ -1,8 +1,6 @@
 import path from 'node:path';
 import { defineConfig } from '@farmfe/core';
-
-const isProd = process.env.NODE_ENV === 'production';
-const caseName = process.env.CASE ?? 'medium';
+import { caseName, target, isProd } from './shared.mjs';
 
 export default defineConfig({
   compilation: {
@@ -12,7 +10,7 @@ export default defineConfig({
       index: path.resolve(__dirname, 'src', caseName, 'index.html'),
     },
     output: {
-      targetEnv: 'browser-es2022',
+      targetEnv: `browser-${target}`,
     },
   },
   plugins: ['@farmfe/plugin-react'],

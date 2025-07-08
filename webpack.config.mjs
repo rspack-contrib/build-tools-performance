@@ -1,15 +1,14 @@
-const path = require('node:path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+import path from 'node:path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import { caseName, target, isProd } from './shared.mjs';
 
-const isProd = process.env.NODE_ENV === 'production';
-const caseName = process.env.CASE ?? 'medium';
-const caseDir = path.join(__dirname, './src', caseName);
+const caseDir = path.join(import.meta.dirname, './src', caseName);
 
-module.exports = {
-  target: ['web', 'es2022'],
+export default {
+  target: ['web', target],
   devtool: isProd ? false : undefined,
   entry: path.join(caseDir, 'index.jsx'),
   resolve: {
@@ -24,7 +23,7 @@ module.exports = {
           loader: 'swc-loader',
           options: {
             jsc: {
-              target: 'es2022',
+              target,
               parser: {
                 syntax: 'typescript',
                 tsx: true,
