@@ -1,8 +1,6 @@
 import { defineConfig } from 'rolldown';
 import path from 'path';
-
-const isProd = process.env.NODE_ENV === 'production';
-const caseName = process.env.CASE ?? 'medium';
+import { caseName, target, isProd } from './shared.mjs';
 
 export default defineConfig({
   input: {
@@ -15,6 +13,6 @@ export default defineConfig({
     minify: isProd,
   },
   transform: {
-    target: 'es2022',
+    target,
   },
 });

@@ -3,13 +3,12 @@ import path from 'node:path';
 import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
 import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
+import { caseName, target, isProd } from './shared.mjs';
 
-const isProd = process.env.NODE_ENV === 'production';
-const caseName = process.env.CASE ?? 'medium';
 const caseDir = path.join(import.meta.dirname, './src', caseName);
 
 export default defineConfig({
-  target: ['web', 'es2022'],
+  target: ['web', target],
   devtool: isProd ? false : undefined,
   entry: path.join(caseDir, 'index.jsx'),
   resolve: {
@@ -25,7 +24,7 @@ export default defineConfig({
           /** @type {import('@rspack/core').SwcLoaderOptions} */
           options: {
             jsc: {
-              target: 'es2022',
+              target,
               parser: {
                 syntax: 'typescript',
                 tsx: true,

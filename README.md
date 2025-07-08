@@ -25,12 +25,12 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 
 > Data from GitHub Actions: https://github.com/rspack-contrib/build-tools-performance/actions/runs/15903592726 (2025-06-26)
 
-### Small app (2.5k modules)
+### react-1k
 
 1000 React components + 1500 modules in node_modules. (Most components are dynamic imported)
 
 ```bash
-CASE=small pnpm benchmark
+CASE=react-1k pnpm benchmark
 ```
 
 #### Build performance
@@ -57,12 +57,12 @@ CASE=small pnpm benchmark
 | Vite (SWC) 7.0.0        | 801.4kB    | 216.4kB      |
 | webpack (SWC) 5.99.9    | 882.1kB    | 237.3kB      |
 
-### Medium app (10k modules)
+### react-5k
 
 5000 React components + 5000 modules in node_modules. (Most components are dynamic imported)
 
 ```bash
-CASE=medium pnpm benchmark
+CASE=react-5k pnpm benchmark
 ```
 
 #### Build performance
@@ -89,12 +89,12 @@ CASE=medium pnpm benchmark
 | Vite (SWC) 7.0.0        | 2579.4kB   | 688.7kB      |
 | webpack (SWC) 5.99.9    | 2871.1kB   | 711.4kB      |
 
-### Large app (20k modules)
+### react-10k
 
 10000 React components + 10000 modules in node_modules. (Most components are dynamic imported)
 
 ```bash
-CASE=large pnpm benchmark
+CASE=react-10k pnpm benchmark
 ```
 
 #### Build performance
@@ -126,11 +126,11 @@ CASE=large pnpm benchmark
 Run the `benchmark.mjs` script to get the results (requires Node.js >= 22):
 
 ```bash
-# Run the benchmark for the medium case
+# Run the benchmark for the react-5k case
 pnpm benchmark
 
-# Run the benchmark for the small case
-CASE=small pnpm benchmark
+# Run the benchmark for the react-10k case
+CASE=react-10k pnpm benchmark
 ```
 
 If you want to start the project with the specified tool, try:
@@ -158,8 +158,9 @@ pnpm build:webpack # Build webpack
 Use `CASE` to switch the benchmark case:
 
 ```bash
-CASE=small pnpm benchmark
-CASE=medium pnpm benchmark
+CASE=react-1k pnpm benchmark
+CASE=react-5k pnpm benchmark
+CASE=react-10k pnpm benchmark
 ```
 
 Use `TOOLS` to specify the build tools or bundlers:

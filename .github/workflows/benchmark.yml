@@ -20,7 +20,7 @@ jobs:
         os: [macos-15]
         # Failed to run Vite on Windows
         # os: [macos-15, windows-latest]
-        case: [small, medium, large]
+        case: [react-1k, react-5k, react-10k]
 
     steps:
       - name: Checkout

@@ -2,8 +2,7 @@
 import path from 'node:path';
 import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
-
-const caseName = process.env.CASE ?? 'medium';
+import { caseName, targetBrowser } from './shared.mjs';
 
 export default defineConfig({
   plugins: [pluginReact()],
@@ -16,6 +15,6 @@ export default defineConfig({
     lazyCompilation: Boolean(process.env.LAZY),
   },
   output: {
-    overrideBrowserslist: ['Chrome >= 93'],
+    overrideBrowserslist: [targetBrowser],
   },
 });

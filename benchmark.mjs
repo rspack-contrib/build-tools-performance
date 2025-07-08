@@ -11,6 +11,9 @@ import color from 'picocolors';
 import glob from 'fast-glob';
 import { gzipSizeSync } from 'gzip-size';
 import { markdownTable } from 'markdown-table';
+import { caseName } from './shared.mjs';
+
+process.env.CASE = caseName;
 
 async function coolDown() {
   if (global.gc) {
@@ -25,9 +28,6 @@ const __dirname = import.meta.dirname;
 
 const startConsole = "console.log('Benchmark Start Time', Date.now());";
 const startConsoleRegex = /Benchmark Start Time (\d+)/;
-
-const caseName = process.env.CASE ?? 'medium';
-process.env.CASE = caseName;
 
 class BuildTool {
   constructor({
