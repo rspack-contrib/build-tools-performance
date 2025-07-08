@@ -4,13 +4,13 @@ import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
 import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === 'production';
 const caseName = process.env.CASE ?? 'medium';
 const caseDir = path.join(import.meta.dirname, './src', caseName);
 
 export default defineConfig({
   target: ['web', 'es2022'],
-  devtool: isProduction ? false : undefined,
+  devtool: isProd ? false : undefined,
   entry: path.join(caseDir, 'index.jsx'),
   resolve: {
     extensions: ['...', '.tsx', '.ts', '.jsx'],
@@ -33,8 +33,8 @@ export default defineConfig({
               transform: {
                 react: {
                   runtime: 'automatic',
-                  development: !isProduction,
-                  refresh: !isProduction,
+                  development: !isProd,
+                  refresh: !isProd,
                 },
               },
             },
@@ -47,11 +47,11 @@ export default defineConfig({
     new rspack.HtmlRspackPlugin({
       template: path.join(caseDir, 'index-rspack.html'),
     }),
-    !isProduction && new ReactRefreshPlugin(),
+    !isProd && new ReactRefreshPlugin(),
   ],
   experiments: {
     css: true,
     // lazyCompilation should only be enabled in development mode
-    lazyCompilation: Boolean(process.env.LAZY) && !isProduction,
+    lazyCompilation: Boolean(process.env.LAZY) && !isProd,
   },
 });

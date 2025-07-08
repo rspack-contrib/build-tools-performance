@@ -10,7 +10,7 @@ const caseDir = path.join(__dirname, './src', caseName);
 
 module.exports = {
   target: ['web', 'es2022'],
-  devtool: isProduction ? false : undefined,
+  devtool: isProd ? false : undefined,
   entry: path.join(caseDir, 'index.jsx'),
   resolve: {
     extensions: ['...', '.tsx', '.ts', '.jsx'],
