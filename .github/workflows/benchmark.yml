@@ -18,9 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-15]
-        # Failed to run Vite on Windows
-        # os: [macos-15, windows-latest]
-        case: [react-1k, react-5k, react-10k, rome]
+        case: [react-1k, react-5k, react-10k, ui-components, rome]
 
     steps:
       - name: Checkout

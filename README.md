@@ -121,6 +121,32 @@ CASE=react-10k pnpm benchmark
 | Vite (SWC) 7.0.0        | 5369.2kB   | 1409.3kB     |
 | webpack (SWC) 5.99.9    | 5993.4kB   | 1464.6kB     |
 
+### ui-components
+
+A React app that import some UI components from several popular UI libraries.
+
+```bash
+CASE=ui-components pnpm benchmark
+```
+
+#### Build performance
+
+| Name                   | Prod build |
+| ---------------------- | ---------- |
+| Rspack CLI 1.4.6       | 1223ms     |
+| Rsbuild 1.4.6          | 1286ms     |
+| Rolldown 1.0.0-beta.25 | 516ms      |
+| webpack (SWC) 5.100.0  | 10935ms    |
+
+#### Bundle size
+
+| Name                   | Total size | Gzipped size |
+| ---------------------- | ---------- | ------------ |
+| Rspack CLI 1.4.6       | 3191.0kB   | 982.5kB      |
+| Rsbuild 1.4.6          | 1386.7kB   | 421.9kB      |
+| Rolldown 1.0.0-beta.25 | 2668.4kB   | 818.4kB      |
+| webpack (SWC) 5.100.0  | 2659.5kB   | 808.0kB      |
+
 ### rome
 
 A complex TypeScript Node.js project that includes multiple packages from the [rome](https://github.com/rome/tools) toolchain.
@@ -131,21 +157,25 @@ CASE=rome pnpm benchmark
 
 #### Build performance
 
-| Name                   | Prod build |
-| ---------------------- | ---------- |
-| Rspack CLI 1.4.6       | 742ms      |
-| Rsbuild 1.4.6          | 787ms      |
-| Rolldown 1.0.0-beta.25 | 272ms      |
-| webpack (SWC) 5.100.0  | 5548ms     |
+| Name                        | Prod build |
+| --------------------------- | ---------- |
+| Rspack CLI 1.4.6            | 1129ms     |
+| Rsbuild 1.4.6               | 1181ms     |
+| Vite (Rollup + SWC) 7.0.4   | 5443ms     |
+| Vite (Rolldown + Oxc) 7.0.7 | 636ms      |
+| Rolldown 1.0.0-beta.25      | 528ms      |
+| webpack (SWC) 5.100.0       | 11202ms    |
 
 #### Bundle size
 
-| Name                   | Total size | Gzipped size |
-| ---------------------- | ---------- | ------------ |
-| Rspack CLI 1.4.6       | 1009.3kB   | 270.9kB      |
-| Rsbuild 1.4.6          | 1009.3kB   | 270.9kB      |
-| Rolldown 1.0.0-beta.25 | 1016.4kB   | 273.6kB      |
-| webpack (SWC) 5.100.0  | 1023.3kB   | 272.0kB      |
+| Name                        | Total size | Gzipped size |
+| --------------------------- | ---------- | ------------ |
+| Rspack CLI 1.4.6            | 1493.9kB   | 406.5kB      |
+| Rsbuild 1.4.6               | 1310.5kB   | 400.8kB      |
+| Vite (Rollup + SWC) 7.0.4   | 1315.4kB   | 412.4kB      |
+| Vite (Rolldown + Oxc) 7.0.7 | 1342.3kB   | 416.9kB      |
+| Rolldown 1.0.0-beta.25      | 1358.2kB   | 417.8kB      |
+| webpack (SWC) 5.100.0       | 1349.6kB   | 407.6kB      |
 
 ## Run locally
 

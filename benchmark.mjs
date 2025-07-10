@@ -462,11 +462,12 @@ async function runDevBenchmark(buildTool, perfResult) {
   await coolDown();
   logger.success(color.dim(buildTool.name) + ' dev server closed');
 
-  // Clean up dist dir
-  await fse.remove(distDir);
 }
 
 async function runBuildBenchmark(buildTool, perfResult) {
+  // Clean up dist dir
+  await fse.remove(distDir);
+
   const buildTime = await buildTool.build();
 
   const sizes = sizeResults[buildTool.name] || (await getFileSizes(distDir));
