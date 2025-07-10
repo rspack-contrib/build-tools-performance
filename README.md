@@ -123,36 +123,10 @@ CASE=react-10k pnpm benchmark
 
 ### ui-components
 
-A React app that import some UI components from several popular UI libraries.
+A React app that imports UI components from several popular UI libraries.
 
 ```bash
 CASE=ui-components pnpm benchmark
-```
-
-#### Build performance
-
-| Name                   | Prod build |
-| ---------------------- | ---------- |
-| Rspack CLI 1.4.6       | 1223ms     |
-| Rsbuild 1.4.6          | 1286ms     |
-| Rolldown 1.0.0-beta.25 | 516ms      |
-| webpack (SWC) 5.100.0  | 10935ms    |
-
-#### Bundle size
-
-| Name                   | Total size | Gzipped size |
-| ---------------------- | ---------- | ------------ |
-| Rspack CLI 1.4.6       | 3191.0kB   | 982.5kB      |
-| Rsbuild 1.4.6          | 1386.7kB   | 421.9kB      |
-| Rolldown 1.0.0-beta.25 | 2668.4kB   | 818.4kB      |
-| webpack (SWC) 5.100.0  | 2659.5kB   | 808.0kB      |
-
-### rome
-
-A complex TypeScript Node.js project that includes multiple packages from the [rome](https://github.com/rome/tools) toolchain.
-
-```bash
-CASE=rome pnpm benchmark
 ```
 
 #### Build performance
@@ -176,6 +150,32 @@ CASE=rome pnpm benchmark
 | Vite (Rolldown + Oxc) 7.0.7 | 1342.3kB   | 416.9kB      |
 | Rolldown 1.0.0-beta.25      | 1358.2kB   | 417.8kB      |
 | webpack (SWC) 5.100.0       | 1349.6kB   | 407.6kB      |
+
+### rome
+
+A complex TypeScript Node.js project that includes multiple packages from the [rome](https://github.com/rome/tools) toolchain.
+
+```bash
+CASE=rome pnpm benchmark
+```
+
+#### Build performance
+
+| Name                   | Prod build |
+| ---------------------- | ---------- |
+| Rspack CLI 1.4.6       | 742ms      |
+| Rsbuild 1.4.6          | 787ms      |
+| Rolldown 1.0.0-beta.25 | 272ms      |
+| webpack (SWC) 5.100.0  | 5548ms     |
+
+#### Bundle size
+
+| Name                   | Total size | Gzipped size |
+| ---------------------- | ---------- | ------------ |
+| Rspack CLI 1.4.6       | 1009.3kB   | 270.9kB      |
+| Rsbuild 1.4.6          | 1009.3kB   | 270.9kB      |
+| Rolldown 1.0.0-beta.25 | 1016.4kB   | 273.6kB      |
+| webpack (SWC) 5.100.0  | 1023.3kB   | 272.0kB      |
 
 ## Run locally
 
