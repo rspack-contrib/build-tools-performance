@@ -344,7 +344,7 @@ async function runBenchmark() {
       const loadTime = Date.now() - start;
       logger.success(
         color.dim(buildTool.name) +
-          ' dev cold start in ' +
+          ' Dev cold start in ' +
           color.green(time + loadTime + 'ms'),
       );
 
@@ -563,20 +563,10 @@ logger.success('Benchmark finished!\n');
 logger.info('Build performance:\n');
 console.log(
   markdownTable([
-    [
-      'Name',
-      'Dev cold start',
-      'Server start',
-      'Page load',
-      'Root HMR',
-      'Leaf HMR',
-      'Prod build',
-    ],
+    ['Name', 'Dev cold start', 'Root HMR', 'Leaf HMR', 'Prod build'],
     ...buildTools.map(({ name }) => [
       name,
-      averageResults[name].devColdStart,
-      averageResults[name].serverStart,
-      averageResults[name].onLoad,
+      `${averageResults[name].devColdStart} (${averageResults[name].serverStart} + ${averageResults[name].onLoad})`,
       averageResults[name].rootHmr,
       averageResults[name].leafHmr,
       averageResults[name].prodBuild,
