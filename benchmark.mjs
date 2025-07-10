@@ -344,7 +344,7 @@ async function runBenchmark() {
       const loadTime = Date.now() - start;
       logger.success(
         color.dim(buildTool.name) +
-          ' startup in ' +
+          ' dev cold start in ' +
           color.green(time + loadTime + 'ms'),
       );
 
@@ -352,7 +352,7 @@ async function runBenchmark() {
         perfResult[buildTool.name] = {};
       }
 
-      perfResult[buildTool.name].startup = time + loadTime;
+      perfResult[buildTool.name].devColdStart = time + loadTime;
       perfResult[buildTool.name].serverStart = time;
       perfResult[buildTool.name].onLoad = loadTime;
     });
@@ -565,7 +565,7 @@ console.log(
   markdownTable([
     [
       'Name',
-      'Startup',
+      'Dev cold start',
       'Server start',
       'Page load',
       'Root HMR',
@@ -574,7 +574,7 @@ console.log(
     ],
     ...buildTools.map(({ name }) => [
       name,
-      averageResults[name].startup,
+      averageResults[name].devColdStart,
       averageResults[name].serverStart,
       averageResults[name].onLoad,
       averageResults[name].rootHmr,
