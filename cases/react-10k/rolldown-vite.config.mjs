@@ -1,13 +1,11 @@
-import path from 'node:path';
+// @ts-check
 import { defineConfig } from 'rolldown-vite';
 import react from '@vitejs/plugin-react-oxc';
-import { caseName, target } from './shared.mjs';
+import { target } from '../../shared.mjs';
 
 export default defineConfig({
-  root: path.resolve(__dirname, 'src', caseName),
   plugins: [react()],
   build: {
-    outDir: path.resolve(__dirname, 'dist'),
     target,
   },
   optimizeDeps: {
@@ -16,5 +14,5 @@ export default defineConfig({
   },
   experimental: {
     enableNativePlugin: true,
-  }
+  },
 });

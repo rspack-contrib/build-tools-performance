@@ -23,7 +23,7 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 
 ## Bench cases
 
-> Data from GitHub Actions: https://github.com/rspack-contrib/build-tools-performance/actions/runs/15903592726 (2025-06-26)
+> Data from GitHub Actions: https://github.com/rspack-contrib/build-tools-performance/actions/runs/16188557969 (2025-07-10)
 
 ### react-1k
 
