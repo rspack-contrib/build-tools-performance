@@ -37,6 +37,7 @@ jobs:
         run: |
           npm i -g corepack@latest -g --force && corepack enable
           npm i cross-env -g
+          pnpm -v
 
       - name: Install Dependencies
         run: pnpm install && npx puppeteer browsers install chrome
