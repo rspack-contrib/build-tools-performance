@@ -1,0 +1,15 @@
+{
+  "name": "rome",
+  "version": "0.0.0",
+  "scripts": {
+    "build:rolldown": "rolldown build --config rolldown.config.mjs",
+    "build:rspack": "rspack build",
+    "build:rsbuild": "rsbuild build",
+    "build:webpack": "webpack build",
+    "build:vite": "vite build"
+  },
+  "devDependencies": {
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}

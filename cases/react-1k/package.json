@@ -9,7 +9,6 @@
     "build:rspack": "rspack build",
     "build:vite": "node ../../node_modules/vite/bin/vite.js build",
     "build:webpack": "cross-env NODE_ENV=production webpack build --mode production",
-    "clean": "rm -rf ./node_modules/.cache && rm -rf ./node_modules/.vite && rm -rf ./node_modules/.farm",
     "start:farm": "farm start",
     "start:rolldown-vite": "node ../../node_modules/rolldown-vite/bin/vite.js -c rolldown-vite.config.mjs",
     "start:rsbuild": "rsbuild dev",
