@@ -138,19 +138,25 @@ If you want to start the project with the specified tool, try:
 ```bash
 pnpm i # install dependencies
 
+# Cd to the case directory
+cd cases/react-5k
+cd cases/react-10k
+
 # Dev server
-pnpm start:farm # Start Farm
 pnpm start:rspack # Start Rspack
 pnpm start:rsbuild # Start Rsbuild
-pnpm start:vite # Start Vite
 pnpm start:webpack # Start webpack
+pnpm start:vite # Start Vite
+pnpm start:rolldown-vite # Start Vite (Rolldown)
+pnpm start:farm # Start Farm
 
 # Build
-pnpm build:farm # Build Farm
 pnpm build:rspack # Build Rspack
 pnpm build:rsbuild # Build Rsbuild
-pnpm build:vite # Build Vite
 pnpm build:webpack # Build webpack
+pnpm build:vite # Build Vite
+pnpm build:rolldown-vite # Build Vite (Rolldown)
+pnpm build:farm # Build Farm
 ```
 
 ### Options
