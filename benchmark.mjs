@@ -249,7 +249,7 @@ toolNames.forEach((name) => {
     case 'vite':
       buildTools.push(
         new BuildTool({
-          name: 'Vite (SWC) ' + require('vite/package.json').version,
+          name: 'Vite (Rollup + SWC) ' + require('vite/package.json').version,
           port: 5173,
           startScript: 'start:vite',
           startedRegex: /ready in (\d+) (s|ms)/,
@@ -262,7 +262,8 @@ toolNames.forEach((name) => {
       buildTools.push(
         new BuildTool({
           name:
-            'Vite (Rolldown) ' + require('rolldown-vite/package.json').version,
+            'Vite (Rolldown + Oxc) ' +
+            require('rolldown-vite/package.json').version,
           port: 5173,
           startScript: 'start:rolldown-vite',
           startedRegex: /ready in (\d+) (s|ms)/,
