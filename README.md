@@ -27,7 +27,7 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 
 ### react-1k
 
-1000 React components + 1500 modules in node_modules. (Most components are dynamic imported)
+A React app with 1,000 components and 1,500 modules from node_modules, using dynamic imports to simulate SPA.
 
 ```bash
 CASE=react-1k pnpm benchmark
@@ -59,7 +59,7 @@ CASE=react-1k pnpm benchmark
 
 ### react-5k
 
-5000 React components + 5000 modules in node_modules. (Most components are dynamic imported)
+A React app with 5,000 components and 5,000 modules from node_modules, using dynamic imports to simulate SPA.
 
 ```bash
 CASE=react-5k pnpm benchmark
@@ -91,7 +91,7 @@ CASE=react-5k pnpm benchmark
 
 ### react-10k
 
-10000 React components + 10000 modules in node_modules. (Most components are dynamic imported)
+A React app with 10,000 components and 10,000 modules from node_modules, using dynamic imports to simulate SPA.
 
 ```bash
 CASE=react-10k pnpm benchmark
@@ -120,6 +120,32 @@ CASE=react-10k pnpm benchmark
 | Vite (Rolldown) 7.0.2   | 5676.8kB   | 1547.2kB     |
 | Vite (SWC) 7.0.0        | 5369.2kB   | 1409.3kB     |
 | webpack (SWC) 5.99.9    | 5993.4kB   | 1464.6kB     |
+
+### rome
+
+A complex TypeScript Node.js project that includes multiple packages from the [rome](https://github.com/rome/tools) toolchain.
+
+```bash
+CASE=rome pnpm benchmark
+```
+
+#### Build performance
+
+| Name                   | Prod build |
+| ---------------------- | ---------- |
+| Rspack CLI 1.4.6       | 742ms      |
+| Rsbuild 1.4.6          | 787ms      |
+| Rolldown 1.0.0-beta.25 | 272ms      |
+| webpack (SWC) 5.100.0  | 5548ms     |
+
+#### Bundle size
+
+| Name                   | Total size | Gzipped size |
+| ---------------------- | ---------- | ------------ |
+| Rspack CLI 1.4.6       | 1009.3kB   | 270.9kB      |
+| Rsbuild 1.4.6          | 1009.3kB   | 270.9kB      |
+| Rolldown 1.0.0-beta.25 | 1016.4kB   | 273.6kB      |
+| webpack (SWC) 5.100.0  | 1023.3kB   | 272.0kB      |
 
 ## Run locally
 
