@@ -1,11 +1,12 @@
 // @ts-check
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import path from 'node:path';
+import { target } from '../../shared.mjs';
 
 export default {
   entry: './src/entry.ts',
   devtool: false,
-  target: ['node', 'es2022'],
+  target: ['node', target],
   resolve: {
     extensions: ['.ts', '.js'],
     plugins: [
@@ -14,8 +15,12 @@ export default {
       }),
     ],
   },
-  ignoreWarnings: [/ESModulesLinkingWarning/],
   module: {
+    parser: {
+      javascript: {
+        exportsPresence: false,
+      },
+    },
     rules: [
       {
         test: /\.ts$/,
@@ -23,7 +28,7 @@ export default {
         loader: 'swc-loader',
         options: {
           jsc: {
-            target: 'es2022',
+            target,
             parser: {
               syntax: 'typescript',
             },
