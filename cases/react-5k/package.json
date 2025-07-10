@@ -1,0 +1,29 @@
+{
+  "name": "react-5k",
+  "version": "0.0.0",
+  "scripts": {
+    "build:farm": "farm build",
+    "build:rolldown": "cross-env NODE_ENV=production rolldown -c ./rolldown.config.mjs",
+    "build:rolldown-vite": "node ../../node_modules/rolldown-vite/bin/vite.js build -c rolldown-vite.config.mjs",
+    "build:rsbuild": "rsbuild build",
+    "build:rspack": "rspack build",
+    "build:vite": "node ../../node_modules/vite/bin/vite.js build",
+    "build:webpack": "cross-env NODE_ENV=production webpack build --mode production",
+    "clean": "rm -rf ./node_modules/.cache && rm -rf ./node_modules/.vite && rm -rf ./node_modules/.farm",
+    "start:farm": "farm start",
+    "start:rolldown-vite": "node ../../node_modules/rolldown-vite/bin/vite.js -c rolldown-vite.config.mjs",
+    "start:rsbuild": "rsbuild dev",
+    "start:rsbuild:lazy": "cross-env LAZY=true rsbuild dev",
+    "start:rspack": "rspack serve",
+    "start:rspack:lazy": "cross-env LAZY=true rspack serve",
+    "start:vite": "node ../../node_modules/vite/bin/vite.js",
+    "start:webpack": "cross-env NODE_ENV=development webpack serve --mode development"
+  },
+  "dependencies": {
+    "@iconify-icons/material-symbols": "^1.2.58",
+    "@iconify/react": "^6.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.3"
+  }
+}

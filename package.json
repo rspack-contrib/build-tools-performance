@@ -1,15 +1,8 @@
 {
   "name": "performance-compare",
   "version": "0.0.0",
-  "packageManager": "pnpm@10.12.4",
-  "dependencies": {
-    "@iconify-icons/material-symbols": "^1.2.58",
-    "@iconify/react": "^6.0.0",
-    "puppeteer": "^24.12.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.3",
-    "tree-kill": "^1.2.2"
+  "scripts": {
+    "benchmark": "node benchmark.mjs"
   },
   "devDependencies": {
     "@farmfe/cli": "^1.0.5",
@@ -38,37 +31,21 @@
     "markdown-table": "^3.0.4",
     "picocolors": "^1.1.1",
     "prettier": "^3.6.2",
+    "puppeteer": "^24.12.0",
     "react-refresh": "^0.17.0",
     "rolldown": "^1.0.0-beta.24",
     "rolldown-vite": "^7.0.6",
     "rslog": "^1.2.9",
     "swc-loader": "^0.2.6",
     "terser-webpack-plugin": "^5.3.14",
+    "tree-kill": "^1.2.2",
     "typescript": "^5.8.3",
     "vite": "^7.0.3",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"
   },
-  "scripts": {
-    "benchmark": "node benchmark.mjs",
-    "clean": "rm -rf ./node_modules/.cache && rm -rf ./node_modules/.vite && rm -rf ./node_modules/.farm",
-    "start:farm": "farm start",
-    "build:farm": "farm build",
-    "start:vite": "node ./node_modules/vite/bin/vite.js",
-    "build:vite": "node ./node_modules/vite/bin/vite.js build",
-    "start:rolldown-vite": "node ./node_modules/rolldown-vite/bin/vite.js -c rolldown-vite.config.mjs",
-    "build:rolldown-vite": "node ./node_modules/rolldown-vite/bin/vite.js build -c rolldown-vite.config.mjs",
-    "start:webpack": "cross-env NODE_ENV=development webpack serve --mode development",
-    "build:webpack": "cross-env NODE_ENV=production webpack build --mode production",
-    "start:rspack": "cross-env NODE_ENV=development rspack serve",
-    "start:rspack:lazy": "cross-env NODE_ENV=development LAZY=true rspack serve",
-    "build:rspack": "cross-env NODE_ENV=production rspack build",
-    "start:rsbuild": "rsbuild dev",
-    "start:rsbuild:lazy": "cross-env LAZY=true rsbuild dev",
-    "build:rsbuild": "rsbuild build",
-    "build:rolldown": "cross-env NODE_ENV=production rolldown -c ./rolldown.config.mjs"
-  },
+  "packageManager": "pnpm@10.12.4",
   "engines": {
     "node": ">=22.17.0"
   }

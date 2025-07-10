@@ -1,16 +1,10 @@
 // @ts-check
-import path from 'node:path';
 import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
-import { caseName, targetBrowser } from './shared.mjs';
+import { targetBrowser } from '../../shared.mjs';
 
 export default defineConfig({
   plugins: [pluginReact()],
-  source: {
-    entry: {
-      index: path.join(import.meta.dirname, 'src', caseName, 'index.jsx'),
-    },
-  },
   dev: {
     lazyCompilation: Boolean(process.env.LAZY),
   },

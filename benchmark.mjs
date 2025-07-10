@@ -25,6 +25,9 @@ async function coolDown() {
 
 const require = createRequire(import.meta.url);
 const __dirname = import.meta.dirname;
+const caseDir = path.join(__dirname, 'cases', caseName);
+const srcDir = path.join(caseDir, 'src');
+const distDir = path.join(caseDir, 'dist');
 
 const startConsole = "console.log('Benchmark Start Time', Date.now());";
 const startConsoleRegex = /Benchmark Start Time (\d+)/;
@@ -80,14 +83,17 @@ class BuildTool {
       `Running start command: ${color.bold(color.yellow(this.startScript))}`,
     );
     return new Promise((resolve, reject) => {
-      const child = spawn(`node --run ${this.startScript}`, {
-        stdio: ['pipe'],
-        shell: true,
-        env: {
-          ...process.env,
-          NO_COLOR: '1',
+      const child = spawn(
+        `cd cases/${caseName} && node --run ${this.startScript}`,
+        {
+          stdio: ['pipe'],
+          shell: true,
+          env: {
+            ...process.env,
+            NO_COLOR: '1',
+          },
         },
-      });
+      );
       this.child = child;
       let startTime = null;
 
@@ -148,14 +154,17 @@ class BuildTool {
     logger.start(
       `Running build command: ${color.bold(color.yellow(this.buildScript))}`,
     );
-    const child = spawn(`node --run ${this.buildScript}`, {
-      stdio: ['pipe'],
-      shell: true,
-      env: {
-        ...process.env,
-        NO_COLOR: '1',
+    const child = spawn(
+      `cd cases/${caseName} && node --run ${this.buildScript}`,
+      {
+        stdio: ['pipe'],
+        shell: true,
+        env: {
+          ...process.env,
+          NO_COLOR: '1',
+        },
       },
-    });
+    );
     const startTime = Date.now();
     return new Promise((resolve, reject) => {
       child.on('exit', (code) => {
@@ -276,7 +285,7 @@ toolNames.forEach((name) => {
       buildTools.push(
         new BuildTool({
           name: 'webpack (SWC) ' + require('webpack/package.json').version,
-          port: 8082,
+          port: 8080,
           startScript: 'start:webpack',
           startedRegex: /compiled .+ in (.+) (s|ms)/,
           buildScript: 'build:webpack',
@@ -416,7 +425,7 @@ async function runBenchmark() {
     });
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const rootFilePath = path.join(__dirname, 'src', caseName, 'f0.jsx');
+    const rootFilePath = path.join(srcDir, 'f0.jsx');
     const originalRootFileContent = readFileSync(rootFilePath, 'utf-8');
 
     appendFile(
@@ -432,12 +441,7 @@ async function runBenchmark() {
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const leafFilePath = path.join(
-      __dirname,
-      'src',
-      caseName,
-      'd0/d0/d0/f0.jsx',
-    );
+    const leafFilePath = path.join(srcDir, 'd0/d0/d0/f0.jsx');
     const originalLeafFileContent = readFileSync(leafFilePath, 'utf-8');
     appendFile(
       leafFilePath,
@@ -462,7 +466,6 @@ async function runBenchmark() {
     logger.success(color.dim(buildTool.name) + ' dev server closed');
 
     // Clean up dist dir
-    const distDir = path.join(__dirname, 'dist');
     await fse.remove(distDir);
 
     const buildTime = await buildTool.build();

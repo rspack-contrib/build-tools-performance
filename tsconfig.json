@@ -17,6 +17,6 @@
     "noEmit": true,
     "incremental": true
   },
-  "include": ["src"],
+  "include": ["cases"],
   "exclude": ["node_modules"]
 }
