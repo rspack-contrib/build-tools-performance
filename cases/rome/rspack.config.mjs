@@ -5,6 +5,7 @@ import { target } from '../../shared/constants.mjs';
 
 export default defineConfig({
   extends: '../../shared/rspack.config.mjs',
+  target: ['node', target],
   entry: './src/entry.ts',
   resolve: {
     extensions: ['.ts', '.js'],

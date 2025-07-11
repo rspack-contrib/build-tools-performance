@@ -5,6 +5,7 @@ import { target } from '../../shared/constants.mjs';
 
 export default {
   extends: '../../shared/webpack.config.mjs',
+  target: ['node', target],
   entry: './src/entry.ts',
   resolve: {
     plugins: [
