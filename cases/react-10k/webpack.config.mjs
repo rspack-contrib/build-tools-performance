@@ -2,17 +2,11 @@
 import path from 'node:path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import { target, isProd } from '../../shared.mjs';
+import { target, isProd } from '../../shared/constants.mjs';
 
 export default {
-  target: ['web', target],
-  devtool: isProd ? false : undefined,
+  extends: '../../shared/webpack.config.mjs',
   entry: path.join(import.meta.dirname, 'src', 'index.jsx'),
-  resolve: {
-    extensions: ['...', '.tsx', '.ts', '.jsx'],
-  },
   module: {
     rules: [
       {
@@ -44,20 +38,4 @@ export default {
     new HtmlWebpackPlugin({ template: 'index-rspack.html' }),
     isProd ? null : new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),
-  optimization: {
-    minimize: isProd,
-    minimizer: isProd
-      ? [
-          new CssMinimizerPlugin({
-            minify: CssMinimizerPlugin.swcMinify,
-          }),
-          new TerserPlugin({
-            minify: TerserPlugin.swcMinify,
-          }),
-        ]
-      : [],
-  },
-  experiments: {
-    css: true,
-  },
 };

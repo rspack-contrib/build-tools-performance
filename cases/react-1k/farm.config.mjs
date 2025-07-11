@@ -1,7 +1,7 @@
 // @ts-check
 import path from 'node:path';
 import { defineConfig } from '@farmfe/core';
-import { target, isProd } from '../../shared.mjs';
+import { target, isProd } from '../../shared/constants.mjs';
 
 export default defineConfig({
   compilation: {

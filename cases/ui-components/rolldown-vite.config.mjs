@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from 'rolldown-vite';
-import { target } from '../../shared.mjs';
+import { target } from '../../shared/constants.mjs';
 
 export default defineConfig({
   build: {

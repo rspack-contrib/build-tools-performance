@@ -11,7 +11,7 @@ import color from 'picocolors';
 import glob from 'fast-glob';
 import { gzipSizeSync } from 'gzip-size';
 import { markdownTable } from 'markdown-table';
-import { caseName } from './shared.mjs';
+import { caseName } from './shared/constants.mjs';
 
 process.env.CASE = caseName;
 

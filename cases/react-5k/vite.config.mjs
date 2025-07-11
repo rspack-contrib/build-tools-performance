@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import { target } from '../../shared.mjs';
+import { target } from '../../shared/constants.mjs';
 
 export default defineConfig({
   build: {

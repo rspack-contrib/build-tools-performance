@@ -1,14 +1,12 @@
 // @ts-check
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import path from 'node:path';
-import { target } from '../../shared.mjs';
+import { target } from '../../shared/constants.mjs';
 
 export default {
+  extends: '../../shared/webpack.node.config.mjs',
   entry: './src/entry.ts',
-  devtool: false,
-  target: ['node', target],
   resolve: {
-    extensions: ['.ts', '.js'],
     plugins: [
       new TsconfigPathsPlugin({
         configFile: path.resolve(import.meta.dirname, 'src/tsconfig.json'),

@@ -1,17 +1,9 @@
 // @ts-check
 import { defineConfig } from 'rolldown';
 import path from 'node:path';
-import { target, isProd } from '../../shared.mjs';
+import config from '../../shared/rolldown.config.mjs';
 
 export default defineConfig({
+  ...config,
   input: path.join(import.meta.dirname, 'src', 'index.jsx'),
-  define: {
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-  },
-  output: {
-    minify: isProd,
-  },
-  transform: {
-    target,
-  },
 });
