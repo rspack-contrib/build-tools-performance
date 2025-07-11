@@ -23,7 +23,7 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 
 ## Bench cases
 
-> Data from GitHub Actions: https://github.com/rspack-contrib/build-tools-performance/actions/runs/16188557969 (2025-07-10)
+> Data from GitHub Actions: https://github.com/rspack-contrib/build-tools-performance/actions/runs/16198040814 (2025-07-10)
 
 ### react-1k
 
@@ -35,27 +35,27 @@ CASE=react-1k pnpm benchmark
 
 #### Build performance
 
-| Name                    | Dev cold start | Server start | Page load | Root HMR | Leaf HMR | Prod build |
-| ----------------------- | -------------- | ------------ | --------- | -------- | -------- | ---------- |
-| Rspack CLI 1.4.0        | 769ms          | 552ms        | 217ms     | 121ms    | 136ms    | 675ms      |
-| Rspack CLI (Lazy) 1.4.0 | 351ms          | 309ms        | 42ms      | 112ms    | 108ms    | 702ms      |
-| Rsbuild 1.4.0           | 667ms          | 483ms        | 184ms     | 116ms    | 112ms    | 577ms      |
-| Rsbuild (Lazy) 1.4.0    | 572ms          | 397ms        | 175ms     | 107ms    | 115ms    | 598ms      |
-| Vite (Rolldown) 7.0.2   | 3294ms         | 103ms        | 3191ms    | 172ms    | 148ms    | 528ms      |
-| Vite (SWC) 7.0.0        | 4008ms         | 102ms        | 3905ms    | 166ms    | 139ms    | 1936ms     |
-| webpack (SWC) 5.99.9    | 3334ms         | 2688ms       | 645ms     | 347ms    | 264ms    | 2910ms     |
+| Name                        | Dev cold start           | Root HMR | Leaf HMR | Prod build |
+| --------------------------- | ------------------------ | -------- | -------- | ---------- |
+| Rspack CLI 1.4.6            | 1662ms (1253ms + 408ms)  | 193ms    | 163ms    | 1255ms     |
+| Rspack CLI (Lazy) 1.4.6     | 792ms (677ms + 114ms)    | 203ms    | 146ms    | 1387ms     |
+| Rsbuild 1.4.6               | 1267ms (932ms + 334ms)   | 154ms    | 123ms    | 1156ms     |
+| Rsbuild (Lazy) 1.4.6        | 1312ms (942ms + 369ms)   | 203ms    | 124ms    | 1061ms     |
+| Vite (Rolldown + Oxc) 7.0.7 | 6604ms (200ms + 6403ms)  | 173ms    | 67ms     | 738ms      |
+| Vite (Rollup + SWC) 7.0.4   | 7309ms (254ms + 7055ms)  | 146ms    | 141ms    | 4130ms     |
+| webpack (SWC) 5.100.0       | 6323ms (5205ms + 1117ms) | 681ms    | 419ms    | 6208ms     |
 
 #### Bundle size
 
-| Name                    | Total size | Gzipped size |
-| ----------------------- | ---------- | ------------ |
-| Rspack CLI 1.4.0        | 839.1kB    | 218.5kB      |
-| Rspack CLI (Lazy) 1.4.0 | 839.1kB    | 218.5kB      |
-| Rsbuild 1.4.0           | 870.8kB    | 212.4kB      |
-| Rsbuild (Lazy) 1.4.0    | 870.8kB    | 212.4kB      |
-| Vite (Rolldown) 7.0.2   | 861.0kB    | 236.7kB      |
-| Vite (SWC) 7.0.0        | 801.4kB    | 216.4kB      |
-| webpack (SWC) 5.99.9    | 882.1kB    | 237.3kB      |
+| Name                        | Total size | Gzipped size |
+| --------------------------- | ---------- | ------------ |
+| Rspack CLI 1.4.6            | 839.0kB    | 218.6kB      |
+| Rspack CLI (Lazy) 1.4.6     | 839.0kB    | 218.6kB      |
+| Rsbuild 1.4.6               | 870.7kB    | 212.4kB      |
+| Rsbuild (Lazy) 1.4.6        | 870.7kB    | 212.4kB      |
+| Vite (Rolldown + Oxc) 7.0.7 | 839.8kB    | 230.8kB      |
+| Vite (Rollup + SWC) 7.0.4   | 801.1kB    | 216.3kB      |
+| webpack (SWC) 5.100.0       | 883.4kB    | 238.1kB      |
 
 ### react-5k
 
@@ -67,27 +67,27 @@ CASE=react-5k pnpm benchmark
 
 #### Build performance
 
-| Name                    | Dev cold start | Server start | Page load | Root HMR | Leaf HMR | Prod build |
-| ----------------------- | -------------- | ------------ | --------- | -------- | -------- | ---------- |
-| Rspack CLI 1.4.0        | 2143ms         | 1841ms       | 302ms     | 285ms    | 178ms    | 2039ms     |
-| Rspack CLI (Lazy) 1.4.0 | 744ms          | 658ms        | 85ms      | 77ms     | 75ms     | 2216ms     |
-| Rsbuild 1.4.0           | 1925ms         | 1651ms       | 273ms     | 225ms    | 199ms    | 1908ms     |
-| Rsbuild (Lazy) 1.4.0    | 731ms          | 522ms        | 208ms     | 87ms     | 72ms     | 1866ms     |
-| Vite (Rolldown) 7.0.2   | 4739ms         | 307ms        | 4432ms    | 122ms    | 102ms    | 1799ms     |
-| Vite (SWC) 7.0.0        | 5257ms         | 220ms        | 5037ms    | 139ms    | 110ms    | 7205ms     |
-| webpack (SWC) 5.99.9    | 10072ms        | 9101ms       | 971ms     | 1825ms   | 1179ms   | 8634ms     |
+| Name                        | Dev cold start          | Root HMR | Leaf HMR | Prod build |
+| --------------------------- | ----------------------- | -------- | -------- | ---------- |
+| Rspack CLI 1.4.6            | 1339ms (1109ms + 229ms) | 196ms    | 140ms    | 1185ms     |
+| Rspack CLI (Lazy) 1.4.6     | 318ms (279ms + 39ms)    | 101ms    | 87ms     | 1177ms     |
+| Rsbuild 1.4.6               | 1278ms (1114ms + 164ms) | 196ms    | 162ms    | 1246ms     |
+| Rsbuild (Lazy) 1.4.6        | 431ms (311ms + 120ms)   | 99ms     | 84ms     | 1243ms     |
+| Vite (Rolldown + Oxc) 7.0.7 | 2327ms (104ms + 2223ms) | 122ms    | 100ms    | 746ms      |
+| Vite (Rollup + SWC) 7.0.4   | 2723ms (107ms + 2616ms) | 125ms    | 101ms    | 4566ms     |
+| webpack (SWC) 5.100.0       | 7285ms (6635ms + 650ms) | 779ms    | 657ms    | 8858ms     |
 
 #### Bundle size
 
-| Name                    | Total size | Gzipped size |
-| ----------------------- | ---------- | ------------ |
-| Rspack CLI 1.4.0        | 2846.6kB   | 677.3kB      |
-| Rspack CLI (Lazy) 1.4.0 | 2846.6kB   | 677.3kB      |
-| Rsbuild 1.4.0           | 2877.6kB   | 678.7kB      |
-| Rsbuild (Lazy) 1.4.0    | 2877.6kB   | 678.7kB      |
-| Vite (Rolldown) 7.0.2   | 2719.2kB   | 752.5kB      |
-| Vite (SWC) 7.0.0        | 2579.4kB   | 688.7kB      |
-| webpack (SWC) 5.99.9    | 2871.1kB   | 711.4kB      |
+| Name                        | Total size | Gzipped size |
+| --------------------------- | ---------- | ------------ |
+| Rspack CLI 1.4.6            | 2846.4kB   | 677.2kB      |
+| Rspack CLI (Lazy) 1.4.6     | 2846.4kB   | 677.2kB      |
+| Rsbuild 1.4.6               | 2877.4kB   | 678.5kB      |
+| Rsbuild (Lazy) 1.4.6        | 2877.4kB   | 678.5kB      |
+| Vite (Rolldown + Oxc) 7.0.7 | 2718.1kB   | 751.9kB      |
+| Vite (Rollup + SWC) 7.0.4   | 2579.1kB   | 688.5kB      |
+| webpack (SWC) 5.100.0       | 2872.1kB   | 710.2kB      |
 
 ### react-10k
 
@@ -99,27 +99,27 @@ CASE=react-10k pnpm benchmark
 
 #### Build performance
 
-| Name                    | Dev cold start | Server start | Page load | Root HMR | Leaf HMR | Prod build |
-| ----------------------- | -------------- | ------------ | --------- | -------- | -------- | ---------- |
-| Rspack CLI 1.4.0        | 2906ms         | 2519ms       | 387ms     | 356ms    | 271ms    | 2861ms     |
-| Rspack CLI (Lazy) 1.4.0 | 505ms          | 448ms        | 57ms      | 123ms    | 105ms    | 2959ms     |
-| Rsbuild 1.4.0           | 3237ms         | 2873ms       | 364ms     | 402ms    | 297ms    | 3119ms     |
-| Rsbuild (Lazy) 1.4.0    | 797ms          | 597ms        | 199ms     | 114ms    | 106ms    | 3182ms     |
-| Vite (Rolldown) 7.0.2   | 4654ms         | 154ms        | 4500ms    | 175ms    | 141ms    | 2468ms     |
-| Vite (SWC) 7.0.0        | 5348ms         | 160ms        | 5187ms    | 156ms    | 135ms    | 9776ms     |
-| webpack (SWC) 5.99.9    | 14324ms        | 13262ms      | 1062ms    | 3513ms   | 2521ms   | 11724ms    |
+| Name                        | Dev cold start             | Root HMR | Leaf HMR | Prod build |
+| --------------------------- | -------------------------- | -------- | -------- | ---------- |
+| Rspack CLI 1.4.6            | 3709ms (3270ms + 439ms)    | 440ms    | 295ms    | 3198ms     |
+| Rspack CLI (Lazy) 1.4.6     | 584ms (511ms + 72ms)       | 104ms    | 107ms    | 2884ms     |
+| Rsbuild 1.4.6               | 2872ms (2569ms + 303ms)    | 356ms    | 274ms    | 2629ms     |
+| Rsbuild (Lazy) 1.4.6        | 798ms (572ms + 226ms)      | 97ms     | 95ms     | 3095ms     |
+| Vite (Rolldown + Oxc) 7.0.7 | 5255ms (186ms + 5069ms)    | 171ms    | 125ms    | 1920ms     |
+| Vite (Rollup + SWC) 7.0.4   | 5836ms (205ms + 5630ms)    | 174ms    | 126ms    | 10125ms    |
+| webpack (SWC) 5.100.0       | 14110ms (13101ms + 1009ms) | 3770ms   | 2774ms   | 17626ms    |
 
 #### Bundle size
 
-| Name                    | Total size | Gzipped size |
-| ----------------------- | ---------- | ------------ |
-| Rspack CLI 1.4.0        | 5996.5kB   | 1367.1kB     |
-| Rspack CLI (Lazy) 1.4.0 | 5996.5kB   | 1367.1kB     |
-| Rsbuild 1.4.0           | 6054.8kB   | 1367.3kB     |
-| Rsbuild (Lazy) 1.4.0    | 6054.8kB   | 1367.3kB     |
-| Vite (Rolldown) 7.0.2   | 5676.8kB   | 1547.2kB     |
-| Vite (SWC) 7.0.0        | 5369.2kB   | 1409.3kB     |
-| webpack (SWC) 5.99.9    | 5993.4kB   | 1464.6kB     |
+| Name                        | Total size | Gzipped size |
+| --------------------------- | ---------- | ------------ |
+| Rspack CLI 1.4.6            | 5996.4kB   | 1367.2kB     |
+| Rspack CLI (Lazy) 1.4.6     | 5996.4kB   | 1367.2kB     |
+| Rsbuild 1.4.6               | 6054.6kB   | 1367.4kB     |
+| Rsbuild (Lazy) 1.4.6        | 6054.6kB   | 1367.4kB     |
+| Vite (Rolldown + Oxc) 7.0.7 | 5675.8kB   | 1546.6kB     |
+| Vite (Rollup + SWC) 7.0.4   | 5369.0kB   | 1409.2kB     |
+| webpack (SWC) 5.100.0       | 5994.5kB   | 1464.3kB     |
 
 ### ui-components
 
@@ -163,10 +163,10 @@ CASE=rome pnpm benchmark
 
 | Name                   | Prod build |
 | ---------------------- | ---------- |
-| Rspack CLI 1.4.6       | 742ms      |
-| Rsbuild 1.4.6          | 787ms      |
-| Rolldown 1.0.0-beta.25 | 272ms      |
-| webpack (SWC) 5.100.0  | 5548ms     |
+| Rspack CLI 1.4.6       | 1535ms     |
+| Rsbuild 1.4.6          | 1293ms     |
+| Rolldown 1.0.0-beta.25 | 456ms      |
+| webpack (SWC) 5.100.0  | 13517ms    |
 
 #### Bundle size
 
