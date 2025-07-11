@@ -1,7 +1,9 @@
 // @ts-check
-import { isProd, target } from './constants.mjs';
+import { isProd, target, targetBrowser } from './constants.mjs';
 import TerserPlugin from 'terser-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import { browserslistToTargets } from 'lightningcss';
+import browserslist from 'browserslist';
 
 export default {
   devtool: isProd ? false : undefined,
@@ -13,7 +15,11 @@ export default {
     minimizer: isProd
       ? [
           new CssMinimizerPlugin({
-            minify: CssMinimizerPlugin.swcMinify,
+            minify: CssMinimizerPlugin.lightningCssMinify,
+            minimizerOptions: {
+              // @ts-ignore
+              targets: browserslistToTargets(browserslist(targetBrowser)),
+            },
           }),
           new TerserPlugin({
             minify: TerserPlugin.swcMinify,
