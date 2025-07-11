@@ -4,8 +4,7 @@ import path from 'node:path';
 import { target } from '../../shared/constants.mjs';
 
 export default {
-  extends: '../../shared/webpack.config.mjs',
-  target: ['node', target],
+  extends: '../../shared/webpack.node.config.mjs',
   entry: './src/entry.ts',
   resolve: {
     plugins: [
