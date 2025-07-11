@@ -543,10 +543,54 @@ async function getFileSizes(targetDir) {
   };
 }
 
-// average results
+// Add ranking emojis to performance metrics (smaller values are better)
+function addRankingEmojis(toolNames, results, metricKey) {
+  const values = toolNames.map((name) => ({
+    name,
+    value: parseFloat(results[name][metricKey].replace('ms', '')),
+    originalValue: results[name][metricKey],
+  }));
+
+  // Sort by value (smaller is better)
+  values.sort((a, b) => a.value - b.value);
+
+  const emojis = ['🥇', '🥈', '🥉'];
+  const rankedValues = {};
+
+  values.forEach((item, rank) => {
+    const emoji = rank < 3 ? emojis[rank] : '';
+    rankedValues[item.name] = item.originalValue + emoji;
+  });
+
+  return rankedValues;
+}
+
+// Add ranking emojis to bundle size metrics (smaller values are better)
+function addSizeRankingEmojis(toolNames, results, metricKey) {
+  const values = toolNames.map((name) => ({
+    name,
+    value: parseFloat(results[name][metricKey].replace('kB', '')),
+    originalValue: results[name][metricKey],
+  }));
+
+  // Sort by value (smaller is better)
+  values.sort((a, b) => a.value - b.value);
+
+  const emojis = ['🥇', '🥈', '🥉'];
+  const rankedValues = {};
+
+  values.forEach((item, rank) => {
+    const emoji = rank < 3 ? emojis[rank] : '';
+    rankedValues[item.name] = item.originalValue + emoji;
+  });
+
+  return rankedValues;
+}
+
+// Calculate average results
 const averageResults = {};
 
-// drop the warmup results
+// Drop the warmup results
 perfResults = perfResults.slice(warmupTimes);
 
 for (const result of perfResults) {
@@ -576,33 +620,78 @@ logger.success('Benchmark finished!\n');
 
 let markdownLogs = '';
 
+// Use actual tool names from buildTools (with version numbers)
+const actualToolNames = buildTools.map(({ name }) => name);
+
 markdownLogs += '#### Build performance\n\n';
 
 if (runDev) {
+  // Add ranking emojis for each metric
+  const devColdStartRanked = addRankingEmojis(
+    actualToolNames,
+    averageResults,
+    'devColdStart',
+  );
+  const rootHmrRanked = addRankingEmojis(
+    actualToolNames,
+    averageResults,
+    'rootHmr',
+  );
+  const leafHmrRanked = addRankingEmojis(
+    actualToolNames,
+    averageResults,
+    'leafHmr',
+  );
+  const prodBuildRanked = addRankingEmojis(
+    actualToolNames,
+    averageResults,
+    'prodBuild',
+  );
+
   markdownLogs += markdownTable([
     ['Name', 'Dev cold start', 'Root HMR', 'Leaf HMR', 'Prod build'],
-    ...buildTools.map(({ name }) => [
+    ...actualToolNames.map((name) => [
       name,
-      `${averageResults[name].devColdStart} (${averageResults[name].serverStart} + ${averageResults[name].onLoad})`,
-      averageResults[name].rootHmr,
-      averageResults[name].leafHmr,
-      averageResults[name].prodBuild,
+      `${devColdStartRanked[name]} (${averageResults[name].serverStart.replace('ms', '')} + ${averageResults[name].onLoad.replace('ms', '')})`,
+      rootHmrRanked[name],
+      leafHmrRanked[name],
+      prodBuildRanked[name],
     ]),
   ]);
 } else {
+  // Add ranking emojis for prod build only
+  const prodBuildRanked = addRankingEmojis(
+    actualToolNames,
+    averageResults,
+    'prodBuild',
+  );
+
   markdownLogs += markdownTable([
     ['Name', 'Prod build'],
-    ...buildTools.map(({ name }) => [name, averageResults[name].prodBuild]),
+    ...actualToolNames.map((name) => [name, prodBuildRanked[name]]),
   ]);
 }
 
 markdownLogs += '\n\n#### Bundle sizes\n\n';
+
+// Add ranking emojis for bundle sizes
+const totalSizeRanked = addSizeRankingEmojis(
+  actualToolNames,
+  sizeResults,
+  'totalSize',
+);
+const totalGzipSizeRanked = addSizeRankingEmojis(
+  actualToolNames,
+  sizeResults,
+  'totalGzipSize',
+);
+
 markdownLogs += markdownTable([
   ['Name', 'Total size', 'Gzipped size'],
-  ...buildTools.map(({ name }) => [
+  ...actualToolNames.map((name) => [
     name,
-    sizeResults[name].totalSize,
-    sizeResults[name].totalGzipSize,
+    totalSizeRanked[name],
+    totalGzipSizeRanked[name],
   ]),
 ]);
 

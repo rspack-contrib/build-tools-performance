@@ -21,7 +21,7 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 - Minification is enabled in production for all tools.
 - Source map is enabled in development and disabled in production for all tools.
 
-## Bench cases
+## Results
 
 > Data from GitHub Actions: https://github.com/rspack-contrib/build-tools-performance/actions/runs/16198040814 (2025-07-10)
 
