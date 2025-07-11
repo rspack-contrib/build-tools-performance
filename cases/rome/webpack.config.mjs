@@ -1,7 +1,7 @@
 // @ts-check
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import path from 'node:path';
-import { target } from '../../shared.mjs';
+import { target } from '../../shared/constants.mjs';
 
 export default {
   entry: './src/entry.ts',

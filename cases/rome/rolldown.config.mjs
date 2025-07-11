@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'rolldown';
 import path from 'node:path';
-import { target } from '../../shared.mjs';
+import { target } from '../../shared/constants.mjs';
 
 export default defineConfig({
   cwd: import.meta.dirname,

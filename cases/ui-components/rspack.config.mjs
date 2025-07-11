@@ -1,13 +1,9 @@
 // @ts-check
 import { defineConfig } from '@rspack/cli';
-import { target } from '../../shared.mjs';
+import { config } from '../../shared/rspack.config.mjs';
 import { rspack } from '@rspack/core';
 
 export default defineConfig({
-  devtool: false,
-  target: ['web', target],
-  experiments: {
-    css: true,
-  },
+  ...config,
   plugins: [new rspack.HtmlRspackPlugin({ template: 'index-rspack.html' })],
 });

@@ -4,7 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import { target, isProd } from '../../shared.mjs';
+import { target, isProd } from '../../shared/constants.mjs';
 
 export default {
   target: ['web', target],

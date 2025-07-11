@@ -1,5 +1,5 @@
 // @ts-check
-import { target } from '../../shared.mjs';
+import { target } from '../../shared/constants.mjs';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {

@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from '@rsbuild/core';
-import { targetBrowser } from '../../shared.mjs';
+import { targetBrowser } from '../../shared/constants.mjs';
 import path from 'node:path';
 
 export default defineConfig({

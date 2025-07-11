@@ -3,15 +3,12 @@ import path from 'node:path';
 import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
 import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
-import { target, isProd } from '../../shared.mjs';
+import { target, isProd } from '../../shared/constants.mjs';
+import { config } from '../../shared/rspack.config.mjs';
 
 export default defineConfig({
-  target: ['web', target],
-  devtool: isProd ? false : undefined,
+  ...config,
   entry: path.join(import.meta.dirname, 'src', 'index.jsx'),
-  resolve: {
-    extensions: ['...', '.tsx', '.ts', '.jsx'],
-  },
   module: {
     rules: [
       {
@@ -44,9 +41,4 @@ export default defineConfig({
     new rspack.HtmlRspackPlugin({ template: 'index-rspack.html' }),
     !isProd && new ReactRefreshPlugin(),
   ],
-  experiments: {
-    css: true,
-    // lazyCompilation should only be enabled in development mode
-    lazyCompilation: Boolean(process.env.LAZY) && !isProd,
-  },
 });
