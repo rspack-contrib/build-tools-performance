@@ -3,7 +3,7 @@ import { defineConfig } from '@rspack/cli';
 import { isProd, target, targetBrowser } from './constants.mjs';
 import { rspack } from '@rspack/core';
 
-export const config = defineConfig({
+export default defineConfig({
   devtool: isProd ? false : undefined,
   target: ['web', target],
   resolve: {

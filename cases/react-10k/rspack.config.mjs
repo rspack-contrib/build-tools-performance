@@ -3,11 +3,10 @@ import path from 'node:path';
 import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
 import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
-import { config } from '../../shared/rspack.config.mjs';
 import { isProd, target } from '../../shared/constants.mjs';
 
 export default defineConfig({
-  ...config,
+  extends: '../../shared/rspack.config.mjs',
   entry: path.join(import.meta.dirname, 'src', 'index.jsx'),
   module: {
     rules: [

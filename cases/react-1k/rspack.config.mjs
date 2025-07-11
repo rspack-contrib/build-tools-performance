@@ -4,10 +4,9 @@ import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
 import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
 import { target, isProd } from '../../shared/constants.mjs';
-import { config } from '../../shared/rspack.config.mjs';
 
 export default defineConfig({
-  ...config,
+  extends: '../../shared/rspack.config.mjs',
   entry: path.join(import.meta.dirname, 'src', 'index.jsx'),
   module: {
     rules: [

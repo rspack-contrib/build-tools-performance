@@ -1,11 +1,10 @@
 // @ts-check
 import { defineConfig } from '@rspack/cli';
 import path from 'node:path';
-import { config } from '../../shared/rspack.config.mjs';
 import { target } from '../../shared/constants.mjs';
 
 export default defineConfig({
-  ...config,
+  extends: '../../shared/rspack.config.mjs',
   entry: './src/entry.ts',
   resolve: {
     extensions: ['.ts', '.js'],

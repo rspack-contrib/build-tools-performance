@@ -7,9 +7,7 @@ export default defineConfig({
     target,
     rollupOptions: {
       // https://github.com/vitejs/vite/issues/15012
-      onLog() {
-        return;
-      },
+      onLog() {},
     },
   },
 });
