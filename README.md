@@ -133,23 +133,23 @@ CASE=ui-components pnpm benchmark
 
 | Name                        | Prod build |
 | --------------------------- | ---------- |
-| Rspack CLI 1.4.6            | 1129ms     |
-| Rsbuild 1.4.6               | 1181ms     |
-| Vite (Rollup + SWC) 7.0.4   | 5443ms     |
-| Vite (Rolldown + Oxc) 7.0.7 | 636ms      |
-| Rolldown 1.0.0-beta.25      | 528ms      |
-| webpack (SWC) 5.100.0       | 11202ms    |
+| Rspack CLI 1.4.6            | 1640ms     |
+| Rsbuild 1.4.6               | 1536ms     |
+| Vite (Rollup + SWC) 7.0.4   | 6286ms     |
+| Vite (Rolldown + Oxc) 7.0.7 | 672ms      |
+| Rolldown 1.0.0-beta.25      | 567ms      |
+| webpack (SWC) 5.100.0       | 15943ms    |
 
 #### Bundle size
 
 | Name                        | Total size | Gzipped size |
 | --------------------------- | ---------- | ------------ |
-| Rspack CLI 1.4.6            | 1493.9kB   | 406.5kB      |
-| Rsbuild 1.4.6               | 1310.5kB   | 400.8kB      |
-| Vite (Rollup + SWC) 7.0.4   | 1315.4kB   | 412.4kB      |
-| Vite (Rolldown + Oxc) 7.0.7 | 1342.3kB   | 416.9kB      |
-| Rolldown 1.0.0-beta.25      | 1358.2kB   | 417.8kB      |
-| webpack (SWC) 5.100.0       | 1349.6kB   | 407.6kB      |
+| Rspack CLI 1.4.6            | 2210.3kB   | 621.7kB      |
+| Rsbuild 1.4.6               | 2021.9kB   | 615.9kB      |
+| Vite (Rollup + SWC) 7.0.4   | 2037.5kB   | 638.2kB      |
+| Vite (Rolldown + Oxc) 7.0.7 | 2054.4kB   | 636.3kB      |
+| Rolldown 1.0.0-beta.25      | 2071.2kB   | 637.3kB      |
+| webpack (SWC) 5.100.0       | 2072.9kB   | 624.9kB      |
 
 ### rome
 

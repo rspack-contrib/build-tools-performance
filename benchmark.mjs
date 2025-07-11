@@ -262,9 +262,7 @@ toolNames.forEach((name) => {
     case 'rolldown':
       buildTools.push(
         new BuildTool({
-          name:
-            'Rolldown ' +
-            require('rolldown/package.json').version,
+          name: 'Rolldown ' + require('rolldown/package.json').version,
           port: 5173,
           startScript: 'start:rolldown',
           startedRegex: /Finished in (\d+) (s|ms)/,
@@ -461,7 +459,6 @@ async function runDevBenchmark(buildTool, perfResult) {
 
   await coolDown();
   logger.success(color.dim(buildTool.name) + ' dev server closed');
-
 }
 
 async function runBuildBenchmark(buildTool, perfResult) {
@@ -577,41 +574,38 @@ for (const [name, values] of Object.entries(averageResults)) {
 logger.log('');
 logger.success('Benchmark finished!\n');
 
-logger.info('Build performance:\n');
+let markdownLogs = '';
+
+markdownLogs += '#### Build performance\n\n';
 
 if (runDev) {
-  console.log(
-    markdownTable([
-      ['Name', 'Dev cold start', 'Root HMR', 'Leaf HMR', 'Prod build'],
-      ...buildTools.map(({ name }) => [
-        name,
-        `${averageResults[name].devColdStart} (${averageResults[name].serverStart} + ${averageResults[name].onLoad})`,
-        averageResults[name].rootHmr,
-        averageResults[name].leafHmr,
-        averageResults[name].prodBuild,
-      ]),
-    ]),
-  );
-} else {
-  console.log(
-    markdownTable([
-      ['Name', 'Prod build'],
-      ...buildTools.map(({ name }) => [name, averageResults[name].prodBuild]),
-    ]),
-  );
-}
-
-logger.log('');
-logger.info('Bundle sizes:\n');
-console.log(
-  markdownTable([
-    ['Name', 'Total size', 'Gzipped size'],
+  markdownLogs += markdownTable([
+    ['Name', 'Dev cold start', 'Root HMR', 'Leaf HMR', 'Prod build'],
     ...buildTools.map(({ name }) => [
       name,
-      sizeResults[name].totalSize,
-      sizeResults[name].totalGzipSize,
+      `${averageResults[name].devColdStart} (${averageResults[name].serverStart} + ${averageResults[name].onLoad})`,
+      averageResults[name].rootHmr,
+      averageResults[name].leafHmr,
+      averageResults[name].prodBuild,
     ]),
+  ]);
+} else {
+  markdownLogs += markdownTable([
+    ['Name', 'Prod build'],
+    ...buildTools.map(({ name }) => [name, averageResults[name].prodBuild]),
+  ]);
+}
+
+markdownLogs += '\n\n#### Bundle sizes\n\n';
+markdownLogs += markdownTable([
+  ['Name', 'Total size', 'Gzipped size'],
+  ...buildTools.map(({ name }) => [
+    name,
+    sizeResults[name].totalSize,
+    sizeResults[name].totalGzipSize,
   ]),
-);
+]);
+
+console.log(markdownLogs);
 
 process.exit(0);
