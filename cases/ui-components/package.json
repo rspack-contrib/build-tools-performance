@@ -2,12 +2,13 @@
   "name": "ui-libraries",
   "version": "0.0.0",
   "scripts": {
-    "build:rolldown": "rolldown build --config rolldown.config.mjs",
+    "build:rolldown": "cross-env NODE_ENV=production rolldown build --config rolldown.config.mjs",
     "build:rspack": "rspack build",
     "build:rsbuild": "rsbuild build",
-    "build:webpack": "webpack build",
+    "build:webpack": "cross-env NODE_ENV=production webpack build",
     "build:vite": "node ../../node_modules/vite/bin/vite.js build",
-    "build:rolldown-vite": "node ../../node_modules/rolldown-vite/bin/vite.js build -c rolldown-vite.config.mjs"
+    "build:rolldown-vite": "node ../../node_modules/rolldown-vite/bin/vite.js build -c rolldown-vite.config.mjs",
+    "build:esbuild": "cross-env NODE_ENV=production node esbuild.mjs"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.22.0",

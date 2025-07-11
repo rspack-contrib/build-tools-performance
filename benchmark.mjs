@@ -297,6 +297,18 @@ toolNames.forEach((name) => {
         }),
       );
       break;
+    case 'esbuild':
+      buildTools.push(
+        new BuildTool({
+          name: 'esbuild ' + require('esbuild/package.json').version,
+          port: 8080,
+          startScript: 'start:esbuild',
+          startedRegex: /esbuild built in (\d+) ms/,
+          buildScript: 'build:esbuild',
+          binFilePath: 'esbuild/bin/esbuild',
+        }),
+      );
+      break;
     case 'farm':
       buildTools.push(
         new BuildTool({
