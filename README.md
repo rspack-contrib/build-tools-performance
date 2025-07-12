@@ -35,27 +35,27 @@ CASE=react-1k pnpm benchmark
 
 #### Build performance
 
-| Name                        | Dev cold start        | Root HMR | Leaf HMR | Prod build |
-| --------------------------- | --------------------- | -------- | -------- | ---------- |
-| Rspack CLI 1.4.6            | 1450ms🥉 (1207 + 243) | 222ms    | 149ms    | 1285ms🥈   |
-| Rspack CLI (Lazy) 1.4.6     | 401ms🥇 (346 + 55)    | 90ms🥇   | 92ms🥈   | 1353ms🥉   |
-| Rsbuild 1.4.6               | 1479ms (1251 + 228)   | 206ms    | 156ms    | 1383ms     |
-| Rsbuild (Lazy) 1.4.6        | 506ms🥈 (369 + 137)   | 100ms🥈  | 66ms🥇   | 1386ms     |
-| Vite (Rolldown + Oxc) 7.0.7 | 2664ms (120 + 2543)   | 134ms🥉  | 109ms    | 842ms🥇    |
-| Vite (Rollup + SWC) 7.0.4   | 2778ms (116 + 2661)   | 134ms    | 106ms🥉  | 4709ms     |
-| webpack (SWC) 5.100.0       | 7461ms (6839 + 622)   | 763ms    | 730ms    | 8901ms     |
+| Name                        | Dev cold start      | Root HMR | Leaf HMR | Prod build |
+| --------------------------- | ------------------- | -------- | -------- | ---------- |
+| Rspack CLI 1.4.6            | 715ms (517 + 198)   | 132ms    | 128ms    | 592ms      |
+| Rspack CLI (Lazy) 1.4.6     | 323ms🥇 (283 + 40)  | 110ms🥉  | 108ms🥉  | 590ms      |
+| Rsbuild 1.4.6               | 595ms🥉 (438 + 157) | 104ms🥈  | 104ms🥈  | 526ms🥉    |
+| Rsbuild (Lazy) 1.4.6        | 519ms🥈 (369 + 149) | 96ms🥇   | 101ms🥇  | 524ms🥈    |
+| Vite (Rolldown + Oxc) 7.0.7 | 3298ms (93 + 3204)  | 150ms    | 145ms    | 353ms🥇    |
+| Vite (Rollup + SWC) 7.0.4   | 3379ms (110 + 3269) | 161ms    | 140ms    | 1858ms     |
+| webpack (SWC) 5.100.0       | 3091ms (2494 + 597) | 327ms    | 260ms    | 3272ms     |
 
 #### Bundle sizes
 
 | Name                        | Total size | Gzipped size |
 | --------------------------- | ---------- | ------------ |
-| Rspack CLI 1.4.6            | 2846.4kB🥉 | 677.2kB🥇    |
-| Rspack CLI (Lazy) 1.4.6     | 2846.4kB   | 677.2kB🥈    |
-| Rsbuild 1.4.6               | 2877.4kB   | 678.5kB🥉    |
-| Rsbuild (Lazy) 1.4.6        | 2877.4kB   | 678.5kB      |
-| Vite (Rolldown + Oxc) 7.0.7 | 2718.1kB🥈 | 751.9kB      |
-| Vite (Rollup + SWC) 7.0.4   | 2579.1kB🥇 | 688.5kB      |
-| webpack (SWC) 5.100.0       | 2872.1kB   | 710.2kB      |
+| Rspack CLI 1.4.6            | 839.0kB🥈  | 218.6kB      |
+| Rspack CLI (Lazy) 1.4.6     | 839.0kB🥉  | 218.6kB      |
+| Rsbuild 1.4.6               | 870.7kB    | 212.4kB🥇    |
+| Rsbuild (Lazy) 1.4.6        | 870.7kB    | 212.4kB🥈    |
+| Vite (Rolldown + Oxc) 7.0.7 | 839.8kB    | 230.8kB      |
+| Vite (Rollup + SWC) 7.0.4   | 801.1kB🥇  | 216.3kB🥉    |
+| webpack (SWC) 5.100.0       | 883.4kB    | 238.1kB      |
 
 ### react-5k
 
