@@ -133,23 +133,25 @@ CASE=ui-components pnpm benchmark
 
 | Name                        | Prod build |
 | --------------------------- | ---------- |
-| Rspack CLI 1.4.6            | 2619ms🥉   |
-| Rsbuild 1.4.6               | 2907ms     |
-| Vite (Rollup + SWC) 7.0.4   | 9571ms     |
-| Vite (Rolldown + Oxc) 7.0.7 | 1284ms🥈   |
-| Rolldown 1.0.0-beta.25      | 1200ms🥇   |
-| webpack (SWC) 5.100.0       | 21616ms    |
+| Rspack CLI 1.4.6            | 2392ms     |
+| Rsbuild 1.4.6               | 2784ms     |
+| Vite (Rollup + SWC) 7.0.4   | 9338ms     |
+| Vite (Rolldown + Oxc) 7.0.7 | 1165ms🥈   |
+| Rolldown 1.0.0-beta.25      | 1010ms🥇   |
+| webpack (SWC) 5.100.0       | 10279ms    |
+| esbuild 0.25.6              | 1478ms🥉   |
 
 #### Bundle sizes
 
 | Name                        | Total size | Gzipped size |
 | --------------------------- | ---------- | ------------ |
-| Rspack CLI 1.4.6            | 2210.3kB   | 621.7kB🥈    |
+| Rspack CLI 1.4.6            | 2024.0kB🥈 | 616.4kB🥈    |
 | Rsbuild 1.4.6               | 2021.9kB🥇 | 615.9kB🥇    |
-| Vite (Rollup + SWC) 7.0.4   | 2037.5kB🥈 | 638.2kB      |
-| Vite (Rolldown + Oxc) 7.0.7 | 2054.4kB🥉 | 636.3kB      |
-| Rolldown 1.0.0-beta.25      | 2071.2kB   | 637.3kB      |
-| webpack (SWC) 5.100.0       | 2072.9kB   | 624.9kB🥉    |
+| Vite (Rollup + SWC) 7.0.4   | 2037.5kB🥉 | 638.2kB      |
+| Vite (Rolldown + Oxc) 7.0.7 | 2054.4kB   | 636.3kB      |
+| Rolldown 1.0.0-beta.25      | 2068.9kB   | 636.8kB      |
+| webpack (SWC) 5.100.0       | 2054.1kB   | 627.8kB🥉    |
+| esbuild 0.25.6              | 2834.5kB   | 869.2kB      |
 
 ### rome
 
@@ -163,19 +165,21 @@ CASE=rome pnpm benchmark
 
 | Name                   | Prod build |
 | ---------------------- | ---------- |
-| Rspack CLI 1.4.6       | 1848ms🥉   |
-| Rsbuild 1.4.6          | 1777ms🥈   |
-| Rolldown 1.0.0-beta.25 | 383ms🥇    |
-| webpack (SWC) 5.100.0  | 11715ms    |
+| Rspack CLI 1.4.6       | 770ms🥉    |
+| Rsbuild 1.4.6          | 830ms      |
+| Rolldown 1.0.0-beta.25 | 351ms🥈    |
+| webpack (SWC) 5.100.0  | 2954ms     |
+| esbuild 0.25.6         | 232ms🥇    |
 
 #### Bundle sizes
 
 | Name                   | Total size | Gzipped size |
 | ---------------------- | ---------- | ------------ |
-| Rspack CLI 1.4.6       | 1009.3kB🥇 | 270.9kB🥇    |
-| Rsbuild 1.4.6          | 1009.3kB🥈 | 270.9kB🥈    |
-| Rolldown 1.0.0-beta.25 | 1016.4kB🥉 | 273.6kB      |
-| webpack (SWC) 5.100.0  | 1023.3kB   | 272.0kB🥉    |
+| Rspack CLI 1.4.6       | 1009.3kB🥈 | 270.9kB🥈    |
+| Rsbuild 1.4.6          | 1009.3kB🥉 | 270.9kB🥉    |
+| Rolldown 1.0.0-beta.25 | 1016.4kB   | 273.6kB      |
+| webpack (SWC) 5.100.0  | 1007.4kB🥇 | 270.7kB🥇    |
+| esbuild 0.25.6         | 1025.3kB   | 276.8kB      |
 
 ## Run locally
 
