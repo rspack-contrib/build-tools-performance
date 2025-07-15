@@ -6,6 +6,7 @@
     "build:rspack": "rspack build",
     "build:rsbuild": "rsbuild build",
     "build:webpack": "cross-env NODE_ENV=production webpack build",
+    "build:farm": "farm build",
     "build:vite": "node ../../node_modules/vite/bin/vite.js build",
     "build:rolldown-vite": "node ../../node_modules/rolldown-vite/bin/vite.js build -c rolldown-vite.config.mjs",
     "build:esbuild": "cross-env NODE_ENV=production node esbuild.mjs"

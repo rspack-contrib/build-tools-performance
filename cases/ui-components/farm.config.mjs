@@ -10,6 +10,8 @@ export default defineConfig({
       // Farm does not support browser-es2022 yet
       targetEnv: `browser-es2017`,
     },
+    partialBundling: {
+      targetConcurrentRequests: 1,
+    },
   },
-  plugins: ['@farmfe/plugin-react'],
 });

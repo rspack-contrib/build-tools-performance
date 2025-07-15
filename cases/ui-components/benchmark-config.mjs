@@ -7,6 +7,7 @@ export const config = {
     'rolldown',
     'webpack',
     'esbuild',
+    'farm',
   ],
   defaultTools: [
     'rspack',
@@ -16,6 +17,7 @@ export const config = {
     'rolldown',
     'webpack',
     'esbuild',
+    'farm',
   ],
   dev: false,
 };
