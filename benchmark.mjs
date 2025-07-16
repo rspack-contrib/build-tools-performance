@@ -188,7 +188,7 @@ const parseToolNames = () => {
   if (process.env.TOOLS) {
     return process.env.TOOLS?.split(',').map((item) => item.toLowerCase());
   }
-  return config.defaultTools;
+  return config.defaultTools ?? config.supportedTools;
 };
 
 const toolNames = parseToolNames();
@@ -432,7 +432,7 @@ async function runDevBenchmark(buildTool, perfResult) {
   });
 
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  const rootFilePath = path.join(srcDir, 'f0.jsx');
+  const rootFilePath = path.join(srcDir, config.rootFile);
   const originalRootFileContent = readFileSync(rootFilePath, 'utf-8');
 
   appendFile(
@@ -448,7 +448,7 @@ async function runDevBenchmark(buildTool, perfResult) {
 
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const leafFilePath = path.join(srcDir, 'd0/d0/d0/f0.jsx');
+  const leafFilePath = path.join(srcDir, config.leafFile);
   const originalLeafFileContent = readFileSync(leafFilePath, 'utf-8');
   appendFile(
     leafFilePath,
