@@ -652,7 +652,7 @@ if (runDev) {
     ['Name', 'Dev cold start', 'HMR', 'Prod build'],
     ...actualToolNames.map((name) => [
       name,
-      `${devColdStartRanked[name]} (${averageResults[name].serverStart.replace('ms', '')} + ${averageResults[name].onLoad.replace('ms', '')})`,
+      devColdStartRanked[name],
       hmrRanked[name],
       prodBuildRanked[name],
     ]),
