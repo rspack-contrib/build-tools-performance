@@ -3,3 +3,4 @@ build
 .next
 dist
 .DS_Store
+*.cpuprofile
