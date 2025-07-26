@@ -27,6 +27,3 @@ function Component() {
 }
 
 export default Component;
-
-    console.log('root hmr', Date.now());
-    
