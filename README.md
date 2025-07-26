@@ -4,16 +4,15 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 
 ## Metrics
 
-| Name               | Description                                     | Notes                                     |
-| ------------------ | ----------------------------------------------- | ----------------------------------------- |
-| **Dev cold start** | Total time from dev server start to page loaded | Equals to `server start` + `page load`    |
-| **Server start**   | Time taken for the dev server to start          | Includes initial build for loaded modules |
-| **Page load**      | Time to load the page after server is ready     |                                           |
-| **Root HMR**       | Time to HMR after changing a root module        |                                           |
-| **Leaf HMR**       | Time to HMR after changing a leaf module        |                                           |
-| **Prod build**     | Time taken to build the production bundles      |                                           |
-| **Total size**     | Total size of the bundle                        | Minified by the default minifier          |
-| **Gzipped size**   | Gzipped size of the bundle                      | Represents actual network transfer size   |
+| Name               | Description                                     | Notes                                              |
+| ------------------ | ----------------------------------------------- | -------------------------------------------------- |
+| **Dev cold start** | Total time from dev server start to page loaded | Equals to `server start` + `page load`             |
+| **Server start**   | Time taken for the dev server to start          | Includes initial build for loaded modules          |
+| **Page load**      | Time to load the page after server is ready     |                                                    |
+| **HMR**            | Time to HMR after changing a module             | Average time to update root module and leaf module |
+| **Prod build**     | Time taken to build the production bundles      |                                                    |
+| **Total size**     | Total size of the bundle                        | Minified by the default minifier                   |
+| **Gzipped size**   | Gzipped size of the bundle                      | Represents actual network transfer size            |
 
 ## Notes
 

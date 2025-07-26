@@ -391,12 +391,15 @@ async function runDevBenchmark(buildTool, perfResult) {
   let hmrLeafStart = -1;
 
   page.on('console', (event) => {
-    const isFinished = () => {
-      return (
-        perfResult[buildTool.name]?.rootHmr &&
-        perfResult[buildTool.name]?.leafHmr
-      );
+    const afterHMR = () => {
+      const currentResult = perfResult[buildTool.name];
+      if (currentResult?.rootHmr && currentResult?.leafHmr) {
+        currentResult.hmr = (currentResult.rootHmr + currentResult.leafHmr) / 2;
+        page.close();
+        waitResolve();
+      }
     };
+
     if (event.text().includes('root hmr')) {
       const match = /(\d+)/.exec(event.text());
       if (!match) {
@@ -412,10 +415,7 @@ async function runDevBenchmark(buildTool, perfResult) {
       );
 
       perfResult[buildTool.name].rootHmr = hmrTime;
-      if (isFinished()) {
-        page.close();
-        waitResolve();
-      }
+      afterHMR();
     } else if (event.text().includes('leaf hmr')) {
       const hmrTime = Date.now() - hmrLeafStart;
       logger.success(
@@ -424,10 +424,7 @@ async function runDevBenchmark(buildTool, perfResult) {
           color.green(hmrTime + 'ms'),
       );
       perfResult[buildTool.name].leafHmr = hmrTime;
-      if (isFinished()) {
-        page.close();
-        waitResolve();
-      }
+      afterHMR();
     }
   });
 
@@ -644,16 +641,7 @@ if (runDev) {
     averageResults,
     'devColdStart',
   );
-  const rootHmrRanked = addRankingEmojis(
-    actualToolNames,
-    averageResults,
-    'rootHmr',
-  );
-  const leafHmrRanked = addRankingEmojis(
-    actualToolNames,
-    averageResults,
-    'leafHmr',
-  );
+  const hmrRanked = addRankingEmojis(actualToolNames, averageResults, 'hmr');
   const prodBuildRanked = addRankingEmojis(
     actualToolNames,
     averageResults,
@@ -661,12 +649,11 @@ if (runDev) {
   );
 
   markdownLogs += markdownTable([
-    ['Name', 'Dev cold start', 'Root HMR', 'Leaf HMR', 'Prod build'],
+    ['Name', 'Dev cold start', 'HMR', 'Prod build'],
     ...actualToolNames.map((name) => [
       name,
       `${devColdStartRanked[name]} (${averageResults[name].serverStart.replace('ms', '')} + ${averageResults[name].onLoad.replace('ms', '')})`,
-      rootHmrRanked[name],
-      leafHmrRanked[name],
+      hmrRanked[name],
       prodBuildRanked[name],
     ]),
   ]);
