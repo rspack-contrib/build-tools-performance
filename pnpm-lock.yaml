@@ -35,6 +35,9 @@ importers:
       '@rspack/plugin-react-refresh':
         specifier: ^1.4.3
         version: 1.4.3(react-refresh@0.17.0)
+      '@swc/core':
+        specifier: ^1.13.2
+        version: 1.13.2(@swc/helpers@0.5.17)
       '@swc/css':
         specifier: ^0.0.28
         version: 0.0.28
