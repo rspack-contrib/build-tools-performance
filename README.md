@@ -44,7 +44,7 @@ CASE=react-1k pnpm benchmark
 
 #### Bundle sizes
 
-| Name                         | Total size | Gzipped size |
+| Name                         |
 | ---------------------------- | ---------- | ------------ |
 | Rspack CLI 1.4.10            | 838.9kB🥉  | 218.5kB      |
 | Rspack CLI (Lazy) 1.4.10     | 838.9kB    | 218.5kB      |

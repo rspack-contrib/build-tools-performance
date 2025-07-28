@@ -365,7 +365,7 @@ async function runDevBenchmark(buildTool, perfResult) {
     const loadTime = Date.now() - start;
     logger.success(
       color.dim(buildTool.name) +
-        ' Dev cold start in ' +
+        ' dev cold start in ' +
         color.green(time + loadTime + 'ms'),
     );
 
@@ -410,7 +410,7 @@ async function runDevBenchmark(buildTool, perfResult) {
       const hmrTime = clientDateNow - hmrRootStart;
       logger.success(
         color.dim(buildTool.name) +
-          ' root HMR in ' +
+          ' HMR (root module) in ' +
           color.green(hmrTime + 'ms'),
       );
 
@@ -420,7 +420,7 @@ async function runDevBenchmark(buildTool, perfResult) {
       const hmrTime = Date.now() - hmrLeafStart;
       logger.success(
         color.dim(buildTool.name) +
-          ' leaf HMR in ' +
+          ' HMR (leaf module) in ' +
           color.green(hmrTime + 'ms'),
       );
       perfResult[buildTool.name].leafHmr = hmrTime;
@@ -480,7 +480,7 @@ async function runBuildBenchmark(buildTool, perfResult) {
   sizeResults[buildTool.name] = sizes;
 
   logger.success(
-    color.dim(buildTool.name) + ' built in ' + color.green(buildTime + ' ms'),
+    color.dim(buildTool.name) + ' built in ' + color.green(buildTime + 'ms'),
   );
   logger.success(
     color.dim(buildTool.name) + ' total size: ' + color.green(sizes.totalSize),
@@ -632,7 +632,16 @@ let markdownLogs = '';
 // Use actual tool names from buildTools (with version numbers)
 const actualToolNames = buildTools.map(({ name }) => name);
 
-markdownLogs += '#### Build performance\n\n';
+const totalSizeRanked = addSizeRankingEmojis(
+  actualToolNames,
+  sizeResults,
+  'totalSize',
+);
+const totalGzipSizeRanked = addSizeRankingEmojis(
+  actualToolNames,
+  sizeResults,
+  'totalGzipSize',
+);
 
 if (runDev) {
   // Add ranking emojis for each metric
@@ -649,12 +658,21 @@ if (runDev) {
   );
 
   markdownLogs += markdownTable([
-    ['Name', 'Dev cold start', 'HMR', 'Prod build'],
+    [
+      'Name',
+      'Dev cold start',
+      'HMR',
+      'Prod build',
+      'Total size',
+      'Gzipped size',
+    ],
     ...actualToolNames.map((name) => [
       name,
       devColdStartRanked[name],
       hmrRanked[name],
       prodBuildRanked[name],
+      totalSizeRanked[name],
+      totalGzipSizeRanked[name],
     ]),
   ]);
 } else {
@@ -666,34 +684,16 @@ if (runDev) {
   );
 
   markdownLogs += markdownTable([
-    ['Name', 'Prod build'],
-    ...actualToolNames.map((name) => [name, prodBuildRanked[name]]),
+    ['Name', 'Prod build', 'Total size', 'Gzipped size'],
+    ...actualToolNames.map((name) => [
+      name,
+      prodBuildRanked[name],
+      totalSizeRanked[name],
+      totalGzipSizeRanked[name],
+    ]),
   ]);
 }
 
-markdownLogs += '\n\n#### Bundle sizes\n\n';
-
-// Add ranking emojis for bundle sizes
-const totalSizeRanked = addSizeRankingEmojis(
-  actualToolNames,
-  sizeResults,
-  'totalSize',
-);
-const totalGzipSizeRanked = addSizeRankingEmojis(
-  actualToolNames,
-  sizeResults,
-  'totalGzipSize',
-);
-
-markdownLogs += markdownTable([
-  ['Name', 'Total size', 'Gzipped size'],
-  ...actualToolNames.map((name) => [
-    name,
-    totalSizeRanked[name],
-    totalGzipSizeRanked[name],
-  ]),
-]);
-
-console.log(markdownLogs);
+console.log(markdownLogs + '\n');
 
 process.exit(0);
