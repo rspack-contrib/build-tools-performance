@@ -12,7 +12,7 @@
     "build:esbuild": "cross-env NODE_ENV=production node esbuild.mjs"
   },
   "dependencies": {
-    "@chakra-ui/react": "^3.23.0",
+    "@chakra-ui/react": "^3.24.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fluentui/react": "^8.123.2",
