@@ -79,8 +79,7 @@ CASE=react-10k pnpm benchmark
 ### ui-components
 
 A React app that imports UI components from several popular UI libraries.
-
-Including [@mui/material](https://mui.com/material-ui/getting-started/overview/), [antd](https://ant.design/components/), [@chakra-ui/react](https://chakra-ui.com/), [@fluentui/react](https://developer.microsoft.com/en-us/fluentui), [@headlessui/react](https://headlessui.com/), [@mantine/core](https://mantine.dev/), [react-bootstrap](https://react-bootstrap.github.io/), [element-plus](https://element-plus.org/), [vant](https://vant-ui.github.io/vant/), and [vuetify](https://vuetifyjs.com/).
+Including [@mui/material](https://npmjs.com/package/@mui/material), [antd](https://npmjs.com/package/antd), [@chakra-ui/react](https://npmjs.com/package/@chakra-ui/react), [@fluentui/react](https://npmjs.com/package/@fluentui/react), [@headlessui/react](https://npmjs.com/package/@headlessui/react), [@mantine/core](https://npmjs.com/package/@mantine/core), [react-bootstrap](https://npmjs.com/package/react-bootstrap), [element-plus](https://npmjs.com/package/element-plus), [vant](https://npmjs.com/package/vant), and [vuetify](https://npmjs.com/package/vuetify).
 
 ```bash
 CASE=ui-components pnpm benchmark
