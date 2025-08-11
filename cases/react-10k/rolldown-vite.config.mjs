@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from 'rolldown-vite';
-import react from '@vitejs/plugin-react-oxc';
+import react from '@vitejs/plugin-react';
 import { target } from '../../shared/constants.mjs';
 
 export default defineConfig({
