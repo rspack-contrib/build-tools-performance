@@ -1,6 +1,6 @@
 // @ts-check
 import { spawn } from 'child_process';
-import { rmSync, appendFile, readFileSync, writeFileSync } from 'node:fs';
+import { appendFile, readFileSync, writeFileSync } from 'node:fs';
 import fse from 'fs-extra';
 import { createRequire } from 'module';
 import path from 'path';
@@ -54,9 +54,12 @@ class BuildTool {
 
   cleanCache() {
     try {
-      fse.removeSync('./node_modules/.cache');
-      fse.removeSync('./node_modules/.vite');
-      fse.removeSync('./node_modules/.farm');
+      [__dirname, caseDir].forEach((dir) => {
+        fse.removeSync(path.join(dir, './.parcel-cache'));
+        fse.removeSync(path.join(dir, './node_modules/.cache'));
+        fse.removeSync(path.join(dir, './node_modules/.vite'));
+        fse.removeSync(path.join(dir, './node_modules/.farm'));
+      });
     } catch (err) {}
   }
 
@@ -279,6 +282,18 @@ toolNames.forEach((name) => {
           startedRegex: /esbuild built in (\d+) ms/,
           buildScript: 'build:esbuild',
           binFilePath: 'esbuild/bin/esbuild',
+        }),
+      );
+      break;
+    case 'parcel':
+      buildTools.push(
+        new BuildTool({
+          name: 'Parcel ' + require('parcel/package.json').version,
+          port: 3000,
+          startScript: 'start:parcel',
+          startedRegex: /Built in (.+)(s|ms)/,
+          buildScript: 'build:parcel',
+          binFilePath: 'parcel/lib/bin.js',
         }),
       );
       break;

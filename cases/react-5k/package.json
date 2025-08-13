@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build:farm": "farm build",
+    "build:parcel": "parcel build index.html",
     "build:rolldown": "cross-env NODE_ENV=production rolldown -c ./rolldown.config.mjs",
     "build:rolldown-vite": "node ../../node_modules/rolldown-vite/bin/vite.js build -c rolldown-vite.config.mjs",
     "build:rsbuild": "rsbuild build",
@@ -10,6 +11,7 @@
     "build:vite": "node ../../node_modules/vite/bin/vite.js build",
     "build:webpack": "cross-env NODE_ENV=production webpack build --mode production",
     "start:farm": "farm start",
+    "start:parcel": "parcel -p 3000 index.html",
     "start:rolldown-vite": "node ../../node_modules/rolldown-vite/bin/vite.js -c rolldown-vite.config.mjs",
     "start:rsbuild": "rsbuild dev",
     "start:rspack": "rspack serve",
@@ -22,5 +24,6 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.8.0"
-  }
+  },
+  "browserslist": "Chrome >= 93"
 }
