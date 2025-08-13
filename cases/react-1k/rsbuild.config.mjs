@@ -5,9 +5,6 @@ import { targetBrowser } from '../../shared/constants.mjs';
 
 export default defineConfig({
   plugins: [pluginReact()],
-  dev: {
-    lazyCompilation: Boolean(process.env.LAZY),
-  },
   output: {
     overrideBrowserslist: [targetBrowser],
   },

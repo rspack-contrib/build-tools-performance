@@ -21,7 +21,6 @@ export default defineConfig({
   },
   experiments: {
     css: true,
-    // lazyCompilation should only be enabled in development mode
-    lazyCompilation: Boolean(process.env.LAZY) && !isProd,
+    lazyCompilation: true,
   },
 });
