@@ -8,6 +8,7 @@ export const config = {
     'farm',
     'parcel',
   ],
+  // Farm and Parcel are not enabled because the CI will fail
   defaultTools: [
     'rspack',
     'rsbuild',
