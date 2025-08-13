@@ -14,7 +14,6 @@ export const config = {
     'rolldown-vite',
     'vite',
     'webpack',
-    'parcel',
   ],
   rootFile: 'f0.jsx',
   leafFile: 'd0/d0/d0/f0.jsx',
