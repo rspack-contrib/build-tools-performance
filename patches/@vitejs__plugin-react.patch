@@ -1,0 +1,15 @@
+diff --git a/dist/index.js b/dist/index.js
+index 038d1cb7ade2dc8575cdb60635785e3f9eb8d924..99bc2287945dd7f8eeb15079a03b2fc467761826 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -1,8 +1,8 @@
+ import { dirname, join } from "node:path";
+ import { fileURLToPath } from "node:url";
+ import { readFileSync } from "node:fs";
+-import * as vite from "vite";
+-import { createFilter } from "vite";
++import * as vite from "rolldown-vite";
++import { createFilter } from "rolldown-vite";
+ import { exactRegex, makeIdFiltersToMatchWithQuery } from "@rolldown/pluginutils";
+ 
+ //#region ../common/refresh-utils.ts
