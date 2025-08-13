@@ -207,20 +207,6 @@ toolNames.forEach((name) => {
           binFilePath: '@rspack/cli/bin/rspack.js',
         }),
       );
-      if (runDev) {
-        buildTools.push(
-          new BuildTool({
-            name:
-              'Rspack CLI (Lazy) ' +
-              require('@rspack/core/package.json').version,
-            port: 8080,
-            startScript: 'start:rspack:lazy',
-            startedRegex: /in (.+) (s|ms)/,
-            buildScript: 'build:rspack',
-            binFilePath: '@rspack/cli/bin/rspack.js',
-          }),
-        );
-      }
       break;
     case 'rsbuild':
       buildTools.push(
@@ -233,19 +219,6 @@ toolNames.forEach((name) => {
           binFilePath: '@rsbuild/core/bin/rsbuild.js',
         }),
       );
-      if (runDev) {
-        buildTools.push(
-          new BuildTool({
-            name:
-              'Rsbuild (Lazy) ' + require('@rsbuild/core/package.json').version,
-            port: 3000,
-            startScript: 'start:rsbuild:lazy',
-            startedRegex: /in (.+) (s|ms)/,
-            buildScript: 'build:rsbuild',
-            binFilePath: '@rsbuild/core/bin/rsbuild.js',
-          }),
-        );
-      }
       break;
     case 'vite':
       buildTools.push(
