@@ -19,8 +19,8 @@ export default defineConfig({
       }),
     ],
   },
+  lazyCompilation: true,
   experiments: {
     css: true,
-    lazyCompilation: true,
   },
 });
