@@ -289,7 +289,7 @@ toolNames.forEach((name) => {
       buildTools.push(
         new BuildTool({
           name: 'Parcel ' + require('parcel/package.json').version,
-          port: 3000,
+          port: 3200,
           startScript: 'start:parcel',
           startedRegex: /Built in (.+)(s|ms)/,
           buildScript: 'build:parcel',

@@ -11,7 +11,7 @@
     "build:vite": "node ../../node_modules/vite/bin/vite.js build",
     "build:webpack": "cross-env NODE_ENV=production webpack build --mode production",
     "start:farm": "farm start",
-    "start:parcel": "parcel -p 3000 index.html",
+    "start:parcel": "parcel -p 3200 index.html",
     "start:rolldown-vite": "node ../../node_modules/rolldown-vite/bin/vite.js -c rolldown-vite.config.mjs",
     "start:rsbuild": "rsbuild dev",
     "start:rspack": "rspack serve",
