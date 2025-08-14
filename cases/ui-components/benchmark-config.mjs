@@ -8,6 +8,7 @@ export const config = {
     'webpack',
     'esbuild',
     'farm',
+    'parcel',
   ],
   dev: false,
 };

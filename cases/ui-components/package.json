@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build:rolldown": "cross-env NODE_ENV=production rolldown build --config rolldown.config.mjs",
+    "build:parcel": "parcel build index.html",
     "build:rspack": "rspack build",
     "build:rsbuild": "rsbuild build",
     "build:webpack": "cross-env NODE_ENV=production webpack build",
@@ -27,5 +28,6 @@
     "vant": "^4.9.21",
     "vue": "^3.5.18",
     "vuetify": "^3.9.4"
-  }
+  },
+  "browserslist": "Chrome >= 93"
 }

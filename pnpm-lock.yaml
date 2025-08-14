@@ -70,6 +70,9 @@ importers:
       browserslist:
         specifier: ^4.25.2
         version: 4.25.2
+      buffer:
+        specifier: ^5.7.1
+        version: 5.7.1
       cross-env:
         specifier: ^10.0.0
         version: 10.0.0
