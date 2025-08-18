@@ -18,16 +18,16 @@
     "@emotion/styled": "^11.14.1",
     "@fluentui/react": "^8.123.4",
     "@headlessui/react": "^2.2.7",
-    "@mantine/core": "^8.2.4",
+    "@mantine/core": "^8.2.5",
     "@mui/material": "^7.3.1",
     "antd": "^5.27.0",
-    "element-plus": "^2.10.6",
+    "element-plus": "^2.10.7",
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
     "vant": "^4.9.21",
     "vue": "^3.5.18",
-    "vuetify": "^3.9.4"
+    "vuetify": "^3.9.5"
   },
   "browserslist": "Chrome >= 93"
 }
