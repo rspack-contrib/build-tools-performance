@@ -15,7 +15,7 @@
   ],
   "main": "./out/extension",
   "engines": {
-    "vscode": "^1.102.3"
+    "vscode": "^1.103.1"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1"
