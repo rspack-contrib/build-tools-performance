@@ -146,8 +146,6 @@ class BuildTool {
 
   stopServer() {
     if (this.child) {
-      this.child.stdout.destroy();
-      this.child.stderr.destroy();
       kill(this.child.pid ?? 0);
     }
   }
