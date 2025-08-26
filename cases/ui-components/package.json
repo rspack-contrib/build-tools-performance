@@ -13,21 +13,21 @@
     "build:esbuild": "cross-env NODE_ENV=production node esbuild.mjs"
   },
   "dependencies": {
-    "@chakra-ui/react": "^3.24.2",
+    "@chakra-ui/react": "^3.25.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@fluentui/react": "^8.123.4",
+    "@fluentui/react": "^8.123.5",
     "@headlessui/react": "^2.2.7",
-    "@mantine/core": "^8.2.5",
+    "@mantine/core": "^8.2.7",
     "@mui/material": "^7.3.1",
-    "antd": "^5.27.0",
-    "element-plus": "^2.10.7",
+    "antd": "^5.27.1",
+    "element-plus": "^2.11.1",
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
     "vant": "^4.9.21",
-    "vue": "^3.5.18",
-    "vuetify": "^3.9.5"
+    "vue": "^3.5.20",
+    "vuetify": "^3.9.6"
   },
   "browserslist": "Chrome >= 93"
 }
