@@ -105,13 +105,13 @@ A complex TypeScript Node.js project that includes multiple packages from the [r
 CASE=rome pnpm benchmark
 ```
 
-| Name                   | Prod build | Total size | Gzipped size |
-| ---------------------- | ---------- | ---------- | ------------ |
-| Rspack CLI 1.5.0       | 1250ms     | 1009.3kB🥉 | 270.9kB🥉    |
-| Rsbuild 1.5.0          | 1005ms🥉   | 1009.3kB   | 271.0kB      |
-| Rolldown 1.0.0-beta.34 | 269ms🥇    | 0.03kB🥇   | 0.05kB🥇     |
-| webpack (SWC) 5.101.3  | 4331ms     | 1007.4kB🥈 | 270.6kB🥈    |
-| esbuild 0.25.9         | 528ms🥈    | 1025.3kB   | 276.7kB      |
+| Name                    | Prod build | Total size | Gzipped size |
+| ----------------------- | ---------- | ---------- | ------------ |
+| Rspack CLI 1.5.0-beta.0 | 877ms      | 1009.3kB🥈 | 270.9kB🥈    |
+| Rsbuild 1.5.0-beta.3    | 768ms🥉    | 1009.3kB🥉 | 271.0kB🥉    |
+| Rolldown 1.0.0-beta.33  | 340ms🥈    | 1015.1kB   | 272.7kB      |
+| webpack (SWC) 5.101.2   | 2949ms     | 1007.4kB🥇 | 270.6kB🥇    |
+| esbuild 0.25.9          | 226ms🥇    | 1025.3kB   | 276.7kB      |
 
 ## Run locally
 
