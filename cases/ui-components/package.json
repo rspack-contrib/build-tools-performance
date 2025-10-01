@@ -17,17 +17,17 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fluentui/react": "^8.123.6",
-    "@headlessui/react": "^2.2.8",
-    "@mantine/core": "^8.3.1",
+    "@headlessui/react": "^2.2.9",
+    "@mantine/core": "^8.3.2",
     "@mui/material": "^7.3.2",
     "antd": "^5.27.4",
-    "element-plus": "^2.11.3",
+    "element-plus": "^2.11.4",
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
     "vant": "^4.9.21",
-    "vue": "^3.5.21",
-    "vuetify": "^3.10.2"
+    "vue": "^3.5.22",
+    "vuetify": "^3.10.3"
   },
   "browserslist": "Chrome >= 93"
 }
