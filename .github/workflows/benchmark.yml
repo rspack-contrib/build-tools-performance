@@ -2,14 +2,15 @@ name: Benchmark
 
 on:
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
   push:
-    branches: [main]
+    branches: [ main ]
 
   merge_group:
 
   workflow_dispatch:
+
 
 jobs:
   benchmark:
@@ -17,28 +18,31 @@ jobs:
     timeout-minutes: 60
     strategy:
       matrix:
-        os: [macos-15]
-        case: [react-1k, react-5k, react-10k, ui-components, rome]
+        os: [ macos-15 ]
+        case: [ react-1k, react-5k, react-10k, ui-components, rome ]
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 1
+    - name: Checkout
+      uses: actions/checkout@v5
+      with:
+        fetch-depth: 1
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22.20.0
+    - name: Install Pnpm
+      run: |
+        npm i -g corepack@latest -g --force && corepack enable
+        pnpm -v
 
-      - name: Install Pnpm
-        run: |
-          npm i -g corepack@latest -g --force && corepack enable
-          npm i cross-env -g
-          pnpm -v
+    - name: Setup Node.js
+      uses: actions/setup-node@v5
+      with:
+        node-version: 22.20.0
 
-      - name: Install Dependencies
-        run: pnpm install && npx puppeteer browsers install chrome
+    - name: Install Global Dependencies
+      run: |
+        npm i cross-env -g
 
-      - name: Run Benchmark
-        run: cross-env CASE=${{ matrix.case }} pnpm benchmark
+    - name: Install Dependencies
+      run: pnpm install && npx puppeteer browsers install chrome
+
+    - name: Run Benchmark
+      run: cross-env CASE=${{ matrix.case }} pnpm benchmark
