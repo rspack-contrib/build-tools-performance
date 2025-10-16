@@ -11,9 +11,6 @@ export default defineConfig({
   transform: {
     target,
   },
-  treeshake: {
-    commonjs: true,
-  },
   output: {
     minify: isProd,
   },
