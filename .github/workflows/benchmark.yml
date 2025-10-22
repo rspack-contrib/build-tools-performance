@@ -35,7 +35,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v6
       with:
-        node-version: 22.20.0
+        node-version: 22.21.0
 
     - name: Install Global Dependencies
       run: |
