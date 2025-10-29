@@ -22,6 +22,5 @@ export default defineConfig({
   lazyCompilation: true,
   experiments: {
     css: true,
-    lazyBarrel: true,
   },
 });
