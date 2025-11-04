@@ -347,19 +347,6 @@ async function runDevBenchmark(buildTool, perfResult) {
   const page = await browser.newPage();
   const start = Date.now();
 
-  page.on('load', () => {
-    const loadTime = Date.now() - start;
-    logger.success(
-      color.dim(buildTool.name) +
-        ' dev cold start in ' +
-        color.green(time + loadTime + 'ms'),
-    );
-
-    perfResult[buildTool.name].devColdStart = time + loadTime;
-    perfResult[buildTool.name].serverStart = time;
-    perfResult[buildTool.name].onLoad = loadTime;
-  });
-
   logger.info(
     color.dim('navigating to' + ` http://localhost:${buildTool.port}`),
   );
@@ -367,6 +354,20 @@ async function runDevBenchmark(buildTool, perfResult) {
   await page.goto(`http://localhost:${buildTool.port}`, {
     timeout: 60000,
   });
+
+  // wait for render element
+  await page.waitForSelector('#root > *', {
+    timeout: 60000,
+  });
+  const loadTime = Date.now() - start;
+  logger.success(
+    color.dim(buildTool.name) +
+      ' dev cold start in ' +
+      color.green(time + loadTime + 'ms'),
+  );
+  perfResult[buildTool.name].devColdStart = time + loadTime;
+  perfResult[buildTool.name].serverStart = time;
+  perfResult[buildTool.name].onLoad = loadTime;
 
   let waitResolve = null;
   const waitPromise = new Promise((resolve) => {
@@ -403,7 +404,13 @@ async function runDevBenchmark(buildTool, perfResult) {
       perfResult[buildTool.name].rootHmr = hmrTime;
       afterHMR();
     } else if (event.text().includes('leaf hmr')) {
-      const hmrTime = Date.now() - hmrLeafStart;
+      const match = /(\d+)/.exec(event.text());
+      if (!match) {
+        throw new Error('Failed to match leaf HMR time.');
+      }
+
+      const clientDateNow = Number(match[1]);
+      const hmrTime = clientDateNow - hmrLeafStart;
       logger.success(
         color.dim(buildTool.name) +
           ' HMR (leaf module) in ' +
