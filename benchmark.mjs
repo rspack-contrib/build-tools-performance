@@ -8,10 +8,13 @@ import puppeteer from 'puppeteer';
 import kill from 'tree-kill';
 import { logger } from 'rslog';
 import color from 'picocolors';
-import glob from 'fast-glob';
-import { gzipSizeSync } from 'gzip-size';
 import { markdownTable } from 'markdown-table';
 import { caseName } from './shared/constants.mjs';
+import {
+  getFileSizes,
+  addRankingEmojis,
+  shuffleArray,
+} from './shared/utils.mjs';
 
 process.env.CASE = caseName;
 
@@ -81,8 +84,6 @@ class BuildTool {
   }
 
   async startServer() {
-    this.cleanCache();
-
     logger.log('');
     logger.start(
       `Running start command: ${color.bold(color.yellow(this.startScript))}`,
@@ -151,8 +152,6 @@ class BuildTool {
   }
 
   async build() {
-    this.cleanCache();
-
     logger.log('');
     logger.start(
       `Running build command: ${color.bold(color.yellow(this.buildScript))}`,
@@ -191,11 +190,8 @@ const parseToolNames = () => {
   }
   return config.defaultTools ?? config.supportedTools;
 };
-
-const toolNames = parseToolNames();
 const buildTools = [];
-
-toolNames.forEach((name) => {
+parseToolNames().forEach((name) => {
   switch (name) {
     case 'rspack':
       buildTools.push(
@@ -330,19 +326,12 @@ logger.info(
 let perfResults = [];
 let sizeResults = {};
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
 for (let i = 0; i < totalTimes; i++) {
   await benchAllCases();
 }
 
 async function runDevBenchmark(buildTool, perfResult) {
+  buildTool.cleanCache();
   const time = await buildTool.startServer();
   const page = await browser.newPage();
   const start = Date.now();
@@ -366,8 +355,6 @@ async function runDevBenchmark(buildTool, perfResult) {
       color.green(time + loadTime + 'ms'),
   );
   perfResult[buildTool.name].devColdStart = time + loadTime;
-  perfResult[buildTool.name].serverStart = time;
-  perfResult[buildTool.name].onLoad = loadTime;
 
   let waitResolve = null;
   const waitPromise = new Promise((resolve) => {
@@ -464,6 +451,7 @@ async function runDevBenchmark(buildTool, perfResult) {
 }
 
 async function runBuildBenchmark(buildTool, perfResult) {
+  buildTool.cleanCache();
   // Clean up dist dir
   await fse.remove(distDir);
 
@@ -507,88 +495,6 @@ async function benchAllCases() {
   perfResults.push(perfResult);
 }
 
-// fast-glob only accepts posix path
-// https://github.com/mrmlnc/fast-glob#convertpathtopatternpath
-function convertPath(path) {
-  if (process.platform === 'win32') {
-    return glob.convertPathToPattern(path);
-  }
-  return path;
-}
-
-function calcFileSize(len) {
-  const val = len / 1000;
-  return `${val.toFixed(val < 1 ? 2 : 1)}kB`;
-}
-
-async function getFileSizes(targetDir) {
-  let files = await glob(convertPath(path.join(targetDir, '**/*')));
-  let totalSize = 0;
-  let totalGzipSize = 0;
-
-  files = files.filter((file) => {
-    return !(file.endsWith('.map') || file.endsWith('.LICENSE.txt'));
-  });
-
-  await Promise.all(
-    files.map((file) =>
-      fse.readFile(file, 'utf-8').then((content) => {
-        totalSize += Buffer.byteLength(content);
-        totalGzipSize += gzipSizeSync(content);
-      }),
-    ),
-  );
-
-  return {
-    totalSize: calcFileSize(totalSize),
-    totalGzipSize: calcFileSize(totalGzipSize),
-  };
-}
-
-// Add ranking emojis to performance metrics (smaller values are better)
-function addRankingEmojis(toolNames, results, metricKey) {
-  const values = toolNames.map((name) => ({
-    name,
-    value: parseFloat(results[name][metricKey].replace('ms', '')),
-    originalValue: results[name][metricKey],
-  }));
-
-  // Sort by value (smaller is better)
-  values.sort((a, b) => a.value - b.value);
-
-  const emojis = ['🥇', '🥈', '🥉'];
-  const rankedValues = {};
-
-  values.forEach((item, rank) => {
-    const emoji = rank < 3 ? emojis[rank] : '';
-    rankedValues[item.name] = item.originalValue + emoji;
-  });
-
-  return rankedValues;
-}
-
-// Add ranking emojis to bundle size metrics (smaller values are better)
-function addSizeRankingEmojis(toolNames, results, metricKey) {
-  const values = toolNames.map((name) => ({
-    name,
-    value: parseFloat(results[name][metricKey].replace('kB', '')),
-    originalValue: results[name][metricKey],
-  }));
-
-  // Sort by value (smaller is better)
-  values.sort((a, b) => a.value - b.value);
-
-  const emojis = ['🥇', '🥈', '🥉'];
-  const rankedValues = {};
-
-  values.forEach((item, rank) => {
-    const emoji = rank < 3 ? emojis[rank] : '';
-    rankedValues[item.name] = item.originalValue + emoji;
-  });
-
-  return rankedValues;
-}
-
 // Calculate average results
 const averageResults = {};
 
@@ -615,77 +521,60 @@ for (const [name, values] of Object.entries(averageResults)) {
   for (const [key, value] of Object.entries(values)) {
     averageResults[name][key] = Math.floor(value / perfResults.length) + 'ms';
   }
+  // Append size info
+  Object.assign(averageResults[name], sizeResults[name]);
 }
 
 logger.log('');
 logger.success('Benchmark finished!\n');
 
-let markdownLogs = '';
+const genGetData = function (fieldName) {
+  return function () {
+    const data = buildTools.map(({ name }) => averageResults[name][fieldName]);
+    if (data.some((item) => item === undefined)) {
+      // Return null means this column no data,
+      // and this column will be hidden
+      return null;
+    }
+    addRankingEmojis(data);
+    return data;
+  };
+};
 
-// Use actual tool names from buildTools (with version numbers)
-const actualToolNames = buildTools.map(({ name }) => name);
+const columns = [
+  {
+    title: 'Name',
+    getData() {
+      return buildTools.map(({ name }) => name);
+    },
+  },
+  {
+    title: 'Dev cold start',
+    getData: genGetData('devColdStart'),
+  },
+  { title: 'hmr', getData: genGetData('hmr') },
+  { title: 'Prod build', getData: genGetData('prodBuild') },
+  { title: 'Total size', getData: genGetData('totalSize') },
+  { title: 'Gzipped size', getData: genGetData('totalGzipSize') },
+];
 
-const totalSizeRanked = addSizeRankingEmojis(
-  actualToolNames,
-  sizeResults,
-  'totalSize',
+/** @type {string[][]} */
+const datas = columns
+  .map((item) => {
+    const data = item.getData();
+    if (data !== null) {
+      // inject title as first
+      data.unshift(item.title);
+    }
+    return data;
+  })
+  .filter(Boolean);
+
+const markdownLogs = markdownTable(
+  [...Array(datas[0].length)].map((_, index) => {
+    return datas.map((item) => item[index]);
+  }),
 );
-const totalGzipSizeRanked = addSizeRankingEmojis(
-  actualToolNames,
-  sizeResults,
-  'totalGzipSize',
-);
-
-if (runDev) {
-  // Add ranking emojis for each metric
-  const devColdStartRanked = addRankingEmojis(
-    actualToolNames,
-    averageResults,
-    'devColdStart',
-  );
-  const hmrRanked = addRankingEmojis(actualToolNames, averageResults, 'hmr');
-  const prodBuildRanked = addRankingEmojis(
-    actualToolNames,
-    averageResults,
-    'prodBuild',
-  );
-
-  markdownLogs += markdownTable([
-    [
-      'Name',
-      'Dev cold start',
-      'HMR',
-      'Prod build',
-      'Total size',
-      'Gzipped size',
-    ],
-    ...actualToolNames.map((name) => [
-      name,
-      devColdStartRanked[name],
-      hmrRanked[name],
-      prodBuildRanked[name],
-      totalSizeRanked[name],
-      totalGzipSizeRanked[name],
-    ]),
-  ]);
-} else {
-  // Add ranking emojis for prod build only
-  const prodBuildRanked = addRankingEmojis(
-    actualToolNames,
-    averageResults,
-    'prodBuild',
-  );
-
-  markdownLogs += markdownTable([
-    ['Name', 'Prod build', 'Total size', 'Gzipped size'],
-    ...actualToolNames.map((name) => [
-      name,
-      prodBuildRanked[name],
-      totalSizeRanked[name],
-      totalGzipSizeRanked[name],
-    ]),
-  ]);
-}
 
 console.log(markdownLogs + '\n');
 
