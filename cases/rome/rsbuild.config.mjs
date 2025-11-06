@@ -6,7 +6,7 @@ import path from 'node:path';
 export default defineConfig({
   source: {
     entry: {
-      main: path.join(import.meta.dirname, 'src', 'entry.ts'),
+      main: './src/entry.ts',
     },
     tsconfigPath: path.resolve(import.meta.dirname, 'src/tsconfig.json'),
   },

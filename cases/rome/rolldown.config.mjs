@@ -7,7 +7,7 @@ export default defineConfig({
   ...config,
   cwd: import.meta.dirname,
   input: {
-    main: path.join(import.meta.dirname, 'src', 'entry.ts'),
+    main: './src/entry.ts',
   },
   platform: 'node',
   shimMissingExports: true,
