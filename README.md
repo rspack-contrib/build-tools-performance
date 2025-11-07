@@ -4,13 +4,16 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 
 ## Metrics
 
-| Name               | Description                                      | Notes                                   |
-| ------------------ | ------------------------------------------------ | --------------------------------------- |
-| **Dev cold start** | Time from starting the dev server to page loaded | -                                       |
-| **HMR**            | Time to HMR after changing a module              | -                                       |
-| **Prod build**     | Time taken to build the production bundles       |                                         |
-| **Total size**     | Total size of the bundle                         | Minified by the default minifier        |
-| **Gzipped size**   | Gzipped size of the bundle                       | Represents actual network transfer size |
+| Name               | Description                                                 | Notes                                   |
+|--------------------|-------------------------------------------------------------|-----------------------------------------|
+| **Dev cold start** | Time from starting the dev server to page loaded            | -                                       |
+| **Dev hot start**  | Time from starting the dev server to page loaded with cache | -                                       |
+| **HMR**            | Time to HMR after changing a module                         | -                                       |
+| **Prod build**     | Time taken to build the production bundles                  |                                         |
+| **Prod hot build** | Time taken to build the production bundles with cache       |                                         |
+| **Memory(RSS)**    | Memory usage at the end of a cold start                     |                                         |
+| **Total size**     | Total size of the bundle                                    | Minified by the default minifier        |
+| **Gzipped size**   | Gzipped size of the bundle                                  | Represents actual network transfer size |
 
 ## Notes
 

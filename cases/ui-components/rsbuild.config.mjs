@@ -6,5 +6,6 @@ export default defineConfig({
     chunkSplit: {
       strategy: 'all-in-one',
     },
+    buildCache: true,
   },
 });

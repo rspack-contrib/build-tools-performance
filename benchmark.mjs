@@ -34,8 +34,12 @@ const distDir = path.join(caseDir, 'dist');
 const { config } = await import(`./cases/${caseName}/benchmark-config.mjs`);
 const runDev = config.dev !== false;
 
-const startConsole = "console.log('Benchmark Start Time', Date.now());";
-const startConsoleRegex = /Benchmark Start Time (\d+)/;
+const startConsole = `console.log('Benchmark Start Time:', Date.now());
+console.log('Current PID:', process.pid);
+process.on('SIGUSR1', function () {
+  console.log('Memory Usage:', process.memoryUsage().rss);
+});
+`;
 
 class BuildTool {
   constructor({
@@ -102,6 +106,8 @@ class BuildTool {
       );
       this.child = child;
       let startTime = null;
+      let bundlerPid = null;
+      let timeUsage = null;
 
       child.stdout.on('data', (data) => {
         const text = data.toString();
@@ -110,19 +116,36 @@ class BuildTool {
           console.log(text);
         }
 
-        const startMatch = startConsoleRegex.exec(text);
+        const startMatch = /Benchmark Start Time: (\d+)/.exec(text);
         if (startMatch) {
           startTime = startMatch[1];
         }
 
-        const match = this.startedRegex.exec(text);
-        if (match) {
+        const matchPid = /Current PID: (\d+)/.exec(text);
+        if (matchPid) {
+          bundlerPid = parseInt(matchPid[1]);
+        }
+
+        const matchFinish = this.startedRegex.exec(text);
+        if (matchFinish) {
           if (!startTime) {
             throw new Error('Start time not found');
           }
-          const time = Date.now() - startTime;
+          if (!timeUsage) {
+            timeUsage = Date.now() - startTime;
+            if (!bundlerPid) {
+              throw new Error('bundler pid not found');
+            }
+            process.kill(bundlerPid, 'SIGUSR1');
+          }
+        }
 
-          resolve(time);
+        const matchRss = /Memory Usage: (\d+)/.exec(text);
+        if (matchRss) {
+          // transform to MB
+          let rss = parseInt(matchRss[1]) / 1024 / 1024;
+          rss = Math.round(rss * 1000) / 1000;
+          resolve({ time: timeUsage, rss });
         }
       });
 
@@ -332,7 +355,8 @@ for (let i = 0; i < totalTimes; i++) {
 
 async function runDevBenchmark(buildTool, perfResult) {
   buildTool.cleanCache();
-  const time = await buildTool.startServer();
+  const { time, rss } = await buildTool.startServer();
+  perfResult[buildTool.name].rss = rss;
   const page = await browser.newPage();
   const start = Date.now();
 
@@ -448,6 +472,46 @@ async function runDevBenchmark(buildTool, perfResult) {
 
   await coolDown();
   logger.success(color.dim(buildTool.name) + ' dev server closed');
+
+  // collect memory
+
+  // hot start
+  await runHotStartBenchmark(buildTool, perfResult);
+}
+
+async function runHotStartBenchmark(buildTool, perfResult) {
+  const { time } = await buildTool.startServer();
+  const page = await browser.newPage();
+  const start = Date.now();
+
+  logger.info(
+    color.dim(
+      'navigating to' + ` http://localhost:${buildTool.port} (hot start)`,
+    ),
+  );
+
+  await page.goto(`http://localhost:${buildTool.port}`, {
+    timeout: 60000,
+  });
+
+  // wait for render element
+  await page.waitForSelector('#root > *', {
+    timeout: 60000,
+  });
+  const loadTime = Date.now() - start;
+  logger.success(
+    color.dim(buildTool.name) +
+      ' dev hot start in ' +
+      color.green(time + loadTime + 'ms'),
+  );
+  perfResult[buildTool.name].devHotStart = time + loadTime;
+
+  await page.close();
+
+  buildTool.stopServer();
+
+  await coolDown();
+  logger.success(color.dim(buildTool.name) + ' dev server closed (hot start)');
 }
 
 async function runBuildBenchmark(buildTool, perfResult) {
@@ -473,6 +537,25 @@ async function runBuildBenchmark(buildTool, perfResult) {
   );
 
   perfResult[buildTool.name].prodBuild = buildTime;
+
+  await coolDown();
+
+  await runHotBuildBenchmark(buildTool, perfResult);
+}
+
+async function runHotBuildBenchmark(buildTool, perfResult) {
+  // Clean up dist dir
+  await fse.remove(distDir);
+
+  const buildTime = await buildTool.build();
+
+  logger.success(
+    color.dim(buildTool.name) +
+      ' hot built in ' +
+      color.green(buildTime + 'ms'),
+  );
+
+  perfResult[buildTool.name].prodHotBuild = buildTime;
 
   await coolDown();
 }
@@ -519,7 +602,8 @@ for (const result of perfResults) {
 
 for (const [name, values] of Object.entries(averageResults)) {
   for (const [key, value] of Object.entries(values)) {
-    averageResults[name][key] = Math.floor(value / perfResults.length) + 'ms';
+    console.log(name, key, value);
+    averageResults[name][key] = Math.floor(value / perfResults.length);
   }
   // Append size info
   Object.assign(averageResults[name], sizeResults[name]);
@@ -528,43 +612,49 @@ for (const [name, values] of Object.entries(averageResults)) {
 logger.log('');
 logger.success('Benchmark finished!\n');
 
-const genGetData = function (fieldName) {
-  return function () {
-    const data = buildTools.map(({ name }) => averageResults[name][fieldName]);
-    if (data.some((item) => item === undefined)) {
-      // Return null means this column no data,
-      // and this column will be hidden
-      return null;
-    }
-    addRankingEmojis(data);
-    return data;
-  };
+const getData = function (fieldName, unit) {
+  let data = buildTools.map(({ name }) => averageResults[name][fieldName]);
+  if (data.some((item) => item === undefined)) {
+    // Return null means this column no data,
+    // and this column will be hidden
+    return null;
+  }
+  // add unit
+  data = data.map((item) => item + unit);
+  addRankingEmojis(data);
+  return data;
 };
 
 const columns = [
   {
     title: 'Name',
-    getData() {
-      return buildTools.map(({ name }) => name);
-    },
+    data: buildTools.map(({ name }) => name),
   },
   {
     title: 'Dev cold start',
-    getData: genGetData('devColdStart'),
+    data: getData('devColdStart', 'ms'),
   },
-  { title: 'hmr', getData: genGetData('hmr') },
-  { title: 'Prod build', getData: genGetData('prodBuild') },
-  { title: 'Total size', getData: genGetData('totalSize') },
-  { title: 'Gzipped size', getData: genGetData('totalGzipSize') },
+  {
+    title: 'Dev hot start',
+    data: getData('devHotStart', 'ms'),
+  },
+  { title: 'hmr', data: getData('hmr', 'ms') },
+  { title: 'Prod build', data: getData('prodBuild', 'ms') },
+  { title: 'Prod hot build', data: getData('prodHotBuild', 'ms') },
+  {
+    title: 'Memory(RSS)',
+    data: getData('rss', 'MB'),
+  },
+  { title: 'Total size', data: getData('totalSize', 'kB') },
+  { title: 'Gzipped size', data: getData('totalGzipSize', 'kB') },
 ];
 
 /** @type {string[][]} */
 const datas = columns
-  .map((item) => {
-    const data = item.getData();
+  .map(({ title, data }) => {
     if (data !== null) {
       // inject title as first
-      data.unshift(item.title);
+      data.unshift(title);
     }
     return data;
   })

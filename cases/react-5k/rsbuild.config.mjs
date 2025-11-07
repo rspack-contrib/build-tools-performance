@@ -4,4 +4,7 @@ import { pluginReact } from '@rsbuild/plugin-react';
 
 export default defineConfig({
   plugins: [pluginReact()],
+  performance: {
+    buildCache: true,
+  },
 });
