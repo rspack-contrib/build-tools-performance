@@ -542,12 +542,12 @@ async function runBuildBenchmark(buildTool, perfResult) {
     color.dim(buildTool.name) + ' built in ' + color.green(buildTime + 'ms'),
   );
   logger.success(
-    color.dim(buildTool.name) + ' total size: ' + color.green(sizes.totalSize),
+    color.dim(buildTool.name) + ' total size: ' + color.green(sizes.totalSize + 'kB'),
   );
   logger.success(
     color.dim(buildTool.name) +
       ' gzipped size: ' +
-      color.green(sizes.totalGzipSize),
+      color.green(sizes.totalGzipSize + 'kB'),
   );
 
   perfResult[buildTool.name].prodBuild = buildTime;
