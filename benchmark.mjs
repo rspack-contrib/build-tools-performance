@@ -39,6 +39,9 @@ console.log('Current PID:', process.pid);
 process.on('SIGUSR1', function () {
   console.log('Memory Usage:', process.memoryUsage().rss);
 });
+process.on('exit', function() {
+  console.log('Memory Usage:', process.memoryUsage().rss);
+});
 `;
 
 class BuildTool {
@@ -191,10 +194,20 @@ class BuildTool {
       },
     );
     const startTime = Date.now();
+    let buildRss = null;
+    child.stdout.on('data', (data) => {
+      const text = data.toString();
+      const matchRss = /Memory Usage: (\d+)/.exec(text);
+      if (matchRss) {
+        // transform to MB
+        const rss = parseInt(matchRss[1]) / 1024 / 1024;
+        buildRss = Math.round(rss * 1000) / 1000;
+      }
+    });
     return new Promise((resolve, reject) => {
       child.on('exit', (code) => {
         if (code === 0) {
-          resolve(Date.now() - startTime);
+          resolve({ time: Date.now() - startTime, rss: buildRss });
         } else {
           reject(new Error(`Build failed with exit code ${code}`));
         }
@@ -356,7 +369,7 @@ for (let i = 0; i < totalTimes; i++) {
 async function runDevBenchmark(buildTool, perfResult) {
   buildTool.cleanCache();
   const { time, rss } = await buildTool.startServer();
-  perfResult[buildTool.name].rss = rss;
+  perfResult[buildTool.name].devRSS = rss;
   const page = await browser.newPage();
   const start = Date.now();
 
@@ -519,7 +532,8 @@ async function runBuildBenchmark(buildTool, perfResult) {
   // Clean up dist dir
   await fse.remove(distDir);
 
-  const buildTime = await buildTool.build();
+  const { time: buildTime, rss } = await buildTool.build();
+  perfResult[buildTool.name].buildRSS = rss;
 
   const sizes = sizeResults[buildTool.name] || (await getFileSizes(distDir));
   sizeResults[buildTool.name] = sizes;
@@ -547,7 +561,7 @@ async function runHotBuildBenchmark(buildTool, perfResult) {
   // Clean up dist dir
   await fse.remove(distDir);
 
-  const buildTime = await buildTool.build();
+  const { time: buildTime } = await buildTool.build();
 
   logger.success(
     color.dim(buildTool.name) +
@@ -602,7 +616,6 @@ for (const result of perfResults) {
 
 for (const [name, values] of Object.entries(averageResults)) {
   for (const [key, value] of Object.entries(values)) {
-    console.log(name, key, value);
     averageResults[name][key] = Math.floor(value / perfResults.length);
   }
   // Append size info
@@ -638,12 +651,16 @@ const columns = [
     title: 'Dev hot start',
     data: getData('devHotStart', 'ms'),
   },
-  { title: 'hmr', data: getData('hmr', 'ms') },
+  { title: 'HMR', data: getData('hmr', 'ms') },
+  {
+    title: 'Dev mem(RSS)',
+    data: getData('devRSS', 'MB'),
+  },
   { title: 'Prod build', data: getData('prodBuild', 'ms') },
   { title: 'Prod hot build', data: getData('prodHotBuild', 'ms') },
   {
-    title: 'Memory(RSS)',
-    data: getData('rss', 'MB'),
+    title: 'Build mem(RSS)',
+    data: getData('buildRSS', 'MB'),
   },
   { title: 'Total size', data: getData('totalSize', 'kB') },
   { title: 'Gzipped size', data: getData('totalGzipSize', 'kB') },

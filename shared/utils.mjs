@@ -14,7 +14,7 @@ function convertPath(path) {
 
 function formatFileSize(len) {
   const val = len / 1000;
-  return `${val.toFixed(val < 1 ? 2 : 1)}kB`;
+  return val.toFixed(val < 1 ? 2 : 1);
 }
 
 /**
