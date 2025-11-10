@@ -356,7 +356,7 @@ parseToolNames().forEach((name) => {
     case 'vite':
       buildTools.push(
         new BuildTool({
-          name: 'Vite (Rollup + SWC) ' + require('vite/package.json').version,
+          name: 'Vite (Rollup) ' + require('vite/package.json').version,
           port: 5173,
           startScript: 'start:vite',
           startedRegex: /ready in (\d+) (s|ms)/,
@@ -381,7 +381,7 @@ parseToolNames().forEach((name) => {
       buildTools.push(
         new BuildTool({
           name:
-            'Vite (Rolldown + Oxc) ' +
+            'Vite (Rolldown) ' +
             require('rolldown-vite/package.json').version,
           port: 5173,
           startScript: 'start:rolldown-vite',
@@ -828,7 +828,7 @@ if (runDev) {
       },
       { title: 'HMR', data: getData('hmr', 'ms') },
       {
-        title: 'Memory usage (RSS)',
+        title: 'Memory (RSS)',
         data: getData('devRSS', 'MB'),
       },
     ],
@@ -842,7 +842,7 @@ columnGroups.push({
     { title: 'Build (no cache)', data: getData('prodBuild', 'ms') },
     { title: 'Build (with cache)', data: getData('prodHotBuild', 'ms') },
     {
-      title: 'Memory usage (RSS)',
+      title: 'Memory (RSS)',
       data: getData('buildRSS', 'MB'),
     },
     { title: 'Output size', data: getData('outputSize', 'kB') },
