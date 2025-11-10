@@ -22,8 +22,8 @@ function formatFileSize(len: number) {
  */
 export async function getFileSizes(targetDir: string) {
   let files = await glob(convertPath(path.join(targetDir, '**/*')));
-  let totalSize = 0;
-  let totalGzipSize = 0;
+  let outputSize = 0;
+  let gzippedSize = 0;
 
   files = files.filter((file) => {
     return !(file.endsWith('.map') || file.endsWith('.LICENSE.txt'));
@@ -32,15 +32,15 @@ export async function getFileSizes(targetDir: string) {
   await Promise.all(
     files.map((file) =>
       fse.readFile(file, 'utf-8').then((content) => {
-        totalSize += Buffer.byteLength(content);
-        totalGzipSize += gzipSizeSync(content);
+        outputSize += Buffer.byteLength(content);
+        gzippedSize += gzipSizeSync(content);
       }),
     ),
   );
 
   return {
-    totalSize: formatFileSize(totalSize),
-    totalGzipSize: formatFileSize(totalGzipSize),
+    outputSize: formatFileSize(outputSize),
+    gzippedSize: formatFileSize(gzippedSize),
   };
 }
 

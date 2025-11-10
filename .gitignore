@@ -5,3 +5,4 @@ dist
 .DS_Store
 *.cpuprofile
 .parcel-cache
+tsconfig.tsbuildinfo

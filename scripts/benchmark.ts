@@ -53,8 +53,8 @@ type NumericPerfMetricKey =
   | 'buildRSS';
 
 interface PerfMetrics extends Partial<Record<NumericPerfMetricKey, number>> {
-  totalSize?: string;
-  totalGzipSize?: string;
+  outputSize?: string;
+  gzippedSize?: string;
 }
 
 type PerfResultMap = Partial<Record<string, PerfMetrics>>;
@@ -666,13 +666,13 @@ async function runBuildBenchmark(
   );
   logger.success(
     color.dim(buildTool.name) +
-      ' total size: ' +
-      color.green(sizes.totalSize + 'kB'),
+      ' output size: ' +
+      color.green(sizes.outputSize + 'kB'),
   );
   logger.success(
     color.dim(buildTool.name) +
       ' gzipped size: ' +
-      color.green(sizes.totalGzipSize + 'kB'),
+      color.green(sizes.gzippedSize + 'kB'),
   );
 
   metrics.prodBuild = buildTime;
@@ -762,8 +762,8 @@ for (const [name, values] of Object.entries(averageResults)) {
   // Append size info
   const sizeInfo = sizeResults[name];
   if (sizeInfo) {
-    values.totalSize = sizeInfo.totalSize;
-    values.totalGzipSize = sizeInfo.totalGzipSize;
+    values.outputSize = sizeInfo.outputSize;
+    values.gzippedSize = sizeInfo.gzippedSize;
   }
 }
 
@@ -790,48 +790,73 @@ const getData = function (
   return normalized;
 };
 
-const columns: Column[] = [
-  {
-    title: 'Name',
-    data: buildTools.map(({ name }) => name),
-  },
-  {
-    title: 'Dev cold start',
-    data: getData('devColdStart', 'ms'),
-  },
-  {
-    title: 'Dev hot start',
-    data: getData('devHotStart', 'ms'),
-  },
-  { title: 'HMR', data: getData('hmr', 'ms') },
-  {
-    title: 'Dev mem(RSS)',
-    data: getData('devRSS', 'MB'),
-  },
-  { title: 'Prod build', data: getData('prodBuild', 'ms') },
-  { title: 'Prod hot build', data: getData('prodHotBuild', 'ms') },
-  {
-    title: 'Build mem(RSS)',
-    data: getData('buildRSS', 'MB'),
-  },
-  { title: 'Total size', data: getData('totalSize', 'kB') },
-  { title: 'Gzipped size', data: getData('totalGzipSize', 'kB') },
-];
+const buildMarkdownTable = (columns: Column[]): string => {
+  const columnsWithData = columns
+    .map(({ title, data }) => (data ? [title, ...data] : null))
+    .filter((item): item is string[] => item !== null);
 
-const data: string[][] = columns
-  .map(({ title, data }) => (data ? [title, ...data] : null))
-  .filter((item): item is string[] => item !== null);
+  if (columnsWithData.length === 0) {
+    throw new Error('No benchmark data available to render.');
+  }
 
-if (data.length === 0) {
-  throw new Error('No benchmark data available to render.');
+  const rows = Array.from({ length: columnsWithData[0].length }, (_, index) =>
+    columnsWithData.map((item) => item[index]),
+  );
+
+  return markdownTable(rows);
+};
+
+const nameColumn: Column = {
+  title: 'Name',
+  data: buildTools.map(({ name }) => name),
+};
+
+const columnGroups: { label: string; columns: Column[] }[] = [];
+
+if (runDev) {
+  columnGroups.push({
+    label: 'Development metrics',
+    columns: [
+      nameColumn,
+      {
+        title: 'Startup (no cache)',
+        data: getData('devColdStart', 'ms'),
+      },
+      {
+        title: 'Startup (with cache)',
+        data: getData('devHotStart', 'ms'),
+      },
+      { title: 'HMR', data: getData('hmr', 'ms') },
+      {
+        title: 'Memory usage (RSS)',
+        data: getData('devRSS', 'MB'),
+      },
+    ],
+  });
 }
 
-const tableRows = Array.from({ length: data[0].length }, (_, index) =>
-  data.map((item) => item[index]),
-);
+columnGroups.push({
+  label: 'Build metrics',
+  columns: [
+    nameColumn,
+    { title: 'Build (no cache)', data: getData('prodBuild', 'ms') },
+    { title: 'Build (with cache)', data: getData('prodHotBuild', 'ms') },
+    {
+      title: 'Memory usage (RSS)',
+      data: getData('buildRSS', 'MB'),
+    },
+    { title: 'Output size', data: getData('outputSize', 'kB') },
+    {
+      title: 'Gzipped size',
+      data: getData('gzippedSize', 'kB'),
+    },
+  ],
+});
 
-const markdownLogs = markdownTable(tableRows);
-
-console.log(markdownLogs + '\n');
+for (const { label, columns } of columnGroups) {
+  logger.log(`${label}:\n`);
+  const table = buildMarkdownTable(columns);
+  console.log(`${table}\n`);
+}
 
 process.exit(0);
