@@ -20,7 +20,11 @@ export default defineConfig({
     ],
   },
   lazyCompilation: true,
+  cache: true,
   experiments: {
     css: true,
+    cache: {
+      type: 'persistent',
+    },
   },
 });

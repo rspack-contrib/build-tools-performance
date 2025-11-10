@@ -11,6 +11,9 @@ export default {
   resolve: {
     extensions: ['...', '.tsx', '.ts', '.jsx'],
   },
+  cache: {
+    type: 'filesystem',
+  },
   optimization: {
     minimizer: isProd
       ? [

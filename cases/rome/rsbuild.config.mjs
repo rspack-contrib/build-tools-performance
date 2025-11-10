@@ -25,4 +25,7 @@ export default defineConfig({
       },
     },
   },
+  performance: {
+    buildCache: true,
+  },
 });
