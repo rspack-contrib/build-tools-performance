@@ -1,6 +1,5 @@
 import { spawn, type ChildProcess } from 'node:child_process';
 import { appendFile, readFileSync, writeFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import fse from 'fs-extra';
 import { createRequire } from 'module';
 import path from 'path';
@@ -13,12 +12,8 @@ import kill from 'tree-kill';
 import { logger } from 'rslog';
 import color from 'picocolors';
 import { markdownTable } from 'markdown-table';
-import { caseName } from './shared/constants.mjs';
-import {
-  getFileSizes,
-  addRankingEmojis,
-  shuffleArray,
-} from './shared/utils.mjs';
+import { caseName } from '../shared/constants.mjs';
+import { getFileSizes, addRankingEmojis, shuffleArray } from './utils.ts';
 
 process.env.CASE = caseName;
 
@@ -88,14 +83,15 @@ const ensureMetrics = (
 };
 
 const require = createRequire(import.meta.url);
-const caseDir = path.join(import.meta.dirname, 'cases', caseName);
+const monorepoRoot = path.join(import.meta.dirname, '../');
+const caseDir = path.join(monorepoRoot, 'cases', caseName);
 const srcDir = path.join(caseDir, 'src');
 const distDir = path.join(caseDir, 'dist');
 type ConfigModule = {
   config: BenchmarkConfig;
 };
 const { config } = (await import(
-  `./cases/${caseName}/benchmark-config.mjs`
+  `../cases/${caseName}/benchmark-config.mjs`
 )) as ConfigModule;
 const runDev = config.dev !== false;
 
@@ -146,7 +142,7 @@ class BuildTool {
 
   cleanCache(): void {
     try {
-      [import.meta.dirname, caseDir].forEach((dir) => {
+      [monorepoRoot, caseDir].forEach((dir) => {
         fse.removeSync(path.join(dir, './.parcel-cache'));
         fse.removeSync(path.join(dir, './node_modules/.cache'));
         fse.removeSync(path.join(dir, './node_modules/.vite'));

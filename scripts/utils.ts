@@ -5,14 +5,14 @@ import { gzipSizeSync } from 'gzip-size';
 
 // fast-glob only accepts posix path
 // https://github.com/mrmlnc/fast-glob#convertpathtopatternpath
-function convertPath(path) {
+function convertPath(path: string) {
   if (process.platform === 'win32') {
     return glob.convertPathToPattern(path);
   }
   return path;
 }
 
-function formatFileSize(len) {
+function formatFileSize(len: number) {
   const val = len / 1000;
   return val.toFixed(val < 1 ? 2 : 1);
 }
@@ -20,7 +20,7 @@ function formatFileSize(len) {
 /**
  * Get the total size of files in the target directory
  */
-export async function getFileSizes(targetDir) {
+export async function getFileSizes(targetDir: string) {
   let files = await glob(convertPath(path.join(targetDir, '**/*')));
   let totalSize = 0;
   let totalGzipSize = 0;
@@ -46,11 +46,11 @@ export async function getFileSizes(targetDir) {
 
 /**
  * Add ranking emojis to metrics
- * @param {string[]} datas - The data used for ranking.
+ * @param {string[]} data - The data used for ranking.
  * @param {string} [sort="ASC"] - ASC means smaller values are better, DESC means bigger values are better.
  */
-export function addRankingEmojis(datas, sort = 'ASC') {
-  const values = datas.map((originalValue, index) => ({
+export function addRankingEmojis(data: string[], sort = 'ASC') {
+  const values = data.map((originalValue, index) => ({
     index,
     value: parseFloat(originalValue),
     originalValue,
@@ -70,11 +70,11 @@ export function addRankingEmojis(datas, sort = 'ASC') {
 
   values.forEach((item, rank) => {
     const emoji = rank < 3 ? emojis[rank] : '';
-    datas[item.index] = item.originalValue + emoji;
+    data[item.index] = item.originalValue + emoji;
   });
 }
 
-export function shuffleArray(array) {
+export function shuffleArray<T>(array: T[]) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];

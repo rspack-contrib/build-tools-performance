@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "benchmark": "node benchmark.ts"
+    "benchmark": "node ./scripts/benchmark.ts"
   },
   "devDependencies": {
     "@farmfe/cli": "^1.0.5",
