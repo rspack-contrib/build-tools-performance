@@ -118,7 +118,7 @@ CASE=rome pnpm benchmark
 
 ## Run locally
 
-Run the `benchmark.mjs` script to get the results (requires Node.js >= 22):
+Run the `benchmark.ts` script to get the results (requires Node.js >= 22):
 
 ```bash
 # Run the benchmark for the react-5k case

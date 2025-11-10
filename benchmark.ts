@@ -1,10 +1,14 @@
-// @ts-check
-import { spawn } from 'child_process';
+import { spawn, type ChildProcess } from 'node:child_process';
 import { appendFile, readFileSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import fse from 'fs-extra';
 import { createRequire } from 'module';
 import path from 'path';
-import puppeteer from 'puppeteer';
+import puppeteer, {
+  type Browser,
+  type ConsoleMessage,
+  type Page,
+} from 'puppeteer';
 import kill from 'tree-kill';
 import { logger } from 'rslog';
 import color from 'picocolors';
@@ -18,20 +22,81 @@ import {
 
 process.env.CASE = caseName;
 
-async function coolDown() {
-  if (global.gc) {
-    global.gc();
-  }
-  const COOL_DOWN_TIME = 3000;
-  await new Promise((resolve) => setTimeout(resolve, COOL_DOWN_TIME));
+declare global {
+  // Exposed when running Node with --expose-gc; allow optional presence.
+  // eslint-disable-next-line no-var
+  var gc: NodeJS.GCFunction | undefined;
 }
 
+type BenchmarkConfig = {
+  supportedTools: string[];
+  defaultTools?: string[];
+  dev?: boolean;
+  rootFile?: string;
+  leafFile?: string;
+};
+
+type DevServerResult = {
+  time: number;
+  rss: number;
+};
+
+type BuildResult = {
+  time: number;
+  rss: number | null;
+};
+
+type NumericPerfMetricKey =
+  | 'devColdStart'
+  | 'devHotStart'
+  | 'devRSS'
+  | 'rootHmr'
+  | 'leafHmr'
+  | 'hmr'
+  | 'prodBuild'
+  | 'prodHotBuild'
+  | 'buildRSS';
+
+interface PerfMetrics extends Partial<Record<NumericPerfMetricKey, number>> {
+  totalSize?: string;
+  totalGzipSize?: string;
+}
+
+type PerfResultMap = Partial<Record<string, PerfMetrics>>;
+type FileSizes = Awaited<ReturnType<typeof getFileSizes>>;
+
+interface Column {
+  title: string;
+  data: string[] | null;
+}
+
+const COOL_DOWN_TIME = 3000;
+
+async function coolDown(): Promise<void> {
+  global.gc?.();
+  await new Promise<void>((resolve) => setTimeout(resolve, COOL_DOWN_TIME));
+}
+
+const ensureMetrics = (
+  perfResult: PerfResultMap,
+  toolName: string,
+): PerfMetrics => {
+  if (!perfResult[toolName]) {
+    perfResult[toolName] = {};
+  }
+  return perfResult[toolName]!;
+};
+
 const require = createRequire(import.meta.url);
-const __dirname = import.meta.dirname;
-const caseDir = path.join(__dirname, 'cases', caseName);
+const caseDir = path.join(import.meta.dirname, 'cases', caseName);
 const srcDir = path.join(caseDir, 'src');
 const distDir = path.join(caseDir, 'dist');
-const { config } = await import(`./cases/${caseName}/benchmark-config.mjs`);
+type ConfigModule = {
+  config: BenchmarkConfig;
+};
+const { config } = (await import(
+  `./cases/${caseName}/benchmark-config.mjs`
+)) as ConfigModule;
 const runDev = config.dev !== false;
 
 const startConsole = `console.log('Benchmark Start Time:', Date.now());
@@ -44,7 +109,24 @@ process.on('exit', function() {
 });
 `;
 
+interface BuildToolOptions {
+  name: string;
+  port: number;
+  startScript: string;
+  startedRegex: RegExp;
+  buildScript: string;
+  binFilePath: string;
+}
+
 class BuildTool {
+  public readonly name: string;
+  public readonly port: number;
+  private readonly startScript: string;
+  private readonly startedRegex: RegExp;
+  private readonly buildScript: string;
+  private readonly binFilePath: string;
+  private child?: ChildProcess;
+
   constructor({
     name,
     port,
@@ -52,7 +134,7 @@ class BuildTool {
     startedRegex,
     buildScript,
     binFilePath,
-  }) {
+  }: BuildToolOptions) {
     this.name = name;
     this.port = port;
     this.startScript = startScript;
@@ -62,19 +144,21 @@ class BuildTool {
     this.hackBinFile();
   }
 
-  cleanCache() {
+  cleanCache(): void {
     try {
-      [__dirname, caseDir].forEach((dir) => {
+      [import.meta.dirname, caseDir].forEach((dir) => {
         fse.removeSync(path.join(dir, './.parcel-cache'));
         fse.removeSync(path.join(dir, './node_modules/.cache'));
         fse.removeSync(path.join(dir, './node_modules/.vite'));
         fse.removeSync(path.join(dir, './node_modules/.farm'));
       });
-    } catch (err) {}
+    } catch {
+      // ignore cache cleanup failures so benchmarks can continue
+    }
   }
 
   // Add a `console.log('Benchmark start', Date.now())` to the bin file's second line
-  hackBinFile() {
+  private hackBinFile(): void {
     logger.info(
       'Setup bin file for',
       color.green(this.name),
@@ -90,12 +174,12 @@ class BuildTool {
     }
   }
 
-  async startServer() {
+  async startServer(): Promise<DevServerResult> {
     logger.log('');
     logger.start(
       `Running start command: ${color.bold(color.yellow(this.startScript))}`,
     );
-    return new Promise((resolve, reject) => {
+    return new Promise<DevServerResult>((resolve, reject) => {
       const child = spawn(
         `cd cases/${caseName} && node --run ${this.startScript}`,
         {
@@ -108,11 +192,19 @@ class BuildTool {
         },
       );
       this.child = child;
-      let startTime = null;
-      let bundlerPid = null;
-      let timeUsage = null;
+      let startTime: number | null = null;
+      let bundlerPid: number | null = null;
+      let timeUsage: number | null = null;
 
-      child.stdout.on('data', (data) => {
+      const stdout = child.stdout;
+      const stderr = child.stderr;
+
+      if (!stdout || !stderr) {
+        reject(new Error('Failed to capture child process output'));
+        return;
+      }
+
+      stdout.on('data', (data: Buffer) => {
         const text = data.toString();
 
         if (process.env.DEBUG) {
@@ -121,23 +213,25 @@ class BuildTool {
 
         const startMatch = /Benchmark Start Time: (\d+)/.exec(text);
         if (startMatch) {
-          startTime = startMatch[1];
+          startTime = Number(startMatch[1]);
         }
 
         const matchPid = /Current PID: (\d+)/.exec(text);
         if (matchPid) {
-          bundlerPid = parseInt(matchPid[1]);
+          bundlerPid = Number(matchPid[1]);
         }
 
-        const matchFinish = this.startedRegex.exec(text);
-        if (matchFinish) {
-          if (!startTime) {
-            throw new Error('Start time not found');
+        if (this.startedRegex.test(text)) {
+          this.startedRegex.lastIndex = 0;
+          if (startTime === null) {
+            reject(new Error('Start time not found'));
+            return;
           }
-          if (!timeUsage) {
+          if (timeUsage === null) {
             timeUsage = Date.now() - startTime;
             if (!bundlerPid) {
-              throw new Error('bundler pid not found');
+              reject(new Error('Bundler pid not found'));
+              return;
             }
             process.kill(bundlerPid, 'SIGUSR1');
           }
@@ -145,15 +239,19 @@ class BuildTool {
 
         const matchRss = /Memory Usage: (\d+)/.exec(text);
         if (matchRss) {
+          if (timeUsage === null) {
+            reject(new Error('Time usage not captured'));
+            return;
+          }
           // transform to MB
-          let rss = parseInt(matchRss[1]) / 1024 / 1024;
-          rss = Math.round(rss * 1000) / 1000;
+          const rssRaw = Number(matchRss[1]) / 1024 / 1024;
+          const rss = Math.round(rssRaw * 1000) / 1000;
           resolve({ time: timeUsage, rss });
         }
       });
 
-      child.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`);
+      stderr.on('data', (data: Buffer) => {
+        logger.log(`stderr: ${data}`);
       });
 
       child.on('error', (error) => {
@@ -165,19 +263,19 @@ class BuildTool {
           logger.error(
             `(${this.name} run ${this.startScript} failed) child process exited with code ${code}`,
           );
-          reject(code);
+          reject(new Error(String(code)));
         }
       });
     });
   }
 
-  stopServer() {
-    if (this.child) {
-      kill(this.child.pid ?? 0);
+  stopServer(): void {
+    if (this.child?.pid) {
+      kill(this.child.pid);
     }
   }
 
-  async build() {
+  async build(): Promise<BuildResult> {
     logger.log('');
     logger.start(
       `Running build command: ${color.bold(color.yellow(this.buildScript))}`,
@@ -193,18 +291,24 @@ class BuildTool {
         },
       },
     );
+    const stdout = child.stdout;
+
+    if (!stdout) {
+      throw new Error('Failed to capture build output');
+    }
+
     const startTime = Date.now();
-    let buildRss = null;
-    child.stdout.on('data', (data) => {
+    let buildRss: number | null = null;
+    stdout.on('data', (data: Buffer) => {
       const text = data.toString();
       const matchRss = /Memory Usage: (\d+)/.exec(text);
       if (matchRss) {
         // transform to MB
-        const rss = parseInt(matchRss[1]) / 1024 / 1024;
+        const rss = Number(matchRss[1]) / 1024 / 1024;
         buildRss = Math.round(rss * 1000) / 1000;
       }
     });
-    return new Promise((resolve, reject) => {
+    return new Promise<BuildResult>((resolve, reject) => {
       child.on('exit', (code) => {
         if (code === 0) {
           resolve({ time: Date.now() - startTime, rss: buildRss });
@@ -217,7 +321,7 @@ class BuildTool {
   }
 }
 
-const parseToolNames = () => {
+const parseToolNames = (): string[] => {
   if (process.env.TOOLS === 'all') {
     return config.supportedTools;
   }
@@ -226,7 +330,7 @@ const parseToolNames = () => {
   }
   return config.defaultTools ?? config.supportedTools;
 };
-const buildTools = [];
+const buildTools: BuildTool[] = [];
 parseToolNames().forEach((name) => {
   switch (name) {
     case 'rspack':
@@ -342,7 +446,7 @@ parseToolNames().forEach((name) => {
   }
 });
 
-const browser = await puppeteer.launch();
+const browser: Browser = await puppeteer.launch();
 const { WARMUP_TIMES, RUN_TIMES } = process.env;
 const warmupTimes = WARMUP_TIMES ? Number(WARMUP_TIMES) : 2;
 const runTimes = RUN_TIMES ? Number(RUN_TIMES) : 3;
@@ -359,18 +463,29 @@ logger.info(
     ' times',
 );
 
-let perfResults = [];
-let sizeResults = {};
+let perfResults: PerfResultMap[] = [];
+const sizeResults: Partial<Record<string, FileSizes>> = {};
 
 for (let i = 0; i < totalTimes; i++) {
   await benchAllCases();
 }
 
-async function runDevBenchmark(buildTool, perfResult) {
+async function runDevBenchmark(
+  buildTool: BuildTool,
+  perfResult: PerfResultMap,
+): Promise<void> {
+  const metrics = ensureMetrics(perfResult, buildTool.name);
+  const { rootFile, leafFile } = config;
+  if (!rootFile || !leafFile) {
+    throw new Error(
+      'Dev benchmarks require both rootFile and leafFile in the case config.',
+    );
+  }
+
   buildTool.cleanCache();
   const { time, rss } = await buildTool.startServer();
-  perfResult[buildTool.name].devRSS = rss;
-  const page = await browser.newPage();
+  metrics.devRSS = rss;
+  const page: Page = await browser.newPage();
   const start = Date.now();
 
   logger.info(
@@ -391,22 +506,24 @@ async function runDevBenchmark(buildTool, perfResult) {
       ' dev cold start in ' +
       color.green(time + loadTime + 'ms'),
   );
-  perfResult[buildTool.name].devColdStart = time + loadTime;
+  metrics.devColdStart = time + loadTime;
 
-  let waitResolve = null;
-  const waitPromise = new Promise((resolve) => {
+  let waitResolve!: () => void;
+  const waitPromise = new Promise<void>((resolve) => {
     waitResolve = resolve;
   });
 
   let hmrRootStart = -1;
   let hmrLeafStart = -1;
 
-  page.on('console', (event) => {
+  page.on('console', (event: ConsoleMessage) => {
     const afterHMR = () => {
-      const currentResult = perfResult[buildTool.name];
-      if (currentResult?.rootHmr && currentResult?.leafHmr) {
-        currentResult.hmr = (currentResult.rootHmr + currentResult.leafHmr) / 2;
-        page.close();
+      if (
+        typeof metrics.rootHmr === 'number' &&
+        typeof metrics.leafHmr === 'number'
+      ) {
+        metrics.hmr = (metrics.rootHmr + metrics.leafHmr) / 2;
+        void page.close();
         waitResolve();
       }
     };
@@ -425,7 +542,7 @@ async function runDevBenchmark(buildTool, perfResult) {
           color.green(hmrTime + 'ms'),
       );
 
-      perfResult[buildTool.name].rootHmr = hmrTime;
+      metrics.rootHmr = hmrTime;
       afterHMR();
     } else if (event.text().includes('leaf hmr')) {
       const match = /(\d+)/.exec(event.text());
@@ -440,13 +557,13 @@ async function runDevBenchmark(buildTool, perfResult) {
           ' HMR (leaf module) in ' +
           color.green(hmrTime + 'ms'),
       );
-      perfResult[buildTool.name].leafHmr = hmrTime;
+      metrics.leafHmr = hmrTime;
       afterHMR();
     }
   });
 
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  const rootFilePath = path.join(srcDir, config.rootFile);
+  const rootFilePath = path.join(srcDir, rootFile);
   const originalRootFileContent = readFileSync(rootFilePath, 'utf-8');
 
   appendFile(
@@ -462,7 +579,7 @@ async function runDevBenchmark(buildTool, perfResult) {
 
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const leafFilePath = path.join(srcDir, config.leafFile);
+  const leafFilePath = path.join(srcDir, leafFile);
   const originalLeafFileContent = readFileSync(leafFilePath, 'utf-8');
   appendFile(
     leafFilePath,
@@ -492,9 +609,13 @@ async function runDevBenchmark(buildTool, perfResult) {
   await runHotStartBenchmark(buildTool, perfResult);
 }
 
-async function runHotStartBenchmark(buildTool, perfResult) {
+async function runHotStartBenchmark(
+  buildTool: BuildTool,
+  perfResult: PerfResultMap,
+): Promise<void> {
+  const metrics = ensureMetrics(perfResult, buildTool.name);
   const { time } = await buildTool.startServer();
-  const page = await browser.newPage();
+  const page: Page = await browser.newPage();
   const start = Date.now();
 
   logger.info(
@@ -517,7 +638,7 @@ async function runHotStartBenchmark(buildTool, perfResult) {
       ' dev hot start in ' +
       color.green(time + loadTime + 'ms'),
   );
-  perfResult[buildTool.name].devHotStart = time + loadTime;
+  metrics.devHotStart = time + loadTime;
 
   await page.close();
 
@@ -527,22 +648,30 @@ async function runHotStartBenchmark(buildTool, perfResult) {
   logger.success(color.dim(buildTool.name) + ' dev server closed (hot start)');
 }
 
-async function runBuildBenchmark(buildTool, perfResult) {
+async function runBuildBenchmark(
+  buildTool: BuildTool,
+  perfResult: PerfResultMap,
+): Promise<void> {
+  const metrics = ensureMetrics(perfResult, buildTool.name);
   buildTool.cleanCache();
   // Clean up dist dir
   await fse.remove(distDir);
 
   const { time: buildTime, rss } = await buildTool.build();
-  perfResult[buildTool.name].buildRSS = rss;
+  if (rss !== null) {
+    metrics.buildRSS = rss;
+  }
 
-  const sizes = sizeResults[buildTool.name] || (await getFileSizes(distDir));
+  const sizes = sizeResults[buildTool.name] ?? (await getFileSizes(distDir));
   sizeResults[buildTool.name] = sizes;
 
   logger.success(
     color.dim(buildTool.name) + ' built in ' + color.green(buildTime + 'ms'),
   );
   logger.success(
-    color.dim(buildTool.name) + ' total size: ' + color.green(sizes.totalSize + 'kB'),
+    color.dim(buildTool.name) +
+      ' total size: ' +
+      color.green(sizes.totalSize + 'kB'),
   );
   logger.success(
     color.dim(buildTool.name) +
@@ -550,14 +679,18 @@ async function runBuildBenchmark(buildTool, perfResult) {
       color.green(sizes.totalGzipSize + 'kB'),
   );
 
-  perfResult[buildTool.name].prodBuild = buildTime;
+  metrics.prodBuild = buildTime;
 
   await coolDown();
 
   await runHotBuildBenchmark(buildTool, perfResult);
 }
 
-async function runHotBuildBenchmark(buildTool, perfResult) {
+async function runHotBuildBenchmark(
+  buildTool: BuildTool,
+  perfResult: PerfResultMap,
+): Promise<void> {
+  const metrics = ensureMetrics(perfResult, buildTool.name);
   // Clean up dist dir
   await fse.remove(distDir);
 
@@ -569,20 +702,18 @@ async function runHotBuildBenchmark(buildTool, perfResult) {
       color.green(buildTime + 'ms'),
   );
 
-  perfResult[buildTool.name].prodHotBuild = buildTime;
+  metrics.prodHotBuild = buildTime;
 
   await coolDown();
 }
 
-async function benchAllCases() {
-  const perfResult = {};
+async function benchAllCases(): Promise<void> {
+  const perfResult: PerfResultMap = {};
   // Shuffle the build tools to avoid the cache effect
   const shuffledBuildTools = shuffleArray([...buildTools]);
 
   for (const buildTool of shuffledBuildTools) {
-    if (!perfResult[buildTool.name]) {
-      perfResult[buildTool.name] = {};
-    }
+    ensureMetrics(perfResult, buildTool.name);
     if (runDev) {
       await runDevBenchmark(buildTool, perfResult);
     }
@@ -593,52 +724,77 @@ async function benchAllCases() {
 }
 
 // Calculate average results
-const averageResults = {};
+const averageResults: Record<string, PerfMetrics> = {};
 
 // Drop the warmup results
 perfResults = perfResults.slice(warmupTimes);
 
+if (perfResults.length === 0) {
+  throw new Error('No measured benchmark runs were collected.');
+}
+
 for (const result of perfResults) {
   for (const [name, values] of Object.entries(result)) {
-    if (!averageResults[name]) {
-      averageResults[name] = {};
+    if (!values) {
+      continue;
     }
+    const metricBucket = averageResults[name] ?? (averageResults[name] = {});
 
-    for (const [key, value] of Object.entries(values)) {
-      if (!averageResults[name][key]) {
-        averageResults[name][key] = 0;
+    for (const [key, rawValue] of Object.entries(values) as [
+      keyof PerfMetrics,
+      PerfMetrics[keyof PerfMetrics],
+    ][]) {
+      if (typeof rawValue !== 'number') {
+        continue;
       }
 
-      averageResults[name][key] += Number(value);
+      const metricKey = key as NumericPerfMetricKey;
+      const previousValue = metricBucket[metricKey] ?? 0;
+      metricBucket[metricKey] = previousValue + rawValue;
     }
   }
 }
 
 for (const [name, values] of Object.entries(averageResults)) {
-  for (const [key, value] of Object.entries(values)) {
-    averageResults[name][key] = Math.floor(value / perfResults.length);
-  }
+  (Object.keys(values) as (keyof PerfMetrics)[]).forEach((key) => {
+    const metricValue = values[key];
+    if (typeof metricValue === 'number') {
+      const numericKey = key as NumericPerfMetricKey;
+      values[numericKey] = Math.floor(metricValue / perfResults.length);
+    }
+  });
   // Append size info
-  Object.assign(averageResults[name], sizeResults[name]);
+  const sizeInfo = sizeResults[name];
+  if (sizeInfo) {
+    values.totalSize = sizeInfo.totalSize;
+    values.totalGzipSize = sizeInfo.totalGzipSize;
+  }
 }
 
 logger.log('');
 logger.success('Benchmark finished!\n');
 
-const getData = function (fieldName, unit) {
-  let data = buildTools.map(({ name }) => averageResults[name][fieldName]);
-  if (data.some((item) => item === undefined)) {
-    // Return null means this column no data,
-    // and this column will be hidden
+const getData = function (
+  fieldName: keyof PerfMetrics,
+  unit: string,
+): string[] | null {
+  const dataset = buildTools.map(
+    ({ name }) => averageResults[name]?.[fieldName],
+  );
+  const hasMissingValue = dataset.some(
+    (item): item is undefined => item === undefined,
+  );
+  if (hasMissingValue) {
+    // Return null means this column has no data
+    // and should be hidden
     return null;
   }
-  // add unit
-  data = data.map((item) => item + unit);
-  addRankingEmojis(data);
-  return data;
+  const normalized = dataset.map((item) => `${item as number | string}${unit}`);
+  addRankingEmojis(normalized);
+  return normalized;
 };
 
-const columns = [
+const columns: Column[] = [
   {
     title: 'Name',
     data: buildTools.map(({ name }) => name),
@@ -666,22 +822,19 @@ const columns = [
   { title: 'Gzipped size', data: getData('totalGzipSize', 'kB') },
 ];
 
-/** @type {string[][]} */
-const datas = columns
-  .map(({ title, data }) => {
-    if (data !== null) {
-      // inject title as first
-      data.unshift(title);
-    }
-    return data;
-  })
-  .filter(Boolean);
+const data: string[][] = columns
+  .map(({ title, data }) => (data ? [title, ...data] : null))
+  .filter((item): item is string[] => item !== null);
 
-const markdownLogs = markdownTable(
-  [...Array(datas[0].length)].map((_, index) => {
-    return datas.map((item) => item[index]);
-  }),
+if (data.length === 0) {
+  throw new Error('No benchmark data available to render.');
+}
+
+const tableRows = Array.from({ length: data[0].length }, (_, index) =>
+  data.map((item) => item[index]),
 );
+
+const markdownLogs = markdownTable(tableRows);
 
 console.log(markdownLogs + '\n');
 
