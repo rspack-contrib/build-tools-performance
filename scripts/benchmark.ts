@@ -409,7 +409,7 @@ parseToolNames().forEach((name) => {
           startScript: 'start:esbuild',
           startedRegex: /esbuild built in (\d+) ms/,
           buildScript: 'build:esbuild',
-          binFilePath: 'esbuild/bin/esbuild',
+          binFilePath: 'esbuild/lib/main.js',
         }),
       );
       break;
