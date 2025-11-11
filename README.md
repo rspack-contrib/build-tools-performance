@@ -4,16 +4,16 @@ Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github
 
 ## Metrics
 
-| Name                     | Description                                                 | Notes                                   |
-| ------------------------ | ----------------------------------------------------------- | --------------------------------------- |
-| **Startup (no cache)**   | Time from starting the dev server to page loaded            | -                                       |
-| **Startup (with cache)** | Time from starting the dev server to page loaded with cache | -                                       |
-| **HMR**                  | Time to HMR after changing a module                         | -                                       |
-| **Build (no cache)**     | Time taken to build the production bundles                  |                                         |
-| **Build (with cache)**   | Time taken to build the production bundles with cache       |                                         |
-| **Memory (RSS)**         | Memory usage at the end of a cold start or production build |                                         |
-| **Output size**          | Total size of the output bundle                             | Minified by the default minifier        |
-| **Gzipped size**         | Gzipped size of the output bundle                           | Represents actual network transfer size |
+| Name                     | Description                                                                |
+| ------------------------ | -------------------------------------------------------------------------- |
+| **Startup (no cache)**   | Time from starting the dev server to page loaded                           |
+| **Startup (with cache)** | Time from starting the dev server to page loaded with cache                |
+| **HMR**                  | Time to HMR after changing a module                                        |
+| **Build (no cache)**     | Time taken to build the production bundles                                 |
+| **Build (with cache)**   | Time taken to build the production bundles with cache                      |
+| **Memory (RSS)**         | Memory usage at the end of a cold start or production build                |
+| **Output size**          | Total size of the output bundle, minified with the default minifier        |
+| **Gzipped size**         | Gzipped size of the output bundle, represents actual network transfer size |
 
 ## Notes
 
