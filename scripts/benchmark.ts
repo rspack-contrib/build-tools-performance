@@ -11,6 +11,7 @@ import puppeteer, {
 import kill from 'tree-kill';
 import { logger } from 'rslog';
 import color from 'picocolors';
+import pidusage from 'pidusage';
 import { markdownTable } from 'markdown-table';
 import { caseName } from '../shared/constants.mjs';
 import { getFileSizes, addRankingEmojis, shuffleArray } from './utils.ts';
@@ -34,11 +35,12 @@ type BenchmarkConfig = {
 type DevServerResult = {
   time: number;
   rss: number;
+  stopServer: () => void;
 };
 
 type BuildResult = {
   time: number;
-  rss: number | null;
+  rss: number;
 };
 
 type NumericPerfMetricKey =
@@ -97,9 +99,6 @@ const runDev = config.dev !== false;
 
 const startConsole = `console.log('Benchmark Start Time:', Date.now());
 console.log('Current PID:', process.pid);
-process.on('SIGUSR1', function () {
-  console.log('Memory Usage:', process.memoryUsage().rss);
-});
 process.on('exit', function() {
   console.log('Memory Usage:', process.memoryUsage().rss);
 });
@@ -175,37 +174,47 @@ class BuildTool {
     logger.start(
       `Running start command: ${color.bold(color.yellow(this.startScript))}`,
     );
-    return new Promise<DevServerResult>((resolve, reject) => {
-      const child = spawn(
-        `cd cases/${caseName} && node --run ${this.startScript}`,
-        {
-          stdio: ['pipe'],
-          shell: true,
-          env: {
-            ...process.env,
-            NO_COLOR: '1',
-          },
+
+    const child = spawn(
+      `cd cases/${caseName} && node --run ${this.startScript}`,
+      {
+        stdio: ['pipe'],
+        shell: true,
+        env: {
+          ...process.env,
+          NO_COLOR: '1',
         },
-      );
-      this.child = child;
+      },
+    );
+    const stdout = child.stdout;
+    const stderr = child.stderr;
+
+    if (!stdout || !stderr) {
+      throw new Error('Failed to capture child process output');
+    }
+
+    if (process.env.DEBUG) {
+      stdout.on('data', (data: Buffer) => {
+        console.log(data.toString());
+      });
+    }
+    stderr.on('data', (data: Buffer) => {
+      logger.log(`stderr: ${data}`);
+    });
+
+    const stopServer = function () {
+      if (child.pid) {
+        kill(child.pid);
+      }
+    };
+
+    return new Promise<DevServerResult>((resolve, reject) => {
       let startTime: number | null = null;
       let bundlerPid: number | null = null;
       let timeUsage: number | null = null;
 
-      const stdout = child.stdout;
-      const stderr = child.stderr;
-
-      if (!stdout || !stderr) {
-        reject(new Error('Failed to capture child process output'));
-        return;
-      }
-
       stdout.on('data', (data: Buffer) => {
         const text = data.toString();
-
-        if (process.env.DEBUG) {
-          console.log(text);
-        }
 
         const startMatch = /Benchmark Start Time: (\d+)/.exec(text);
         if (startMatch) {
@@ -229,25 +238,17 @@ class BuildTool {
               reject(new Error('Bundler pid not found'));
               return;
             }
-            process.kill(bundlerPid, 'SIGUSR1');
+            pidusage(bundlerPid, function (err: Error | null, info: any) {
+              if (err) {
+                reject(err);
+                return;
+              }
+              const rssRaw = info.memory / 1024 / 1024;
+              const rss = Math.round(rssRaw * 1000) / 1000;
+              resolve({ time: timeUsage!, rss, stopServer });
+            });
           }
         }
-
-        const matchRss = /Memory Usage: (\d+)/.exec(text);
-        if (matchRss) {
-          if (timeUsage === null) {
-            reject(new Error('Time usage not captured'));
-            return;
-          }
-          // transform to MB
-          const rssRaw = Number(matchRss[1]) / 1024 / 1024;
-          const rss = Math.round(rssRaw * 1000) / 1000;
-          resolve({ time: timeUsage, rss });
-        }
-      });
-
-      stderr.on('data', (data: Buffer) => {
-        logger.log(`stderr: ${data}`);
       });
 
       child.on('error', (error) => {
@@ -263,12 +264,6 @@ class BuildTool {
         }
       });
     });
-  }
-
-  stopServer(): void {
-    if (this.child?.pid) {
-      kill(this.child.pid);
-    }
   }
 
   async build(): Promise<BuildResult> {
@@ -306,11 +301,15 @@ class BuildTool {
     });
     return new Promise<BuildResult>((resolve, reject) => {
       child.on('exit', (code) => {
-        if (code === 0) {
-          resolve({ time: Date.now() - startTime, rss: buildRss });
-        } else {
+        if (code !== 0) {
           reject(new Error(`Build failed with exit code ${code}`));
+          return;
         }
+        if (!buildRss) {
+          reject(new Error('buildRss not found'));
+          return;
+        }
+        resolve({ time: Date.now() - startTime, rss: buildRss });
       });
       child.on('error', reject);
     });
@@ -381,8 +380,7 @@ parseToolNames().forEach((name) => {
       buildTools.push(
         new BuildTool({
           name:
-            'Vite (Rolldown) ' +
-            require('rolldown-vite/package.json').version,
+            'Vite (Rolldown) ' + require('rolldown-vite/package.json').version,
           port: 5173,
           startScript: 'start:rolldown-vite',
           startedRegex: /ready in (\d+) (s|ms)/,
@@ -479,7 +477,7 @@ async function runDevBenchmark(
   }
 
   buildTool.cleanCache();
-  const { time, rss } = await buildTool.startServer();
+  const { time, rss, stopServer } = await buildTool.startServer();
   metrics.devRSS = rss;
   const page: Page = await browser.newPage();
   const start = Date.now();
@@ -594,7 +592,7 @@ async function runDevBenchmark(
   writeFileSync(rootFilePath, originalRootFileContent);
   writeFileSync(leafFilePath, originalLeafFileContent);
 
-  buildTool.stopServer();
+  stopServer();
 
   await coolDown();
   logger.success(color.dim(buildTool.name) + ' dev server closed');
@@ -610,7 +608,7 @@ async function runHotStartBenchmark(
   perfResult: PerfResultMap,
 ): Promise<void> {
   const metrics = ensureMetrics(perfResult, buildTool.name);
-  const { time } = await buildTool.startServer();
+  const { time, stopServer } = await buildTool.startServer();
   const page: Page = await browser.newPage();
   const start = Date.now();
 
@@ -638,7 +636,7 @@ async function runHotStartBenchmark(
 
   await page.close();
 
-  buildTool.stopServer();
+  stopServer();
 
   await coolDown();
   logger.success(color.dim(buildTool.name) + ' dev server closed (hot start)');
