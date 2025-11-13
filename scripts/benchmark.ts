@@ -214,12 +214,13 @@ class BuildTool {
           throw new Error('Bundler pid not found');
         }
 
-        const t1 = new Date().valueOf();
+        const TIMEOUT = 30000;
+        const start = Date.now();
         // wait bundler write cache to disk
-        while (true) {
+        while (Date.now() - start < TIMEOUT) {
           const info = await pidusage(bundlerPid);
-          // CPU idle or timeout
-          if (info === 0 || new Date().valueOf() - t1 > 5000) {
+          // CPU idle
+          if (info.cpu === 0) {
             break;
           }
           await sleep(200);
