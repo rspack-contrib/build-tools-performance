@@ -81,3 +81,9 @@ export function shuffleArray<T>(array: T[]) {
   }
   return array;
 }
+
+export async function sleep(timeout: number) {
+  return new Promise<void>((res) => {
+    setTimeout(res, timeout);
+  });
+}
