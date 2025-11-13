@@ -14,7 +14,12 @@ import color from 'picocolors';
 import pidusage from 'pidusage';
 import { markdownTable } from 'markdown-table';
 import { caseName } from '../shared/constants.mjs';
-import { getFileSizes, addRankingEmojis, shuffleArray } from './utils.ts';
+import {
+  getFileSizes,
+  addRankingEmojis,
+  shuffleArray,
+  sleep,
+} from './utils.ts';
 
 process.env.CASE = caseName;
 
@@ -34,8 +39,7 @@ type BenchmarkConfig = {
 
 type DevServerResult = {
   time: number;
-  rss: number;
-  stopServer: () => void;
+  stopServer: () => Promise<number>;
 };
 
 type BuildResult = {
@@ -120,7 +124,6 @@ class BuildTool {
   private readonly startedRegex: RegExp;
   private readonly buildScript: string;
   private readonly binFilePath: string;
-  private child?: ChildProcess;
 
   constructor({
     name,
@@ -202,16 +205,35 @@ class BuildTool {
       logger.log(`stderr: ${data}`);
     });
 
-    const stopServer = function () {
-      if (child.pid) {
-        kill(child.pid);
-      }
-    };
-
     return new Promise<DevServerResult>((resolve, reject) => {
       let startTime: number | null = null;
       let bundlerPid: number | null = null;
-      let timeUsage: number | null = null;
+
+      const stopServer = async () => {
+        if (!bundlerPid) {
+          throw new Error('Bundler pid not found');
+        }
+
+        const t1 = new Date().valueOf();
+        // wait bundler write cache to disk
+        while (true) {
+          const info = await pidusage(bundlerPid);
+          // CPU idle or timeout
+          if (info === 0 || new Date().valueOf() - t1 > 5000) {
+            break;
+          }
+          await sleep(200);
+        }
+
+        const info = await pidusage(bundlerPid);
+        const rssRaw = info.memory / 1024 / 1024;
+        const rss = Math.round(rssRaw * 1000) / 1000;
+
+        if (child.pid) {
+          kill(child.pid);
+        }
+        return rss;
+      };
 
       stdout.on('data', (data: Buffer) => {
         const text = data.toString();
@@ -232,22 +254,7 @@ class BuildTool {
             reject(new Error('Start time not found'));
             return;
           }
-          if (timeUsage === null) {
-            timeUsage = Date.now() - startTime;
-            if (!bundlerPid) {
-              reject(new Error('Bundler pid not found'));
-              return;
-            }
-            pidusage(bundlerPid, function (err, info) {
-              if (err) {
-                reject(err);
-                return;
-              }
-              const rssRaw = info.memory / 1024 / 1024;
-              const rss = Math.round(rssRaw * 1000) / 1000;
-              resolve({ time: timeUsage!, rss, stopServer });
-            });
-          }
+          resolve({ time: Date.now() - startTime, stopServer });
         }
       });
 
@@ -477,8 +484,7 @@ async function runDevBenchmark(
   }
 
   buildTool.cleanCache();
-  const { time, rss, stopServer } = await buildTool.startServer();
-  metrics.devRSS = rss;
+  const { time, stopServer } = await buildTool.startServer();
   const page: Page = await browser.newPage();
   const start = Date.now();
 
@@ -592,7 +598,8 @@ async function runDevBenchmark(
   writeFileSync(rootFilePath, originalRootFileContent);
   writeFileSync(leafFilePath, originalLeafFileContent);
 
-  stopServer();
+  const rss = await stopServer();
+  metrics.devRSS = rss;
 
   await coolDown();
   logger.success(color.dim(buildTool.name) + ' dev server closed');
@@ -636,7 +643,7 @@ async function runHotStartBenchmark(
 
   await page.close();
 
-  stopServer();
+  await stopServer();
 
   await coolDown();
   logger.success(color.dim(buildTool.name) + ' dev server closed (hot start)');
