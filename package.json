@@ -36,6 +36,7 @@
     "markdown-table": "^3.0.4",
     "parcel": "^2.16.1",
     "picocolors": "^1.1.1",
+    "pidusage": "^4.0.1",
     "prettier": "^3.6.2",
     "puppeteer": "^24.29.1",
     "react-refresh": "^0.18.0",
