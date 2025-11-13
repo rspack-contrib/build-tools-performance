@@ -238,7 +238,7 @@ class BuildTool {
               reject(new Error('Bundler pid not found'));
               return;
             }
-            pidusage(bundlerPid, function (err: Error | null, info: any) {
+            pidusage(bundlerPid, function (err, info) {
               if (err) {
                 reject(err);
                 return;

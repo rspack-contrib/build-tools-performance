@@ -19,6 +19,7 @@
     "@swc/core": "^1.15.1",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.10.0",
+    "@types/pidusage": "^2.0.5",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^5.1.0",
