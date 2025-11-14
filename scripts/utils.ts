@@ -3,6 +3,8 @@ import fse from 'fs-extra';
 import glob from 'fast-glob';
 import { gzipSizeSync } from 'gzip-size';
 
+export const N_A = 'N/A';
+
 // fast-glob only accepts posix path
 // https://github.com/mrmlnc/fast-glob#convertpathtopatternpath
 function convertPath(path: string) {
@@ -52,7 +54,10 @@ export async function getFileSizes(targetDir: string) {
 export function addRankingEmojis(data: string[], sort = 'ASC') {
   const values = data.map((originalValue, index) => ({
     index,
-    value: parseFloat(originalValue),
+    value:
+      originalValue === N_A
+        ? Number.MAX_SAFE_INTEGER
+        : parseFloat(originalValue),
     originalValue,
   }));
 
@@ -70,7 +75,9 @@ export function addRankingEmojis(data: string[], sort = 'ASC') {
 
   values.forEach((item, rank) => {
     const emoji = rank < 3 ? emojis[rank] : '';
-    data[item.index] = item.originalValue + emoji;
+    if (item.originalValue !== N_A) {
+      data[item.index] = item.originalValue + emoji;
+    }
   });
 }
 

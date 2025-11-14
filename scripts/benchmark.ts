@@ -19,6 +19,7 @@ import {
   addRankingEmojis,
   shuffleArray,
   sleep,
+  N_A,
 } from './utils.ts';
 
 process.env.CASE = caseName;
@@ -115,6 +116,7 @@ interface BuildToolOptions {
   startedRegex: RegExp;
   buildScript: string;
   binFilePath: string;
+  skipRss?: boolean;
 }
 
 class BuildTool {
@@ -124,6 +126,7 @@ class BuildTool {
   private readonly startedRegex: RegExp;
   private readonly buildScript: string;
   private readonly binFilePath: string;
+  public readonly skipRss: boolean;
 
   constructor({
     name,
@@ -132,6 +135,7 @@ class BuildTool {
     startedRegex,
     buildScript,
     binFilePath,
+    skipRss = false,
   }: BuildToolOptions) {
     this.name = name;
     this.port = port;
@@ -140,6 +144,7 @@ class BuildTool {
     this.buildScript = buildScript;
     this.binFilePath = path.join(process.cwd(), 'node_modules', binFilePath);
     this.hackBinFile();
+    this.skipRss = skipRss;
   }
 
   cleanCache(): void {
@@ -418,6 +423,8 @@ parseToolNames().forEach((name) => {
           startedRegex: /esbuild built in (\d+) ms/,
           buildScript: 'build:esbuild',
           binFilePath: 'esbuild/lib/main.js',
+          // can not collect accurate RSS from esbuild
+          skipRss: true,
         }),
       );
       break;
@@ -504,7 +511,7 @@ async function runDevBenchmark(
   const loadTime = Date.now() - start;
   logger.success(
     color.dim(buildTool.name) +
-      ' dev cold start in ' +
+      ' dev start in ' +
       color.green(time + loadTime + 'ms'),
   );
   metrics.devColdStart = time + loadTime;
@@ -622,7 +629,7 @@ async function runHotStartBenchmark(
 
   logger.info(
     color.dim(
-      'navigating to' + ` http://localhost:${buildTool.port} (hot start)`,
+      'navigating to' + ` http://localhost:${buildTool.port} (with cache)`,
     ),
   );
 
@@ -637,7 +644,7 @@ async function runHotStartBenchmark(
   const loadTime = Date.now() - start;
   logger.success(
     color.dim(buildTool.name) +
-      ' dev hot start in ' +
+      ' dev start with cache in ' +
       color.green(time + loadTime + 'ms'),
   );
   metrics.devHotStart = time + loadTime;
@@ -647,7 +654,7 @@ async function runHotStartBenchmark(
   await stopServer();
 
   await coolDown();
-  logger.success(color.dim(buildTool.name) + ' dev server closed (hot start)');
+  logger.success(color.dim(buildTool.name) + ' dev server closed (with cache)');
 }
 
 async function runBuildBenchmark(
@@ -700,7 +707,7 @@ async function runHotBuildBenchmark(
 
   logger.success(
     color.dim(buildTool.name) +
-      ' hot built in ' +
+      ' built with cache in ' +
       color.green(buildTime + 'ms'),
   );
 
@@ -791,7 +798,16 @@ const getData = function (
     // and should be hidden
     return null;
   }
-  const normalized = dataset.map((item) => `${item as number | string}${unit}`);
+
+  const normalized = dataset.map((item, index) => {
+    if (
+      buildTools[index].skipRss &&
+      ['devRSS', 'buildRSS'].includes(fieldName)
+    ) {
+      return N_A;
+    }
+    return `${item as number | string}${unit}`;
+  });
   addRankingEmojis(normalized);
   return normalized;
 };

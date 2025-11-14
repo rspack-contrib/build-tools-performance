@@ -138,7 +138,7 @@ Build metrics:
 | Vite (Rolldown) 7.2.2  | 1893ms🥉         | 1724ms             | 905MB        | 2056.6kB🥈  | 633.1kB      |
 | Rolldown 1.0.0-beta.47 | 1198ms🥇         | 1323ms🥈           | 862MB        | 2074.1kB    | 635.1kB      |
 | webpack (SWC) 5.102.1  | 15453ms          | 8506ms             | 1730MB       | 2056.9kB    | 630.9kB🥉    |
-| esbuild 0.27.0         | 1746ms🥈         | 1643ms🥉           | 66MB🥇       | 2896.9kB    | 888.7kB      |
+| esbuild 0.27.0         | 1746ms🥈         | 1643ms🥉           | N/A          | 2896.9kB    | 888.7kB      |
 | Farm 1.7.11            | 6571ms           | 1923ms             | 1305MB       | 3822.7kB    | 1330.7kB     |
 | Parcel 2.16.1          | 11718ms          | 981ms🥇            | 2028MB       | 2095.4kB    | 637.6kB      |
 
@@ -158,7 +158,7 @@ Build metrics:
 | Rsbuild 1.6.3          | 616ms            | 522ms              | 245MB🥉      | 1008.0kB🥈  | 270.9kB🥉    |
 | Rolldown 1.0.0-beta.47 | 298ms🥈          | 301ms🥈            | 220MB🥈      | 1012.2kB    | 271.8kB      |
 | webpack (SWC) 5.102.1  | 3168ms           | 905ms              | 678MB        | 1006.2kB🥇  | 270.5kB🥇    |
-| esbuild 0.27.0         | 266ms🥇          | 256ms🥇            | 65MB🥇       | 1025.3kB    | 276.7kB      |
+| esbuild 0.27.0         | 266ms🥇          | 256ms🥇            | N/A          | 1025.3kB    | 276.7kB      |
 
 ## Run locally
 
