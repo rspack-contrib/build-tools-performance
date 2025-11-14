@@ -2,6 +2,7 @@ node_modules
 build
 .next
 dist
+dist-*
 .DS_Store
 *.cpuprofile
 .parcel-cache
