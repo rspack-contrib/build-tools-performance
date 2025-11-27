@@ -20,7 +20,7 @@
     "@headlessui/react": "^2.2.9",
     "@mantine/core": "^8.3.9",
     "@mui/material": "^7.3.5",
-    "antd": "^5.29.1",
+    "antd": "^6.0.0",
     "element-plus": "^2.11.8",
     "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",
