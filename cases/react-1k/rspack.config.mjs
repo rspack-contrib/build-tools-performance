@@ -2,7 +2,10 @@
 import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
 import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
-import { target, isProd } from '../../shared/constants.mjs';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+import { isProd, target } from '../../shared/constants.mjs';
+
+const isCI = process.env.CI === 'true';
 
 export default defineConfig({
   extends: '../../shared/rspack.config.mjs',
@@ -37,5 +40,16 @@ export default defineConfig({
   plugins: [
     new rspack.HtmlRspackPlugin({ template: 'index-rspack.html' }),
     !isProd && new ReactRefreshPlugin(),
-  ],
+    process.env.RSDOCTOR && new RsdoctorRspackPlugin({
+      features: ['bundle'],
+      output: isCI
+      ? {
+          mode: 'brief',
+          options: {
+            type: ['json'],
+          },
+        }
+      : {},
+    }),
+  ].filter(Boolean),
 });
