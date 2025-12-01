@@ -21,7 +21,7 @@
     "@mantine/core": "^8.3.9",
     "@mui/material": "^7.3.5",
     "antd": "^6.0.0",
-    "element-plus": "^2.11.8",
+    "element-plus": "^2.11.9",
     "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.0",
