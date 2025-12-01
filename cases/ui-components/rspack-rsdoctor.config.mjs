@@ -1,14 +1,11 @@
 /**
  * Rsdoctor analysis configuration file
- * This configuration is to support the CI process of the Rspack repository diff actions.
+ * This file provides the settings used for CI diff workflows in the Rspack repository.
  */
 import { defineConfig } from '@rspack/cli';
-import { RsdoctorPluginConfig } from '../../shared/rsdoctor.mjs'
+import { rsdoctorPluginConfig } from '../../shared/rsdoctor.mjs';
 
-const configs = defineConfig({
+export default defineConfig({
   extends: './rspack.config.mjs',
-  plugins: [
-    ...RsdoctorPluginConfig,
-  ].filter(Boolean),
+  plugins: [...rsdoctorPluginConfig],
 });
-export default configs;
