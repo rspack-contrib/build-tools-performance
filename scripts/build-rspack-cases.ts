@@ -9,13 +9,13 @@ const rootDir = path.join(__dirname, '..');
 const casesDir = path.join(rootDir, 'cases');
 
 async function main() {
-  const configs = await glob('*/rspack.config.mjs', { 
+  const configs = await glob('*/rspack-rsdoctor.config.mjs', { 
     cwd: casesDir,
     absolute: true 
   });
 
   if (configs.length === 0) {
-    console.log(color.yellow('No rspack.config.mjs files found in cases directory.'));
+    console.log(color.yellow('No rspack-rsdoctor.config.mjs files found in cases directory.'));
     return;
   }
 
@@ -28,12 +28,14 @@ async function main() {
     console.log(color.cyan(`\nBuilding case: ${caseName}...`));
 
     await new Promise<void>((resolve, reject) => {
-      // Let's check if cases have package.json.
-      
-      const child = spawn('npx', ['rspack', 'build', '-c', 'rspack.config.mjs'], {
+      const child = spawn('npx', ['rspack', 'build', '-c', 'rspack-rsdoctor.config.mjs'], {
         cwd: caseDir,
         stdio: 'inherit',
         shell: true,
+        env: {
+          ...process.env,
+          RSDOCTOR: 'true',
+        },
       });
 
       child.on('close', (code) => {
