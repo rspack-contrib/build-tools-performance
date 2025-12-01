@@ -1,7 +1,10 @@
 // @ts-check
 import { defineConfig } from '@rspack/cli';
 import path from 'node:path';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import { target } from '../../shared/constants.mjs';
+
+const isCI = process.env.CI === 'true';
 
 export default defineConfig({
   extends: '../../shared/rspack.node.config.mjs',
@@ -32,4 +35,17 @@ export default defineConfig({
       },
     ],
   },
+  plugins: [
+    process.env.RSDOCTOR && new RsdoctorRspackPlugin({
+      features: ['bundle'],
+      output: isCI
+      ? {
+          mode: 'brief',
+          options: {
+            type: ['json'],
+          },
+        }
+      : {},
+    }),
+  ].filter(Boolean),
 });
