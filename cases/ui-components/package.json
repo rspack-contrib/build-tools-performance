@@ -19,15 +19,15 @@
     "@fluentui/react": "^8.125.2",
     "@headlessui/react": "^2.2.9",
     "@mantine/core": "^8.3.9",
-    "@mui/material": "^7.3.5",
-    "antd": "^6.0.0",
+    "@mui/material": "^7.3.6",
+    "antd": "^6.0.1",
     "element-plus": "^2.11.9",
-    "react": "^19.2.0",
+    "react": "^19.2.1",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "^19.2.0",
+    "react-dom": "^19.2.1",
     "vant": "^4.9.21",
     "vue": "^3.5.25",
-    "vuetify": "^3.11.0"
+    "vuetify": "^3.11.2"
   },
   "browserslist": "Chrome >= 93"
 }
