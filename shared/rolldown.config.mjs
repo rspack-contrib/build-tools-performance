@@ -3,13 +3,13 @@ import { defineConfig } from 'rolldown';
 import { isProd, target } from './constants.mjs';
 
 export default defineConfig({
-  define: {
-    'process.env.NODE_ENV': JSON.stringify(
-      isProd ? 'production' : 'development',
-    ),
-  },
   transform: {
     target,
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(
+        isProd ? 'production' : 'development',
+      ),
+    },
   },
   output: {
     minify: isProd,
