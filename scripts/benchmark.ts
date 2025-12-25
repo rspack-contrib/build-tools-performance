@@ -368,7 +368,7 @@ parseToolNames().forEach((name) => {
     case 'vite':
       buildTools.push(
         new BuildTool({
-          name: 'Vite (Rolldown) ' + require('vite/package.json').version,
+          name: 'Vite ' + require('vite/package.json').version,
           port: 5173,
           startScript: 'start:vite',
           startedRegex: /ready in (\d+) (s|ms)/,
@@ -392,7 +392,7 @@ parseToolNames().forEach((name) => {
     case 'webpack':
       buildTools.push(
         new BuildTool({
-          name: 'webpack (SWC) ' + require('webpack/package.json').version,
+          name: 'webpack ' + require('webpack/package.json').version,
           port: 8080,
           startScript: 'start:webpack',
           startedRegex: /compiled .+ in (.+) (s|ms)/,
