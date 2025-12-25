@@ -2,7 +2,6 @@ export const config = {
   supportedTools: [
     'rspack',
     'rsbuild',
-    'rolldown-vite',
     'vite',
     'webpack',
     'farm',
@@ -12,7 +11,6 @@ export const config = {
   defaultTools: [
     'rspack',
     'rsbuild',
-    'rolldown-vite',
     'vite',
     'webpack',
   ],

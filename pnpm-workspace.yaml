@@ -4,6 +4,3 @@ packages:
 onlyBuiltDependencies:
   - puppeteer
   - rolldown
-
-patchedDependencies:
-  '@vitejs/plugin-react': patches/@vitejs__plugin-react.patch
