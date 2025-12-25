@@ -17,6 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
+      fail-fast: false
       matrix:
         os: [ macos-15 ]
         case: [ react-1k, react-5k, react-10k, ui-components, rome ]
