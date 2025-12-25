@@ -41,7 +41,7 @@
     "picocolors": "^1.1.1",
     "pidusage": "^4.0.1",
     "prettier": "^3.7.4",
-    "puppeteer": "^24.32.1",
+    "puppeteer": "24.31.0",
     "react-refresh": "^0.18.0",
     "rolldown": "^1.0.0-beta.53",
     "rslog": "^1.3.2",

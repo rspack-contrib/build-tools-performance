@@ -6,4 +6,5 @@
   extends: ['config:base', 'schedule:monthly', 'group:allNonMajor'],
   rangeStrategy: 'bump',
   packageRules: [{ depTypeList: ['peerDependencies'], enabled: false }],
+  ignoreDeps: ['puppeteer'],
 }
