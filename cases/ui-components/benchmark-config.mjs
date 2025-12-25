@@ -3,7 +3,6 @@ export const config = {
     'rspack',
     'rsbuild',
     'vite',
-    'rolldown-vite',
     'rolldown',
     'webpack',
     'esbuild',

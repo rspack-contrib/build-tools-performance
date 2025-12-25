@@ -1,6 +1,6 @@
 # Build Tools Comparison
 
-Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github.com/web-infra-dev/rspack), [Rsbuild](https://github.com/web-infra-dev/rsbuild), [webpack](https://github.com/webpack/webpack), [Vite](https://github.com/vitejs/vite), [rolldown-vite](https://github.com/vitejs/rolldown-vite), [esbuild](https://github.com/evanw/esbuild), [Parcel](https://github.com/parcel-bundler/parcel) and [Farm](https://github.com/farm-fe/farm)) for dev server startup time, build performance and bundle size for applications with different module sizes.
+Benchmark comparing JavaScript bundlers and build tools ([Rspack](https://github.com/web-infra-dev/rspack), [Rsbuild](https://github.com/web-infra-dev/rsbuild), [webpack](https://github.com/webpack/webpack), [Vite](https://github.com/vitejs/vite), [Rolldown](https://github.com/rolldown/rolldown), [esbuild](https://github.com/evanw/esbuild), [Parcel](https://github.com/parcel-bundler/parcel) and [Farm](https://github.com/farm-fe/farm)) for dev server startup time, build performance and bundle size for applications with different module sizes.
 
 ## Metrics
 
@@ -186,7 +186,6 @@ pnpm start:rspack # Start Rspack
 pnpm start:rsbuild # Start Rsbuild
 pnpm start:webpack # Start webpack
 pnpm start:vite # Start Vite
-pnpm start:rolldown-vite # Start Vite (Rolldown)
 pnpm start:farm # Start Farm
 
 # Build
@@ -194,7 +193,6 @@ pnpm build:rspack # Build Rspack
 pnpm build:rsbuild # Build Rsbuild
 pnpm build:webpack # Build webpack
 pnpm build:vite # Build Vite
-pnpm build:rolldown-vite # Build Vite (Rolldown)
 pnpm build:farm # Build Farm
 ```
 
