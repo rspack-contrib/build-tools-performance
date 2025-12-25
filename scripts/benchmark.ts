@@ -538,6 +538,9 @@ async function runDevBenchmark(
       );
 
       metrics.rootHmr = hmrTime;
+      if (hmrLeafStart === -1) {
+        triggerLeafHmr();
+      }
       afterHMR();
     } else if (event.text().includes('leaf hmr')) {
       const match = /(\d+)/.exec(event.text());
@@ -559,34 +562,37 @@ async function runDevBenchmark(
 
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const rootFilePath = path.join(srcDir, rootFile);
-  const originalRootFileContent = readFileSync(rootFilePath, 'utf-8');
-
-  appendFile(
-    rootFilePath,
-    `
-    console.log('root hmr', Date.now());
-    `,
-    (err) => {
-      if (err) throw err;
-      hmrRootStart = Date.now();
-    },
-  );
-
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
   const leafFilePath = path.join(srcDir, leafFile);
+  const originalRootFileContent = readFileSync(rootFilePath, 'utf-8');
   const originalLeafFileContent = readFileSync(leafFilePath, 'utf-8');
-  appendFile(
-    leafFilePath,
-    `
+
+  const triggerLeafHmr = () => {
+    appendFile(
+      leafFilePath,
+      `
       console.log('leaf hmr', Date.now());
       `,
-    (err) => {
-      if (err) throw err;
-      hmrLeafStart = Date.now();
-    },
-  );
+      (err) => {
+        if (err) throw err;
+        hmrLeafStart = Date.now();
+      },
+    );
+  };
 
+  const triggerRootHmr = () => {
+    appendFile(
+      rootFilePath,
+      `
+    console.log('root hmr', Date.now());
+    `,
+      (err) => {
+        if (err) throw err;
+        hmrRootStart = Date.now();
+      },
+    );
+  };
+
+  triggerRootHmr();
   await waitPromise;
 
   // restore files
