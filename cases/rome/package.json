@@ -11,6 +11,6 @@
   },
   "devDependencies": {
     "tsconfig-paths-webpack-plugin": "^4.2.0",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^6.0.3"
   }
 }
