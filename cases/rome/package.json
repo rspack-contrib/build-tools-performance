@@ -10,7 +10,6 @@
     "build:esbuild": "cross-env NODE_ENV=production node esbuild.mjs"
   },
   "devDependencies": {
-    "tsconfig-paths-webpack-plugin": "^4.2.0",
-    "vite-tsconfig-paths": "^5.1.4"
+    "tsconfig-paths-webpack-plugin": "^4.2.0"
   }
 }
