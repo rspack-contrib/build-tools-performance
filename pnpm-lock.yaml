@@ -62,9 +62,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^5.1.2
         version: 5.1.2(vite@8.0.0-beta.5(@types/node@24.10.2)(esbuild@0.27.1)(jiti@2.6.1)(terser@5.41.0))
-      '@vitejs/plugin-react-swc':
-        specifier: ^4.2.2
-        version: 4.2.2(@swc/helpers@0.5.17)(vite@8.0.0-beta.5(@types/node@24.10.2)(esbuild@0.27.1)(jiti@2.6.1)(terser@5.41.0))
       browserslist:
         specifier: ^4.28.1
         version: 4.28.1
@@ -2263,9 +2260,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rolldown/pluginutils@1.0.0-beta.47':
-    resolution: {integrity: sha512-8QagwMH3kNCuzD8EWL8R2YPW5e4OrHNSAHRFDdmFqEwEaD/KcNKjVoumo+gP2vW5eKB2UPbM6vTYiGZX0ixLnw==}
-
   '@rolldown/pluginutils@1.0.0-beta.53':
     resolution: {integrity: sha512-vENRlFU4YbrwVqNDZ7fLvy+JR1CRkyr01jhSiDpE1u6py3OMzQfztQU2jxykW3ALNxO4kSlqIDeYyD0Y9RcQeQ==}
 
@@ -2688,12 +2682,6 @@ packages:
     resolution: {integrity: sha512-PHHxeAASgiOpSmMjceweIrv2AxDZIkWXyaczksMoWvKV2YAYEhoizRuk/xFnKF+emUIi46TsQ+rvlm/t2BBCfA==}
     peerDependencies:
       vue: ^3.0.0
-
-  '@vitejs/plugin-react-swc@4.2.2':
-    resolution: {integrity: sha512-x+rE6tsxq/gxrEJN3Nv3dIV60lFflPj94c90b+NNo6n1QV1QQUTLoL0MpaOVasUZ0zqVBn7ead1B5ecx1JAGfA==}
-    engines: {node: ^20.19.0 || >=22.12.0}
-    peerDependencies:
-      vite: ^4 || ^5 || ^6 || ^7
 
   '@vitejs/plugin-react@5.1.2':
     resolution: {integrity: sha512-EcA07pHJouywpzsoTUqNh5NwGayl2PPVEJKUSinGGSxFGYn+shYbqMGBg6FXDqgXum9Ou/ecb+411ssw8HImJQ==}
@@ -8741,8 +8729,6 @@ snapshots:
   '@rolldown/binding-win32-x64-msvc@1.0.0-beta.57':
     optional: true
 
-  '@rolldown/pluginutils@1.0.0-beta.47': {}
-
   '@rolldown/pluginutils@1.0.0-beta.53': {}
 
   '@rolldown/pluginutils@1.0.0-beta.57': {}
@@ -9242,14 +9228,6 @@ snapshots:
   '@vant/use@1.6.0(vue@3.5.25(typescript@5.9.3))':
     dependencies:
       vue: 3.5.25(typescript@5.9.3)
-
-  '@vitejs/plugin-react-swc@4.2.2(@swc/helpers@0.5.17)(vite@8.0.0-beta.5(@types/node@24.10.2)(esbuild@0.27.1)(jiti@2.6.1)(terser@5.41.0))':
-    dependencies:
-      '@rolldown/pluginutils': 1.0.0-beta.47
-      '@swc/core': 1.15.3(@swc/helpers@0.5.17)
-      vite: 8.0.0-beta.5(@types/node@24.10.2)(esbuild@0.27.1)(jiti@2.6.1)(terser@5.41.0)
-    transitivePeerDependencies:
-      - '@swc/helpers'
 
   '@vitejs/plugin-react@5.1.2(vite@8.0.0-beta.5(@types/node@24.10.2)(esbuild@0.27.1)(jiti@2.6.1)(terser@5.41.0))':
     dependencies:
