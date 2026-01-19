@@ -19,6 +19,16 @@ export default defineConfig({
       }),
     ],
   },
+  module: {
+    defaultRules: [
+      '...',
+      // compat rspack2.0
+      {
+        test: /\.css$/,
+        type: 'css/auto',
+      },
+    ],
+  },
   cache: true,
   experiments: {
     css: true,
