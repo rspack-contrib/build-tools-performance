@@ -12,7 +12,7 @@
     "@farmfe/plugin-react": "^1.2.6",
     "@parcel/config-default": "^2.16.4",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.6.2",
-    "@rsbuild/core": "2.0.0-beta.3",
+    "@rsbuild/core": "2.0.0-beta.4",
     "@rsbuild/plugin-react": "^1.4.5",
     "@rsdoctor/rspack-plugin": "^1.5.2",
     "@rspack/cli": "2.0.0-beta.2",
