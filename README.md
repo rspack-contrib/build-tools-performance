@@ -31,6 +31,8 @@ Tooling details:
 
 > Data from GitHub Actions: https://github.com/rspack-contrib/build-tools-performance/actions/runs/20501686802 (2025-12-25)
 
+---
+
 ### react-1k
 
 A React app with 1,000 components and 1,500 modules from node_modules, using dynamic imports to simulate SPA.
@@ -60,6 +62,8 @@ Build metrics:
 | webpack 5.103.0         | 3694ms           | 1124ms             | 676MB        | 844.3kB🥉   | 225.6kB🥉    |
 | Farm 1.7.11             | 1426ms           | 751ms              | 384MB        | 1086.1kB    | 255.9kB      |
 | Parcel 2.16.3           | 3589ms           | 763ms              | 1086MB       | 962.8kB     | 230.1kB      |
+
+---
 
 ### react-5k
 
@@ -91,6 +95,8 @@ Build metrics:
 | Farm 1.7.11             | 4248ms           | 1632ms             | 609MB        | 3541.6kB    | 796.0kB      |
 | Parcel 2.16.3           | 9922ms           | 1297ms             | 2009MB       | 3486.2kB    | 765.7kB      |
 
+---
+
 ### react-10k
 
 A React app with 10,000 components and 10,000 modules from node_modules, using dynamic imports to simulate SPA.
@@ -117,6 +123,8 @@ Build metrics:
 | Vite 8.0.0-beta.5       | 1823ms🥇         | 2406ms🥇           | 873MB🥇      | 5569.9kB🥇  | 1484.9kB     |
 | webpack 5.103.0         | 28938ms          | 5297ms             | 1887MB       | 5955.4kB🥉  | 1450.2kB🥉   |
 
+---
+
 ### ui-components
 
 A React app that imports UI components from several popular UI libraries.
@@ -140,6 +148,8 @@ Build metrics:
 | Farm 1.7.11             | 15462ms          | 3502ms             | 1381MB       | 3988.0kB    | 1384.0kB     |
 | Parcel 2.16.3           | 20646ms          | 1716ms🥇           | 2168MB       | 2216.1kB    | 678.8kB      |
 
+---
+
 ### rome
 
 A complex TypeScript Node.js project that includes multiple packages from the [rome](https://github.com/rome/tools) toolchain.
@@ -157,6 +167,8 @@ Build metrics:
 | Rolldown 1.0.0-beta.53  | 556ms🥈          | 490ms🥈            | 217MB🥇      | 1012.2kB    | 271.8kB      |
 | webpack 5.103.0         | 5100ms           | 1768ms             | 623MB        | 1006.2kB🥇  | 270.5kB🥇    |
 | esbuild 0.27.1          | 303ms🥇          | 369ms🥇            | N/A          | 1025.2kB    | 276.7kB      |
+
+---
 
 ## Run locally
 
