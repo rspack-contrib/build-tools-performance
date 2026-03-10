@@ -3,7 +3,8 @@ export const config = {
     'rspack',
     'rsbuild',
     'vite',
-    'rolldown',
+    // Failed to bundle CSS
+    // 'rolldown',
     'webpack',
     'esbuild',
     'farm',
