@@ -25,7 +25,7 @@
     "@types/pidusage": "^2.0.5",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.2.0",
+    "@vitejs/plugin-react": "^6.0.1",
     "browserslist": "^4.28.1",
     "buffer": "^6.0.3",
     "cross-env": "^10.1.0",
