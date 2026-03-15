@@ -17,7 +17,7 @@
     "@emotion/styled": "^11.14.1",
     "@fluentui/react": "^8.125.5",
     "@headlessui/react": "^2.2.9",
-    "@mantine/core": "^8.3.16",
+    "@mantine/core": "^8.3.17",
     "@mui/material": "^7.3.9",
     "antd": "^6.3.2",
     "element-plus": "^2.13.5",
@@ -26,7 +26,7 @@
     "react-dom": "^19.2.4",
     "vant": "^4.9.22",
     "vue": "^3.5.30",
-    "vuetify": "^4.0.1"
+    "vuetify": "^4.0.2"
   },
   "browserslist": "Chrome >= 93"
 }
