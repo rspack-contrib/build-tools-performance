@@ -161,9 +161,9 @@ Build metrics:
 
 | Name                    | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
 | ----------------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
-| Rspack CLI 2.0.0-beta.6 | 662ms            | 464ms              | 236MB🥉      | 1007.8kB🥈  | 270.9kB🥈    |
-| Rsbuild 2.0.0-beta.8    | 487ms🥉          | 294ms🥈            | 226MB🥈      | 2710.8kB    | 457.2kB      |
-| Rolldown 1.0.0-rc.9     | 364ms🥈          | 297ms🥉            | 222MB🥇      | 1012.2kB🥉  | 271.8kB🥉    |
+| Rspack CLI 2.0.0-beta.6 | 662ms            | 464ms              | 236MB🥉      | 1007.8kB🥉  | 270.9kB🥈    |
+| Rsbuild 2.0.0-beta.8    | 487ms🥉          | 294ms🥈            | 226MB🥈      | 1007.6kB🥈  | 271.8kB🥉    |
+| Rolldown 1.0.0-rc.9     | 364ms🥈          | 297ms🥉            | 222MB🥇      | 1012.2kB    | 271.8kB🥉    |
 | webpack 5.105.4         | 3179ms           | 1005ms             | 625MB        | 1006.0kB🥇  | 270.6kB🥇    |
 | esbuild 0.27.4          | 263ms🥇          | 218ms🥇            | N/A          | 1025.2kB    | 276.7kB      |
 
