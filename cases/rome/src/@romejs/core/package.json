@@ -1,7 +1,0 @@
-{
-  "name": "@romejs/core",
-  "version": "0.0.52",
-  "type": "module",
-  "private": true,
-  "main": "index.ts"
-}
