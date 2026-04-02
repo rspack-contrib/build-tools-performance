@@ -12,7 +12,4 @@ export default defineConfig({
     // pre-bundle "@iconify-icons/material-symbols/*" is quite slow and should be excluded
     exclude: ['@iconify-icons/material-symbols'],
   },
-  experimental: {
-    enableNativePlugin: true,
-  },
 });

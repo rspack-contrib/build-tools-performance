@@ -6,7 +6,4 @@ export default defineConfig({
   build: {
     target,
   },
-  experimental: {
-    enableNativePlugin: true,
-  },
 });
