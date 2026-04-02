@@ -149,6 +149,31 @@ Build metrics:
 
 ---
 
+### popular-libs
+
+A browser app that imports a small number of live exports from 20 popular,
+modern frontend libraries to compare tree-shaking quality across bundlers.
+
+Including [react-router-dom](https://npmjs.com/package/react-router-dom),
+[@tanstack/react-query](https://npmjs.com/package/@tanstack/react-query),
+[react-hook-form](https://npmjs.com/package/react-hook-form),
+[@reduxjs/toolkit](https://npmjs.com/package/@reduxjs/toolkit),
+[zustand](https://npmjs.com/package/zustand),
+[jotai](https://npmjs.com/package/jotai), [valtio](https://npmjs.com/package/valtio),
+[vue](https://npmjs.com/package/vue), [vue-router](https://npmjs.com/package/vue-router),
+[pinia](https://npmjs.com/package/pinia), [@vueuse/core](https://npmjs.com/package/@vueuse/core),
+[lodash-es](https://npmjs.com/package/lodash-es), [zod](https://npmjs.com/package/zod),
+[rxjs](https://npmjs.com/package/rxjs), [date-fns](https://npmjs.com/package/date-fns),
+[d3-array](https://npmjs.com/package/d3-array), [d3-scale](https://npmjs.com/package/d3-scale),
+[@floating-ui/dom](https://npmjs.com/package/@floating-ui/dom),
+[nanoid](https://npmjs.com/package/nanoid), and [mobx](https://npmjs.com/package/mobx).
+
+```bash
+CASE=popular-libs pnpm benchmark
+```
+
+---
+
 ### rome
 
 A complex TypeScript Node.js project that includes multiple packages from the [rome](https://github.com/rome/tools) toolchain.
@@ -189,6 +214,7 @@ pnpm i # install dependencies
 # Cd to the case directory
 cd cases/react-5k
 cd cases/react-10k
+cd cases/popular-libs
 
 # Dev server
 pnpm start:rspack # Start Rspack
@@ -213,6 +239,7 @@ Use `CASE` to switch the benchmark case:
 CASE=react-1k pnpm benchmark
 CASE=react-5k pnpm benchmark
 CASE=react-10k pnpm benchmark
+CASE=popular-libs pnpm benchmark
 ```
 
 Use `TOOLS` to specify the build tools or bundlers:
