@@ -7,7 +7,9 @@ export const config = {
     'webpack',
     'esbuild',
     'farm',
-    'parcel',
+    // Parcel cannot bundle Zod
+    // https://github.com/parcel-bundler/parcel/issues/10175
+    // 'parcel',
   ],
   dev: false,
 };

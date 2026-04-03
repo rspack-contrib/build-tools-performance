@@ -183,7 +183,6 @@ Build metrics:
 | webpack 5.105.4       | 3290ms           | 947ms              | 725MB        | 744.2kB     | 221.7kB      |
 | esbuild 0.27.4        | 358ms🥇          | 321ms🥇            | N/A          | 841.6kB     | 242.3kB      |
 | Farm 1.7.11           | 1516ms           | 642ms              | 444MB        | 948.0kB     | 306.2kB      |
-| Parcel 2.16.4         | 2346ms           | 473ms              | 937MB        | 620.8kB🥇   | 199.1kB🥇    |
 
 ---
 
