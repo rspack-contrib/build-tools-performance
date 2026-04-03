@@ -13,6 +13,8 @@ import { isProd, target } from './constants.mjs';
 const extensions = ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json'];
 
 export default {
+  // Keep Rollup below the file-descriptor limit on GitHub macOS runners.
+  maxParallelFileOps: 16,
   onwarn(warning, warn) {
     if (
       warning.code === 'MODULE_LEVEL_DIRECTIVE' ||
