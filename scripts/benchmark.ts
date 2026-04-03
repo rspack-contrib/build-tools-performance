@@ -377,6 +377,18 @@ parseToolNames().forEach((name) => {
         }),
       );
       break;
+    case 'rollup':
+      buildTools.push(
+        new BuildTool({
+          name: 'Rollup ' + require('rollup/package.json').version,
+          port: 10001,
+          startScript: 'start:rollup',
+          startedRegex: /created .+ in (.+)ms/,
+          buildScript: 'build:rollup',
+          binFilePath: 'rollup/dist/bin/rollup',
+        }),
+      );
+      break;
     case 'rolldown':
       buildTools.push(
         new BuildTool({

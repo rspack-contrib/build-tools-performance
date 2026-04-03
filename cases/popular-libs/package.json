@@ -2,6 +2,7 @@
   "name": "popular-libs",
   "version": "0.0.0",
   "scripts": {
+    "build:rollup": "cross-env NODE_ENV=production rollup --config rollup.config.mjs",
     "build:rolldown": "cross-env NODE_ENV=production rolldown build --config rolldown.config.mjs",
     "build:parcel": "parcel build index.html",
     "build:rspack": "rspack build",
