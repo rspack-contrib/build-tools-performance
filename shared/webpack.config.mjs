@@ -13,6 +13,7 @@ export default {
   },
   cache: {
     type: 'filesystem',
+    name: `webpack-web-${isProd ? 'prod' : 'dev'}`,
   },
   optimization: {
     minimizer: isProd
