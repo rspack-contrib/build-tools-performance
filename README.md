@@ -193,8 +193,6 @@ CASE=popular-libs pnpm benchmark
 
 Build metrics:
 
-Build metrics:
-
 | Name                  | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
 | --------------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
 | Rspack CLI 2.0.0-rc.0 | 1534ms           | 1590ms             | 441MB🥇      | 1768.4kB    | 551.9kB      |
