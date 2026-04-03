@@ -193,15 +193,18 @@ CASE=popular-libs pnpm benchmark
 
 Build metrics:
 
+Build metrics:
+
 | Name                  | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
 | --------------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
-| Rspack CLI 2.0.0-rc.0 | 1140ms           | 1012ms             | 524MB🥇      | 1768.4kB    | 551.9kB      |
-| Rsbuild 2.0.0-rc.0    | 1188ms           | 1068ms             | 542MB🥈      | 1767.5kB🥉  | 551.6kB🥉    |
-| Vite 8.0.3            | 752ms🥈          | 775ms🥇            | 709MB        | 1751.1kB🥇  | 550.0kB🥇    |
-| Rolldown 1.0.0-rc.12  | 680ms🥇          | 833ms🥉            | 632MB🥉      | 1756.4kB🥈  | 550.4kB🥈    |
-| webpack 5.105.4       | 5483ms           | 1322ms             | 1348MB       | 1768.3kB    | 552.8kB      |
-| esbuild 0.27.4        | 931ms🥉          | 812ms🥈            | N/A          | 2052.5kB    | 621.8kB      |
-| Farm 1.7.11           | 1730ms           | 1254ms             | 829MB        | 2231.9kB    | 755.8kB      |
+| Rspack CLI 2.0.0-rc.0 | 1534ms           | 1590ms             | 441MB🥇      | 1768.4kB    | 551.9kB      |
+| Rsbuild 2.0.0-rc.0    | 1848ms           | 1416ms             | 455MB🥈      | 1767.5kB    | 551.6kB      |
+| Vite 8.0.3            | 1102ms🥉         | 1060ms🥉           | 655MB        | 1751.1kB🥈  | 550.0kB🥈    |
+| Rollup 4.60.1         | 6584ms           | 6359ms             | 1363MB       | 1592.0kB🥇  | 494.3kB🥇    |
+| Rolldown 1.0.0-rc.12  | 883ms🥈          | 899ms🥈            | 582MB🥉      | 1756.4kB🥉  | 550.4kB🥉    |
+| webpack 5.105.4       | 7933ms           | 1606ms             | 1354MB       | 1768.3kB    | 552.8kB      |
+| esbuild 0.27.4        | 659ms🥇          | 655ms🥇            | N/A          | 2052.5kB    | 621.8kB      |
+| Farm 1.7.11           | 3116ms           | 1101ms             | 772MB        | 2231.9kB    | 755.8kB      |
 
 ---
 
