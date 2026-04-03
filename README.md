@@ -151,22 +151,41 @@ Build metrics:
 
 ### popular-libs
 
-A browser app that imports a small number of live exports from 20 popular,
+A browser app that imports a small number of live exports from 50 popular,
 modern frontend libraries to compare tree-shaking quality across bundlers.
 
-Including [react-router-dom](https://npmjs.com/package/react-router-dom),
-[@tanstack/react-query](https://npmjs.com/package/@tanstack/react-query),
-[react-hook-form](https://npmjs.com/package/react-hook-form),
-[@reduxjs/toolkit](https://npmjs.com/package/@reduxjs/toolkit),
-[zustand](https://npmjs.com/package/zustand),
-[jotai](https://npmjs.com/package/jotai), [valtio](https://npmjs.com/package/valtio),
-[vue](https://npmjs.com/package/vue), [vue-router](https://npmjs.com/package/vue-router),
-[pinia](https://npmjs.com/package/pinia), [@vueuse/core](https://npmjs.com/package/@vueuse/core),
-[lodash-es](https://npmjs.com/package/lodash-es), [zod](https://npmjs.com/package/zod),
-[rxjs](https://npmjs.com/package/rxjs), [date-fns](https://npmjs.com/package/date-fns),
-[d3-array](https://npmjs.com/package/d3-array), [d3-scale](https://npmjs.com/package/d3-scale),
-[@floating-ui/dom](https://npmjs.com/package/@floating-ui/dom),
-[nanoid](https://npmjs.com/package/nanoid), and [mobx](https://npmjs.com/package/mobx).
+It keeps the original React/Vue/state/data set and adds 30 more mainstream
+frontend packages with ESM-friendly entry points where practical, including
+[axios](https://npmjs.com/package/axios),
+[dayjs](https://npmjs.com/package/dayjs),
+[clsx](https://npmjs.com/package/clsx),
+[tailwind-merge](https://npmjs.com/package/tailwind-merge),
+[class-variance-authority](https://npmjs.com/package/class-variance-authority),
+[i18next](https://npmjs.com/package/i18next),
+[react-i18next](https://npmjs.com/package/react-i18next),
+[vue-i18n](https://npmjs.com/package/vue-i18n),
+[immer](https://npmjs.com/package/immer),
+[swr](https://npmjs.com/package/swr),
+[framer-motion](https://npmjs.com/package/framer-motion),
+[three](https://npmjs.com/package/three),
+[lucide-react](https://npmjs.com/package/lucide-react),
+[@headlessui/react](https://npmjs.com/package/@headlessui/react),
+[@headlessui/vue](https://npmjs.com/package/@headlessui/vue),
+[@heroicons/react](https://npmjs.com/package/@heroicons/react),
+[@heroicons/vue](https://npmjs.com/package/@heroicons/vue),
+[@radix-ui/react-slot](https://npmjs.com/package/@radix-ui/react-slot),
+[query-string](https://npmjs.com/package/query-string),
+[mitt](https://npmjs.com/package/mitt),
+[fuse.js](https://npmjs.com/package/fuse.js),
+[idb](https://npmjs.com/package/idb),
+[dexie](https://npmjs.com/package/dexie),
+[ky](https://npmjs.com/package/ky),
+[lit](https://npmjs.com/package/lit),
+[xstate](https://npmjs.com/package/xstate),
+[preact](https://npmjs.com/package/preact),
+[solid-js](https://npmjs.com/package/solid-js),
+[swiper](https://npmjs.com/package/swiper), and
+[remeda](https://npmjs.com/package/remeda).
 
 ```bash
 CASE=popular-libs pnpm benchmark
@@ -176,13 +195,13 @@ Build metrics:
 
 | Name                  | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
 | --------------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
-| Rspack CLI 2.0.0-rc.0 | 642ms            | 607ms              | 285MB🥈      | 742.4kB🥉   | 221.1kB🥉    |
-| Rsbuild 2.0.0-rc.0    | 624ms            | 614ms              | 296MB🥉      | 741.5kB🥈   | 220.7kB🥈    |
-| Vite 8.0.3            | 441ms🥉          | 454ms🥉            | 312MB        | 760.5kB     | 227.8kB      |
-| Rolldown 1.0.0-rc.12  | 414ms🥈          | 364ms🥈            | 278MB🥇      | 761.3kB     | 227.6kB      |
-| webpack 5.105.4       | 3290ms           | 947ms              | 725MB        | 744.2kB     | 221.7kB      |
-| esbuild 0.27.4        | 358ms🥇          | 321ms🥇            | N/A          | 841.6kB     | 242.3kB      |
-| Farm 1.7.11           | 1516ms           | 642ms              | 444MB        | 948.0kB     | 306.2kB      |
+| Rspack CLI 2.0.0-rc.0 | 1140ms           | 1012ms             | 524MB🥇      | 1768.4kB    | 551.9kB      |
+| Rsbuild 2.0.0-rc.0    | 1188ms           | 1068ms             | 542MB🥈      | 1767.5kB🥉  | 551.6kB🥉    |
+| Vite 8.0.3            | 752ms🥈          | 775ms🥇            | 709MB        | 1751.1kB🥇  | 550.0kB🥇    |
+| Rolldown 1.0.0-rc.12  | 680ms🥇          | 833ms🥉            | 632MB🥉      | 1756.4kB🥈  | 550.4kB🥈    |
+| webpack 5.105.4       | 5483ms           | 1322ms             | 1348MB       | 1768.3kB    | 552.8kB      |
+| esbuild 0.27.4        | 931ms🥉          | 812ms🥈            | N/A          | 2052.5kB    | 621.8kB      |
+| Farm 1.7.11           | 1730ms           | 1254ms             | 829MB        | 2231.9kB    | 755.8kB      |
 
 ---
 
