@@ -59,7 +59,7 @@
     "swc-loader": "^0.2.7",
     "terser-webpack-plugin": "^5.4.0",
     "tree-kill": "^1.2.2",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "vite": "^8.0.3",
     "webpack": "^5.105.4",
     "webpack-cli": "^7.0.2",
