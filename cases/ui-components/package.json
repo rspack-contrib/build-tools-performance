@@ -13,7 +13,7 @@
     "build:esbuild": "cross-env NODE_ENV=production node esbuild.mjs"
   },
   "dependencies": {
-    "@arco-design/web-react": "^2.66.12",
+    "@arco-design/web-react": "^2.66.13",
     "@chakra-ui/react": "^3.34.0",
     "@coreui/react": "^5.10.0",
     "@emotion/react": "^11.14.0",
@@ -34,10 +34,10 @@
     "react-bootstrap": "^2.10.10",
     "rsuite": "^6.1.2",
     "react-dom": "^19.2.4",
-    "styled-components": "^6.1.19",
+    "styled-components": "^6.3.12",
     "vant": "^4.9.24",
-    "vue": "^3.5.31",
-    "vuetify": "^4.0.4"
+    "vue": "^3.5.32",
+    "vuetify": "^4.0.5"
   },
   "browserslist": "Chrome >= 93"
 }
