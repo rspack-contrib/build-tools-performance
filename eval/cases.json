@@ -1,0 +1,38 @@
+[
+  {
+    "name": "ui-components",
+    "description": "多 UI 框架 bundle 问题演示（E1001/E1002/E1006）",
+    "context_files": [
+      "cases/ui-components/rspack.config.mjs",
+      "cases/ui-components/package.json",
+      "cases/ui-components/src/entries/duplicate-packages.js",
+      "cases/ui-components/src/entries/cross-chunks-a.js",
+      "cases/ui-components/src/entries/cross-chunks-b.js",
+      "cases/ui-components/src/entries/module-mixed-chunks.js",
+      "cases/ui-components/src/shared/analytics.js",
+      "cases/ui-components/src/shared/chart-helpers.js",
+      "cases/ui-components/src/shared/user-info.js"
+    ]
+  },
+  {
+    "name": "antd-tob-mpa",
+    "description": "Ant Design MPA 项目（side-effects / ESM→CJS / MPA 架构）",
+    "context_files": [
+      "cases/antd-tob-mpa/rspack.config.mjs",
+      "cases/antd-tob-mpa/package.json",
+      "cases/antd-tob-mpa/src/pages/side-effects-only-imports/index.jsx",
+      "cases/antd-tob-mpa/src/side-effects/utils/index.js",
+      "cases/antd-tob-mpa/src/pages/esm-resolved-to-cjs/index.jsx",
+      "cases/antd-tob-mpa/src/pages/large-assets/index.jsx"
+    ]
+  },
+  {
+    "name": "react-10k",
+    "description": "万级组件大型 React SPA（构建性能 / 代码拆分）",
+    "context_files": [
+      "cases/react-10k/rspack.config.mjs",
+      "cases/react-10k/package.json",
+      "cases/react-10k/src/index.jsx"
+    ]
+  }
+]

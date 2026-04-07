@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "skills": {
+    "rsdoctor-analysis": {
+      "source": "rstackjs/agent-skills",
+      "sourceType": "github",
+      "computedHash": "7994560aeb2cfc46bc056f45d8ac7ec1a411b6cdf8d0ea1e396f44668b7d0558"
+    },
+    "run-skill": {
+      "source": "./.agents/skills/run-skill",
+      "sourceType": "local"
+    }
+  }
+}

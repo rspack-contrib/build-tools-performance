@@ -3,6 +3,7 @@ import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
 import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
 import { isProd, target } from '../../shared/constants.mjs';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 
 export default defineConfig({
   extends: '../../shared/rspack.config.mjs',
@@ -37,5 +38,19 @@ export default defineConfig({
   plugins: [
     new rspack.HtmlRspackPlugin({ template: 'index-rspack.html' }),
     !isProd && new ReactRefreshPlugin(),
+    new RsdoctorRspackPlugin({
+      features: ['bundle', 'treeShaking'],
+      linter: {
+        rules: {
+          'esm-resolved-to-cjs': 'off'
+        }
+      },
+      output: {
+        mode: 'brief',
+        options: {
+          type: ['json'],
+        },
+      },
+    }),
   ],
 });
