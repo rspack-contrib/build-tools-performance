@@ -24,7 +24,7 @@
     "@rspack/cli": "2.0.0-rc.1",
     "@rspack/core": "2.0.0-rc.1",
     "@rspack/dev-server": "2.0.0-rc.2",
-    "@rspack/plugin-react-refresh": "^1.6.2",
+    "@rspack/plugin-react-refresh": "^2.0.0",
     "@swc/core": "^1.15.24",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.12.2",
