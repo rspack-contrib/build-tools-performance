@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
-import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
+import { ReactRefreshRspackPlugin } from '@rspack/plugin-react-refresh';
 import { target, isProd } from '../../shared/constants.mjs';
 
 export default defineConfig({
@@ -36,6 +36,6 @@ export default defineConfig({
   },
   plugins: [
     new rspack.HtmlRspackPlugin({ template: 'index-rspack.html' }),
-    !isProd && new ReactRefreshPlugin(),
+    !isProd && new ReactRefreshRspackPlugin(),
   ],
 });
