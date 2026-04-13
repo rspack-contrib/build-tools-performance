@@ -18,7 +18,7 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-replace": "^6.0.3",
-    "@rsbuild/core": "2.0.0-rc.1",
+    "@rsbuild/core": "2.0.0-rc.2",
     "@rsbuild/plugin-react": "^1.4.6",
     "@rsdoctor/rspack-plugin": "^1.5.7",
     "@rspack/cli": "2.0.0-rc.1",
@@ -61,7 +61,7 @@
     "tree-kill": "^1.2.2",
     "typescript": "^6.0.2",
     "vite": "^8.0.8",
-    "webpack": "^5.106.0",
+    "webpack": "^5.106.1",
     "webpack-cli": "^7.0.2",
     "webpack-dev-server": "^5.2.3"
   },
