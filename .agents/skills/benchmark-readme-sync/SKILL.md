@@ -1,6 +1,6 @@
 ---
 name: "benchmark-readme-sync"
-description: "Use when a user wants to refresh benchmark results in `README.md` from the latest successful GitHub Actions `Benchmark` workflow run for the current repository. Automatically find the newest successful run, extract the final Markdown tables for each benchmark case from the job logs, and update the README action URL, date, tool versions, and benchmark tables."
+description: "Use when a user wants to refresh benchmark results in `README.md` from the latest successful GitHub Actions `Benchmark` workflow run for the current repository. Use a robust `gh` and shell workflow to find the newest successful run, extract final Markdown tables from job logs, and update the README run URL, date, versions, and tables."
 ---
 
 # Benchmark README Sync
@@ -12,26 +12,23 @@ description: "Use when a user wants to refresh benchmark results in `README.md` 
 
 ## Workflow
 1. Read `README.md` and `.github/workflows/benchmark.yml` to confirm the benchmark cases and the current results layout.
-2. Resolve the canonical GitHub repository and default branch with `gh repo view`, then find the latest successful `Benchmark` workflow run on that branch.
-3. List the jobs for that run and map each matrix case to its job ID.
-4. For each case job, fetch the log for the `Run Benchmark` step, remove ANSI escape codes, and extract the final Markdown tables printed at the end:
-   - Keep both `Development metrics` and `Build metrics` when present.
-   - Keep only `Build metrics` for build-only cases.
-   - Start output at the first `Development metrics:` or `Build metrics:` heading so earlier log noise is excluded.
-   - Do not recalculate rankings or rewrite the numbers manually.
-5. Update `README.md`:
+2. Resolve the canonical GitHub repository and default branch with `gh repo view`, then find the latest successful `Benchmark` workflow run on that branch unless the user gave a specific run ID.
+3. List the jobs for that run and map each matrix case to its job ID before touching `README.md`.
+4. For each case job, extract only the final benchmark tables from the log using the robust shell pipeline below.
+5. Update `README.md` carefully:
    - Replace the GitHub Actions run URL with the latest run URL.
    - Replace the date with today's local date.
    - Replace each case table with the extracted table from the matching job.
-   - If a case section exists without a table, insert the extracted table under that case.
-   - Preserve surrounding prose unless the benchmark output itself changes the tool names or versions shown in the tables.
-6. Validate the result:
+   - Preserve the case heading, prose, command block, and the final `---` separator before `## Run locally`.
+   - Do not recalculate rankings or rewrite the numbers manually.
+6. Validation is required after the edit:
    - Every case in the workflow matrix is represented in `README.md`.
    - No duplicated headings, tables, or rows were introduced.
+   - The separator before `## Run locally` is still present.
    - The diff only changes benchmark data, the run URL, and the date.
 
 ## Commands
-Prefer `gh` because it is authenticated and exposes both run metadata and logs.
+Prefer `gh` because it is authenticated and exposes both run metadata and logs. Use these to execute or debug the workflow manually.
 
 Resolve the canonical repository and default branch:
 
@@ -58,18 +55,35 @@ Fetch jobs for a run:
 gh api repos/<owner>/<repo>/actions/runs/<run_id>/jobs --paginate
 ```
 
+Map case names to job IDs:
+
+```bash
+gh api repos/<owner>/<repo>/actions/runs/<run_id>/jobs --paginate \
+  | jq -r '.jobs[] | [.id, .name] | @tsv'
+```
+
 Extract a job's final benchmark tables:
 
 ```bash
 gh run view <run_id> --job <job_id> --log \
   -R <owner>/<repo> \
-  | awk -F '\t' '$2=="Run Benchmark"{ sub(/^﻿/, "", $3); sub(/^[^ ]* /, "", $3); print $3 }' \
+  | cut -f3- \
   | perl -pe 's/\e\[[0-9;]*[A-Za-z]//g' \
-  | awk 'BEGIN{capture=0} /^Development metrics:$/ || /^Build metrics:$/ {capture=1} capture {print}'
+  | sed -E 's/^\xef\xbb\xbf//; s/^[0-9T:.\-]+Z //' \
+  | awk 'BEGIN{capture=0} /^Development metrics:$/ || /^Build metrics:$/ {capture=1} capture && $0!="Post job cleanup." {print} $0=="Post job cleanup." {exit}'
 ```
+
+Notes:
+- Do not rely on the second log column being `Run Benchmark`. Current `gh run view --log` output may label lines as `UNKNOWN STEP`, while the third column still contains the benchmark output you need.
+- Capture starts at the first `Development metrics:` or `Build metrics:` heading so preamble noise is excluded.
+- Stop at `Post job cleanup.` so cleanup lines do not leak into the tables.
+- Keep both `Development metrics` and `Build metrics` when present, and only `Build metrics` for build-only cases.
+- Prefer replacing one case section at a time or using a temporary one-off local command; do not add repository scripts just to complete a single sync.
+- The brittle part of the edit is preserving section boundaries, especially the final `---` before `## Run locally`.
 
 ## Failure handling
 - If no successful `Benchmark` run exists, stop and report that blocker.
 - If a job log is missing or truncated, stop and report which case could not be extracted.
 - If the workflow matrix and README sections do not match, update only the cases backed by logs and call out the mismatch clearly.
 - If `README.md` already points to the latest successful run and the extracted tables match, the expected result is an empty diff.
+- If the workflow breaks down, include the failing step in the report: repo resolution, run lookup, job mapping, log extraction, README replacement, or structural validation.
