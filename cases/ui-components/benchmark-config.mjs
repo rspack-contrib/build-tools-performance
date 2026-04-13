@@ -3,7 +3,8 @@ export const config = {
     'rspack',
     'rsbuild',
     'vite',
-    'rollup',
+    // Rollup timeout on GitHub Actions
+    // 'rollup',
     // Failed to bundle CSS
     // 'rolldown',
     'webpack',
