@@ -41,6 +41,9 @@ importers:
       '@rollup/plugin-replace':
         specifier: ^6.0.3
         version: 6.0.3(rollup@4.60.1)
+      '@rollup/plugin-terser':
+        specifier: ^1.0.0
+        version: 1.0.0(rollup@4.60.1)
       '@rsbuild/core':
         specifier: 2.0.0-rc.0
         version: 2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(core-js@3.48.0)
@@ -49,16 +52,16 @@ importers:
         version: 1.4.6(@rsbuild/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(core-js@3.48.0))
       '@rsdoctor/rspack-plugin':
         specifier: ^1.5.7
-        version: 1.5.7(@rsbuild/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(core-js@3.48.0))(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
+        version: 1.5.7(@rsbuild/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(core-js@3.48.0))(webpack@5.105.4)
       '@rspack/cli':
         specifier: 2.0.0-rc.0
-        version: 2.0.0-rc.0(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(@rspack/dev-server@2.0.0-beta.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(selfsigned@5.5.0))
+        version: 2.0.0-rc.0(@rspack/dev-server@2.0.0-beta.7(selfsigned@5.5.0))
       '@rspack/core':
-        specifier: 2.0.0-rc.0
-        version: 2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20)
+        specifier: link:../rspack/packages/rspack
+        version: link:../rspack/packages/rspack
       '@rspack/dev-server':
         specifier: 2.0.0-beta.7
-        version: 2.0.0-beta.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(selfsigned@5.5.0)
+        version: 2.0.0-beta.7(selfsigned@5.5.0)
       '@rspack/plugin-react-refresh':
         specifier: ^1.6.1
         version: 1.6.1(react-refresh@0.18.0)
@@ -109,7 +112,7 @@ importers:
         version: 7.0.0
       html-webpack-plugin:
         specifier: ^5.6.6
-        version: 5.6.6(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
+        version: 5.6.6(webpack@5.105.4)
       lightningcss:
         specifier: ^1.32.0
         version: 1.32.0
@@ -3450,6 +3453,15 @@ packages:
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+
+  '@rollup/plugin-terser@1.0.0':
+    resolution: {integrity: sha512-FnCxhTBx6bMOYQrar6C8h3scPt8/JwIzw3+AJ2K++6guogH5fYaIFia+zZuhqv0eo1RN7W1Pz630SyvLbDjhtQ==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      rollup: ^2.0.0||^3.0.0||^4.0.0
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -8169,6 +8181,10 @@ packages:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==}
     engines: {node: '>= 6.0.0', npm: '>= 3.0.0'}
 
+  smob@1.6.1:
+    resolution: {integrity: sha512-KAkBqZl3c2GvNgNhcoyJae1aKldDW0LO279wF9bk1PnluRTETKBq0WyzRXxEhoQLk56yHaOY4JCBEKDuJIET5g==}
+    engines: {node: '>=20.0.0'}
+
   socket.io-adapter@2.5.6:
     resolution: {integrity: sha512-DkkO/dz7MGln0dHn5bmN3pPy+JmywNICWrJqVWiVOyvXjWQFIv9c2h24JrQLLFJ2aQVQf/Cvl1vblnd4r2apLQ==}
 
@@ -12461,6 +12477,14 @@ snapshots:
     optionalDependencies:
       rollup: 4.60.1
 
+  '@rollup/plugin-terser@1.0.0(rollup@4.60.1)':
+    dependencies:
+      serialize-javascript: 7.0.4
+      smob: 1.6.1
+      terser: 5.46.0
+    optionalDependencies:
+      rollup: 4.60.1
+
   '@rollup/pluginutils@5.3.0(rollup@4.60.1)':
     dependencies:
       '@types/estree': 1.0.8
@@ -12576,13 +12600,13 @@ snapshots:
 
   '@rsdoctor/client@1.5.7': {}
 
-  '@rsdoctor/core@1.5.7(@rsbuild/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(core-js@3.48.0))(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)':
+  '@rsdoctor/core@1.5.7(@rsbuild/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(core-js@3.48.0))(webpack@5.105.4)':
     dependencies:
       '@rsbuild/plugin-check-syntax': 1.6.1(@rsbuild/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(core-js@3.48.0))
-      '@rsdoctor/graph': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
-      '@rsdoctor/sdk': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
-      '@rsdoctor/types': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
-      '@rsdoctor/utils': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
+      '@rsdoctor/graph': 1.5.7(webpack@5.105.4)
+      '@rsdoctor/sdk': 1.5.7(webpack@5.105.4)
+      '@rsdoctor/types': 1.5.7(webpack@5.105.4)
+      '@rsdoctor/utils': 1.5.7(webpack@5.105.4)
       '@rspack/resolver': 0.2.8
       browserslist-load-config: 1.0.1
       es-toolkit: 1.45.1
@@ -12592,32 +12616,28 @@ snapshots:
       source-map: 0.7.6
     transitivePeerDependencies:
       - '@rsbuild/core'
-      - '@rspack/core'
       - bufferutil
       - supports-color
       - utf-8-validate
       - webpack
 
-  '@rsdoctor/graph@1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)':
+  '@rsdoctor/graph@1.5.7(webpack@5.105.4)':
     dependencies:
-      '@rsdoctor/types': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
-      '@rsdoctor/utils': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
+      '@rsdoctor/types': 1.5.7(webpack@5.105.4)
+      '@rsdoctor/utils': 1.5.7(webpack@5.105.4)
       es-toolkit: 1.45.1
       path-browserify: 1.0.1
       source-map: 0.7.6
     transitivePeerDependencies:
-      - '@rspack/core'
       - webpack
 
-  '@rsdoctor/rspack-plugin@1.5.7(@rsbuild/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(core-js@3.48.0))(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)':
+  '@rsdoctor/rspack-plugin@1.5.7(@rsbuild/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(core-js@3.48.0))(webpack@5.105.4)':
     dependencies:
-      '@rsdoctor/core': 1.5.7(@rsbuild/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(core-js@3.48.0))(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
-      '@rsdoctor/graph': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
-      '@rsdoctor/sdk': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
-      '@rsdoctor/types': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
-      '@rsdoctor/utils': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
-    optionalDependencies:
-      '@rspack/core': 2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20)
+      '@rsdoctor/core': 1.5.7(@rsbuild/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(core-js@3.48.0))(webpack@5.105.4)
+      '@rsdoctor/graph': 1.5.7(webpack@5.105.4)
+      '@rsdoctor/sdk': 1.5.7(webpack@5.105.4)
+      '@rsdoctor/types': 1.5.7(webpack@5.105.4)
+      '@rsdoctor/utils': 1.5.7(webpack@5.105.4)
     transitivePeerDependencies:
       - '@rsbuild/core'
       - bufferutil
@@ -12625,37 +12645,35 @@ snapshots:
       - utf-8-validate
       - webpack
 
-  '@rsdoctor/sdk@1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)':
+  '@rsdoctor/sdk@1.5.7(webpack@5.105.4)':
     dependencies:
       '@rsdoctor/client': 1.5.7
-      '@rsdoctor/graph': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
-      '@rsdoctor/types': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
-      '@rsdoctor/utils': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
+      '@rsdoctor/graph': 1.5.7(webpack@5.105.4)
+      '@rsdoctor/types': 1.5.7(webpack@5.105.4)
+      '@rsdoctor/utils': 1.5.7(webpack@5.105.4)
       launch-editor: 2.13.2
       safer-buffer: 2.1.2
       socket.io: 4.8.1
       tapable: 2.3.0
     transitivePeerDependencies:
-      - '@rspack/core'
       - bufferutil
       - supports-color
       - utf-8-validate
       - webpack
 
-  '@rsdoctor/types@1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)':
+  '@rsdoctor/types@1.5.7(webpack@5.105.4)':
     dependencies:
       '@types/connect': 3.4.38
       '@types/estree': 1.0.5
       '@types/tapable': 2.3.0
       source-map: 0.7.6
     optionalDependencies:
-      '@rspack/core': 2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20)
       webpack: 5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.20))(esbuild@0.27.4)(webpack-cli@7.0.2)
 
-  '@rsdoctor/utils@1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)':
+  '@rsdoctor/utils@1.5.7(webpack@5.105.4)':
     dependencies:
       '@babel/code-frame': 7.26.2
-      '@rsdoctor/types': 1.5.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4)
+      '@rsdoctor/types': 1.5.7(webpack@5.105.4)
       '@types/estree': 1.0.5
       acorn: 8.16.0
       acorn-import-attributes: 1.9.5(acorn@8.16.0)
@@ -12670,7 +12688,6 @@ snapshots:
       rslog: 1.3.2
       strip-ansi: 6.0.1
     transitivePeerDependencies:
-      - '@rspack/core'
       - webpack
 
   '@rspack/binding-darwin-arm64@2.0.0-rc.0':
@@ -12724,13 +12741,12 @@ snapshots:
       - '@emnapi/core'
       - '@emnapi/runtime'
 
-  '@rspack/cli@2.0.0-rc.0(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(@rspack/dev-server@2.0.0-beta.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(selfsigned@5.5.0))':
+  '@rspack/cli@2.0.0-rc.0(@rspack/dev-server@2.0.0-beta.7(selfsigned@5.5.0))':
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      '@rspack/core': 2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20)
       exit-hook: 4.0.0
     optionalDependencies:
-      '@rspack/dev-server': 2.0.0-beta.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(selfsigned@5.5.0)
+      '@rspack/dev-server': 2.0.0-beta.7(selfsigned@5.5.0)
 
   '@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20)':
     dependencies:
@@ -12741,14 +12757,11 @@ snapshots:
       - '@emnapi/core'
       - '@emnapi/runtime'
 
-  '@rspack/dev-middleware@2.0.0-beta.2(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))':
-    optionalDependencies:
-      '@rspack/core': 2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20)
+  '@rspack/dev-middleware@2.0.0-beta.2': {}
 
-  '@rspack/dev-server@2.0.0-beta.7(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(selfsigned@5.5.0)':
+  '@rspack/dev-server@2.0.0-beta.7(selfsigned@5.5.0)':
     dependencies:
-      '@rspack/core': 2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20)
-      '@rspack/dev-middleware': 2.0.0-beta.2(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))
+      '@rspack/dev-middleware': 2.0.0-beta.2
       '@types/ws': 8.18.1
       chokidar: 5.0.0
       connect-history-api-fallback: 2.0.0
@@ -15596,7 +15609,7 @@ snapshots:
     dependencies:
       void-elements: 3.1.0
 
-  html-webpack-plugin@5.6.6(@rspack/core@2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20))(webpack@5.105.4):
+  html-webpack-plugin@5.6.6(webpack@5.105.4):
     dependencies:
       '@types/html-minifier-terser': 6.1.0
       html-minifier-terser: 6.1.0
@@ -15604,7 +15617,6 @@ snapshots:
       pretty-error: 4.0.0
       tapable: 2.3.0
     optionalDependencies:
-      '@rspack/core': 2.0.0-rc.0(@emnapi/core@1.8.1)(@emnapi/runtime@1.8.1)(@swc/helpers@0.5.20)
       webpack: 5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.20))(esbuild@0.27.4)(webpack-cli@7.0.2)
 
   htmlparser2@10.0.0:
@@ -17830,6 +17842,8 @@ snapshots:
   slash@3.0.0: {}
 
   smart-buffer@4.2.0: {}
+
+  smob@1.6.1: {}
 
   socket.io-adapter@2.5.6:
     dependencies:
