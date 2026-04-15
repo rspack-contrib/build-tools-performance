@@ -21,7 +21,7 @@
     "@fluentui/react": "^8.125.5",
     "@headlessui/react": "^2.2.10",
     "@mantine/core": "^9.0.1",
-    "@mui/material": "^7.3.10",
+    "@mui/material": "^9.0.0",
     "@radix-ui/themes": "^3.3.0",
     "antd": "^6.3.5",
     "antd-mobile": "^5.42.3",
