@@ -252,8 +252,8 @@ importers:
         specifier: ^2.19.1
         version: 2.19.1(@babel/template@7.28.6)(@types/react@19.2.14)(react@19.2.5)
       ky:
-        specifier: ^1.14.3
-        version: 1.14.3
+        specifier: ^2.0.1
+        version: 2.0.1
       lit:
         specifier: ^3.3.2
         version: 3.3.2
@@ -6465,9 +6465,9 @@ packages:
     resolution: {integrity: sha512-zPPuIt+ku1iCpFBRwseMcPYQ1cJL8l60rSmKeOuGfOXyE6YnTBmf2aEFNL2HQGrD0cPcLO/t+v9RTgC+fwEh/g==}
     engines: {node: ^4.8.4 || ^6.10.1 || ^7.10.1 || >= 8.1.4}
 
-  ky@1.14.3:
-    resolution: {integrity: sha512-9zy9lkjac+TR1c2tG+mkNSVlyOpInnWdSMiue4F+kq8TwJSgv6o8jhLRg8Ho6SnZ9wOYUq/yozts9qQCfk7bIw==}
-    engines: {node: '>=18'}
+  ky@2.0.1:
+    resolution: {integrity: sha512-HJPEjEpQPZQ5M3G5eu90/LWZDwysCnvqcfbLvq9FUvfizBZRi58WEixswyyI32LOLcFQd43w7kcfgkCPFxDt/Q==}
+    engines: {node: '>=22'}
 
   launch-editor@2.12.0:
     resolution: {integrity: sha512-giOHXoOtifjdHqUamwKq6c49GzBdLjvxrd2D+Q4V6uOHopJv7p9VJxikDsQ/CBXZbEITgUqSVHXLTG3VhPP1Dg==}
@@ -15949,7 +15949,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ky@1.14.3: {}
+  ky@2.0.1: {}
 
   launch-editor@2.12.0:
     dependencies:
