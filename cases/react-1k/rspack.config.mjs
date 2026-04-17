@@ -2,7 +2,7 @@
 import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
 import { ReactRefreshRspackPlugin } from '@rspack/plugin-react-refresh';
-import { target, isProd } from '../../shared/constants.mjs';
+import { isProd } from '../../shared/constants.mjs';
 
 export default defineConfig({
   extends: '../../shared/rspack.config.mjs',
@@ -16,7 +16,6 @@ export default defineConfig({
           /** @type {import('@rspack/core').SwcLoaderOptions} */
           options: {
             jsc: {
-              target,
               parser: {
                 syntax: 'typescript',
                 tsx: true,

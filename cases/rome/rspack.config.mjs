@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig } from '@rspack/cli';
 import path from 'node:path';
-import { target } from '../../shared/constants.mjs';
 
 export default defineConfig({
   extends: '../../shared/rspack.node.config.mjs',
@@ -22,12 +21,7 @@ export default defineConfig({
         exclude: [/node_modules/],
         loader: 'builtin:swc-loader',
         options: {
-          jsc: {
-            target,
-            parser: {
-              syntax: 'typescript',
-            },
-          },
+          detectSyntax: 'auto',
         },
       },
     ],
