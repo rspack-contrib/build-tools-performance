@@ -15,11 +15,8 @@ export default defineConfig({
           loader: 'builtin:swc-loader',
           /** @type {import('@rspack/core').SwcLoaderOptions} */
           options: {
+            detectSyntax: 'auto',
             jsc: {
-              parser: {
-                syntax: 'typescript',
-                tsx: true,
-              },
               transform: {
                 react: {
                   runtime: 'automatic',
