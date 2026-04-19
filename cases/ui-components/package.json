@@ -23,7 +23,7 @@
     "@mantine/core": "^9.0.2",
     "@mui/material": "^9.0.0",
     "@radix-ui/themes": "^3.3.0",
-    "antd": "^6.3.5",
+    "antd": "^6.3.6",
     "antd-mobile": "^5.42.3",
     "ant-design-vue": "^4.2.6",
     "element-plus": "^2.13.7",
