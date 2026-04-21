@@ -6,7 +6,6 @@ export default defineConfig({
   extends: '../../shared/rspack.node.config.mjs',
   entry: './src/entry.ts',
   resolve: {
-    extensions: ['.ts', '.js'],
     tsConfig: path.resolve(import.meta.dirname, 'src/tsconfig.json'),
   },
   module: {
