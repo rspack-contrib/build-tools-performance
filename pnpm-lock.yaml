@@ -45,8 +45,8 @@ importers:
         specifier: 2.0.0
         version: 2.0.0(core-js@3.48.0)
       '@rsbuild/plugin-react':
-        specifier: ^1.4.6
-        version: 1.4.6(@rsbuild/core@2.0.0(core-js@3.48.0))
+        specifier: ^2.0.0
+        version: 2.0.0(@rsbuild/core@2.0.0(core-js@3.48.0))(@rspack/core@2.0.0(@swc/helpers@0.5.21))
       '@rsdoctor/rspack-plugin':
         specifier: ^1.5.9
         version: 1.5.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@rsbuild/core@2.0.0(core-js@3.48.0))(@rspack/core@2.0.0(@swc/helpers@0.5.21))(webpack@5.106.2)
@@ -3616,10 +3616,10 @@ packages:
       '@rsbuild/core':
         optional: true
 
-  '@rsbuild/plugin-react@1.4.6':
-    resolution: {integrity: sha512-LAT6xHlEyZKA0VjF/ph5d50iyG+WSmBx+7g98HNZUwb94VeeTMZFB8qVptTkbIRMss3BNKOXmHOu71Lhsh9oEw==}
+  '@rsbuild/plugin-react@2.0.0':
+    resolution: {integrity: sha512-/1gzt39EGUSFEqB83g46QoOwsgv172HI18i6au1b6lgIaX4sv9stuX4ijdHbHCp8PqYEq+MyQ99jIQMO6I+etg==}
     peerDependencies:
-      '@rsbuild/core': ^1.0.0 || ^2.0.0-0
+      '@rsbuild/core': ^2.0.0-0
     peerDependenciesMeta:
       '@rsbuild/core':
         optional: true
@@ -3753,15 +3753,6 @@ packages:
       selfsigned: ^5.0.0
     peerDependenciesMeta:
       selfsigned:
-        optional: true
-
-  '@rspack/plugin-react-refresh@1.6.2':
-    resolution: {integrity: sha512-k+/VrfTNgo+KirjI6V+8CWRj6y+DH9jOUWv8JorYY4vKf/9xfnZ8xHzuB4iqCwTtoZl9YnxOaOuoyjJipc2tiQ==}
-    peerDependencies:
-      react-refresh: '>=0.10.0 <1.0.0'
-      webpack-hot-middleware: 2.x
-    peerDependenciesMeta:
-      webpack-hot-middleware:
         optional: true
 
   '@rspack/plugin-react-refresh@2.0.0':
@@ -12540,14 +12531,14 @@ snapshots:
     optionalDependencies:
       '@rsbuild/core': 2.0.0(core-js@3.48.0)
 
-  '@rsbuild/plugin-react@1.4.6(@rsbuild/core@2.0.0(core-js@3.48.0))':
+  '@rsbuild/plugin-react@2.0.0(@rsbuild/core@2.0.0(core-js@3.48.0))(@rspack/core@2.0.0(@swc/helpers@0.5.21))':
     dependencies:
-      '@rspack/plugin-react-refresh': 1.6.2(react-refresh@0.18.0)
+      '@rspack/plugin-react-refresh': 2.0.0(@rspack/core@2.0.0(@swc/helpers@0.5.21))(react-refresh@0.18.0)
       react-refresh: 0.18.0
     optionalDependencies:
       '@rsbuild/core': 2.0.0(core-js@3.48.0)
     transitivePeerDependencies:
-      - webpack-hot-middleware
+      - '@rspack/core'
 
   '@rsdoctor/client@1.5.9': {}
 
@@ -12721,11 +12712,6 @@ snapshots:
       '@rspack/dev-middleware': 2.0.1(@rspack/core@2.0.0(@swc/helpers@0.5.21))
     optionalDependencies:
       selfsigned: 5.5.0
-
-  '@rspack/plugin-react-refresh@1.6.2(react-refresh@0.18.0)':
-    dependencies:
-      error-stack-parser: 2.1.4
-      react-refresh: 0.18.0
 
   '@rspack/plugin-react-refresh@2.0.0(@rspack/core@2.0.0(@swc/helpers@0.5.21))(react-refresh@0.18.0)':
     dependencies:
