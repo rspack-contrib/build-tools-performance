@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@arco-design/web-react": "^2.66.14",
-    "@chakra-ui/react": "^3.34.0",
+    "@chakra-ui/react": "^3.35.0",
     "@coreui/react": "^5.10.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
@@ -37,7 +37,7 @@
     "styled-components": "^6.4.1",
     "vant": "^4.9.24",
     "vue": "^3.5.33",
-    "vuetify": "^4.0.5"
+    "vuetify": "^4.0.6"
   },
   "browserslist": "Chrome >= 93"
 }
