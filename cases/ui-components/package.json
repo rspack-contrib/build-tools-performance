@@ -13,7 +13,7 @@
     "build:esbuild": "cross-env NODE_ENV=production node esbuild.mjs"
   },
   "dependencies": {
-    "@arco-design/web-react": "^2.66.14",
+    "@arco-design/web-react": "^2.66.15",
     "@chakra-ui/react": "^3.35.0",
     "@coreui/react": "^5.10.0",
     "@emotion/react": "^11.14.0",
@@ -21,12 +21,12 @@
     "@fluentui/react": "^8.125.5",
     "@headlessui/react": "^2.2.10",
     "@mantine/core": "^9.1.1",
-    "@mui/material": "^9.0.0",
+    "@mui/material": "^9.0.1",
     "@radix-ui/themes": "^3.3.0",
     "antd": "^6.3.7",
     "antd-mobile": "^5.42.3",
     "ant-design-vue": "^4.2.6",
-    "element-plus": "^2.13.7",
+    "element-plus": "^2.14.0",
     "naive-ui": "^2.44.1",
     "primevue": "^4.5.5",
     "primereact": "^10.9.7",
@@ -37,7 +37,7 @@
     "styled-components": "^6.4.1",
     "vant": "^4.9.24",
     "vue": "^3.5.34",
-    "vuetify": "^4.0.6"
+    "vuetify": "^4.0.7"
   },
   "browserslist": "Chrome >= 93"
 }
