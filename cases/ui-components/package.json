@@ -21,14 +21,14 @@
     "@emotion/styled": "^11.14.1",
     "@fluentui/react": "^8.125.6",
     "@headlessui/react": "^2.2.10",
-    "@mantine/core": "^9.2.1",
-    "@mantine/hooks": "^9.2.1",
+    "@mantine/core": "^9.2.2",
+    "@mantine/hooks": "^9.2.2",
     "@mui/material": "^9.0.1",
     "@radix-ui/themes": "^3.3.0",
     "antd": "^6.4.3",
     "antd-mobile": "^5.42.3",
     "ant-design-vue": "^4.2.6",
-    "element-plus": "^2.14.0",
+    "element-plus": "^2.14.1",
     "naive-ui": "^2.44.1",
     "primevue": "^4.5.5",
     "primereact": "^10.9.8",
@@ -38,8 +38,8 @@
     "react-dom": "^19.2.6",
     "styled-components": "^6.4.2",
     "vant": "^4.9.24",
-    "vue": "^3.5.34",
-    "vuetify": "^4.0.7"
+    "vue": "^3.5.35",
+    "vuetify": "^4.0.8"
   },
   "browserslist": "Chrome >= 93"
 }

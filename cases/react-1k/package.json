@@ -23,7 +23,7 @@
     "@iconify/react": "^6.0.2",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router-dom": "^7.15.1"
+    "react-router-dom": "^7.16.0"
   },
   "browserslist": "Chrome >= 93"
 }
