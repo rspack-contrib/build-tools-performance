@@ -17,6 +17,7 @@ export const createUtooConfig = (config) => {
   return {
     mode: isProd ? 'production' : 'development',
     sourceMaps: !isProd,
+    tracing: false,
     persistentCaching: true,
     stats: false,
     ...rest,
