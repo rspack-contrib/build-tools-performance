@@ -31,7 +31,7 @@
     "@types/pidusage": "^2.0.5",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
-    "@utoo/pack-cli": "^1.4.9",
+    "@utoo/pack-cli": "^1.4.12-alpha.6",
     "@vitejs/plugin-react": "^6.0.2",
     "browserslist": "^4.28.2",
     "buffer": "^6.0.3",

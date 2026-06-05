@@ -3,11 +3,6 @@ import { isProd, targetBrowser } from './constants.mjs';
 
 const defaultExtensions = ['.ts', '.tsx', '.js', '.jsx'];
 
-const reactOptions = {
-  runtime: 'automatic',
-  importSource: 'react',
-};
-
 /**
  * @param {Record<string, any>} config
  */
@@ -22,7 +17,7 @@ export const createUtooConfig = (config) => {
     stats: false,
     ...rest,
     output: {
-      path: './dist',
+      path: 'dist',
       clean: true,
       ...output,
     },
@@ -43,7 +38,6 @@ export const createUtooConfig = (config) => {
 export const createBrowserUtooConfig = ({
   entry,
   htmlTemplate = './index-rspack.html',
-  react = false,
   ...config
 }) =>
   createUtooConfig({
@@ -60,6 +54,5 @@ export const createBrowserUtooConfig = ({
       port: 3000,
       hot: true,
     },
-    ...(react ? { react: reactOptions } : {}),
     ...config,
   });

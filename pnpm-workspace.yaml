@@ -20,3 +20,4 @@ onlyBuiltDependencies:
 minimumReleaseAgeExclude:
   - '@rspack/*'
   - '@rsbuild/*'
+  - '@utoo/*'
