@@ -27,6 +27,9 @@ export const createUtooConfig = (config) => {
     },
     optimization: {
       minify: isProd,
+      concatenateModules: isProd,
+      removeUnusedExports: isProd,
+      removeUnusedImports: isProd,
       ...optimization,
     },
   };
