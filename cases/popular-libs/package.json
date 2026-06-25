@@ -11,7 +11,8 @@
     "build:utoo": "cross-env NODE_ENV=production up build",
     "build:farm": "farm build",
     "build:vite": "vite build",
-    "build:esbuild": "cross-env NODE_ENV=production node esbuild.mjs"
+    "build:esbuild": "cross-env NODE_ENV=production node esbuild.mjs",
+    "build:bun": "cross-env NODE_ENV=production bun bun.mjs"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.6",

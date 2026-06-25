@@ -1,4 +1,4 @@
-import { spawn, type ChildProcess } from 'node:child_process';
+import { spawn, execSync, type ChildProcess } from 'node:child_process';
 import { appendFile, readFileSync, writeFileSync } from 'node:fs';
 import fse from 'fs-extra';
 import { createRequire } from 'module';
@@ -40,7 +40,7 @@ type BenchmarkConfig = {
 
 type DevServerResult = {
   time: number;
-  stopServer: () => Promise<number>;
+  stopServer: () => Promise<number | null>;
 };
 
 type BuildResult = {
@@ -79,6 +79,26 @@ async function coolDown(): Promise<void> {
   await new Promise<void>((resolve) => setTimeout(resolve, COOL_DOWN_TIME));
 }
 
+// `pidusage` can hang indefinitely on some platforms (e.g. recent Windows where
+// `wmic` has been removed). Race it against a timeout so a stuck call can never
+// block the benchmark; callers treat a `null` result as "stats unavailable".
+const PIDUSAGE_TIMEOUT = 5000;
+
+async function safePidusage(
+  pid: number,
+): Promise<{ cpu: number; memory: number } | null> {
+  try {
+    return await Promise.race([
+      pidusage(pid),
+      new Promise<null>((resolve) =>
+        setTimeout(() => resolve(null), PIDUSAGE_TIMEOUT),
+      ),
+    ]);
+  } catch {
+    return null;
+  }
+}
+
 const ensureMetrics = (
   perfResult: PerfResultMap,
   toolName: string,
@@ -115,8 +135,11 @@ interface BuildToolOptions {
   startScript: string;
   startedRegex: RegExp;
   buildScript: string;
-  binFilePath: string;
+  binFilePath?: string;
   skipRss?: boolean;
+  // Native-binary tools (e.g. Bun) cannot have the benchmark console injected
+  // into their bin file, so they log the metrics from their own scripts.
+  skipBinHack?: boolean;
 }
 
 class BuildTool {
@@ -136,14 +159,19 @@ class BuildTool {
     buildScript,
     binFilePath,
     skipRss = false,
+    skipBinHack = false,
   }: BuildToolOptions) {
     this.name = name;
     this.port = port;
     this.startScript = startScript;
     this.startedRegex = startedRegex;
     this.buildScript = buildScript;
-    this.binFilePath = path.join(process.cwd(), 'node_modules', binFilePath);
-    this.hackBinFile();
+    if (skipBinHack || !binFilePath) {
+      this.binFilePath = '';
+    } else {
+      this.binFilePath = path.join(process.cwd(), 'node_modules', binFilePath);
+      this.hackBinFile();
+    }
     this.skipRss = skipRss;
   }
 
@@ -215,7 +243,7 @@ class BuildTool {
       let startTime: number | null = null;
       let bundlerPid: number | null = null;
 
-      const stopServer = async () => {
+      const stopServer = async (): Promise<number | null> => {
         if (!bundlerPid) {
           throw new Error('Bundler pid not found');
         }
@@ -224,17 +252,20 @@ class BuildTool {
         const start = Date.now();
         // wait bundler write cache to disk
         while (Date.now() - start < TIMEOUT) {
-          const info = await pidusage(bundlerPid);
-          // CPU idle
-          if (info.cpu === 0) {
+          const info = await safePidusage(bundlerPid);
+          // CPU idle, or process stats unavailable on this platform
+          if (!info || info.cpu === 0) {
             break;
           }
           await sleep(200);
         }
 
-        const info = await pidusage(bundlerPid);
-        const rssRaw = info.memory / 1024 / 1024;
-        const rss = Math.round(rssRaw * 1000) / 1000;
+        const info = await safePidusage(bundlerPid);
+        let rss: number | null = null;
+        if (info) {
+          const rssRaw = info.memory / 1024 / 1024;
+          rss = Math.round(rssRaw * 1000) / 1000;
+        }
 
         if (child.pid) {
           kill(child.pid);
@@ -464,6 +495,29 @@ parseToolNames().forEach((name) => {
         }),
       );
       break;
+    case 'bun': {
+      let bunVersion = '';
+      try {
+        // Bun is installed at the system level, so read the version from the
+        // binary rather than from a node_modules package.
+        bunVersion = execSync('bun --version').toString().trim();
+      } catch {
+        // bun version is optional
+      }
+      buildTools.push(
+        new BuildTool({
+          name: ('Bun ' + bunVersion).trim(),
+          port: 1234,
+          startScript: 'start:bun',
+          startedRegex: /Bun dev server ready/,
+          buildScript: 'build:bun',
+          // Bun is a native binary and logs benchmark metrics from its own
+          // build/dev scripts instead of via an injected bin file.
+          skipBinHack: true,
+        }),
+      );
+      break;
+    }
   }
 });
 
@@ -625,7 +679,9 @@ async function runDevBenchmark(
   writeFileSync(leafFilePath, originalLeafFileContent);
 
   const rss = await stopServer();
-  metrics.devRSS = rss;
+  if (rss !== null) {
+    metrics.devRSS = rss;
+  }
 
   await coolDown();
   logger.success(color.dim(buildTool.name) + ' dev server closed');

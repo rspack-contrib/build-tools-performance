@@ -9,6 +9,7 @@ export const config = {
     'esbuild',
     'farm',
     'utoo',
+    'bun',
     // Parcel cannot bundle Zod
     // https://github.com/parcel-bundler/parcel/issues/10175
     // 'parcel',

@@ -12,6 +12,7 @@ export const config = {
     'farm',
     'parcel',
     'utoo',
+    'bun',
   ],
   dev: false,
 };
