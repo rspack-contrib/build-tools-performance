@@ -72,5 +72,10 @@
   },
   "@parcel/resolver-default": {
     "packageExports": true
+  },
+  "pnpm": {
+    "overrides": {
+      "fast-uri": "4.1.2"
+    }
   }
 }
