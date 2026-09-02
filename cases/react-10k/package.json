@@ -19,11 +19,11 @@
     "start:webpack": "cross-env NODE_ENV=development webpack serve --mode development"
   },
   "dependencies": {
-    "@iconify-icons/material-symbols": "^1.2.58",
+    "@iconify-icons/material-symbols": "^1.2.59",
     "@iconify/react": "^6.0.2",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-router-dom": "^7.18.2"
+    "react-router-dom": "^7.18.3"
   },
   "browserslist": "Chrome >= 93"
 }
