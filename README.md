@@ -29,7 +29,7 @@ Tooling details:
 
 ## Results
 
-> Data from GitHub Actions: https://github.com/rstackjs/build-tools-performance/actions/runs/31916976843 (2026-08-18)
+> Data from GitHub Actions: https://github.com/rstackjs/build-tools-performance/actions/runs/33621329811 (2026-09-03)
 
 ---
 
@@ -43,27 +43,27 @@ CASE=react-1k pnpm benchmark
 
 Development metrics:
 
-| Name              | Startup (no cache) | Startup (with cache) | HMR     | Memory (RSS) |
-| ----------------- | ------------------ | -------------------- | ------- | ------------ |
-| Rspack CLI 2.1.10 | 1173ms🥈           | 706ms🥈              | 101ms🥇 | 372MB🥈      |
-| Rsbuild 2.1.13    | 1012ms🥇           | 687ms🥇              | 111ms🥈 | 321MB🥇      |
-| Vite 8.2.1        | 4669ms             | 3574ms               | 132ms   | 498MB        |
-| webpack 5.109.2   | 5176ms             | 3042ms               | 444ms   | 876MB        |
-| Farm 1.7.11       | 1607ms🥉           | 850ms🥉              | 114ms🥉 | 553MB        |
-| Parcel 2.16.4     | 3894ms             | 886ms                | 271ms   | 1148MB       |
-| Utoo 1.5.5        | 10324ms            | 966ms                | 122ms   | 414MB🥉      |
+| Name             | Startup (no cache) | Startup (with cache) | HMR     | Memory (RSS) |
+| ---------------- | ------------------ | -------------------- | ------- | ------------ |
+| Rspack CLI 2.2.2 | 1775ms🥈           | 1111ms🥉             | 171ms   | 357MB🥈      |
+| Rsbuild 2.2.2    | 1578ms🥇           | 994ms🥇              | 165ms   | 313MB🥇      |
+| Vite 8.2.2       | 5190ms             | 4479ms               | 124ms🥈 | 493MB        |
+| webpack 5.110.3  | 7249ms             | 4321ms               | 691ms   | 833MB        |
+| Farm 1.7.11      | 2049ms🥉           | 1105ms🥈             | 135ms🥉 | 554MB        |
+| Parcel 2.16.4    | 5537ms             | 2191ms               | 393ms   | 1124MB       |
+| Utoo 1.5.14      | 7009ms             | 1544ms               | 91ms🥇  | 423MB🥉      |
 
 Build metrics:
 
-| Name              | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
-| ----------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
-| Rspack CLI 2.1.10 | 582ms🥉          | 283ms🥇            | 269MB🥇      | 842.8kB🥈   | 222.2kB      |
-| Rsbuild 2.1.13    | 494ms🥇          | 376ms🥈            | 278MB🥈      | 844.3kB     | 214.2kB🥇    |
-| Vite 8.2.1        | 515ms🥈          | 595ms              | 288MB🥉      | 820.8kB🥇   | 217.4kB🥈    |
-| webpack 5.109.2   | 4568ms           | 1417ms             | 680MB        | 843.5kB🥉   | 222.1kB🥉    |
-| Farm 1.7.11       | 1937ms           | 1086ms             | 390MB        | 1090.0kB    | 260.1kB      |
-| Parcel 2.16.4     | 3826ms           | 834ms              | 1144MB       | 966.6kB     | 231.3kB      |
-| Utoo 1.5.5        | 7364ms           | 399ms🥉            | 403MB        | 864.8kB     | 234.3kB      |
+| Name             | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
+| ---------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
+| Rspack CLI 2.2.2 | 1028ms🥉         | 420ms🥇            | 252MB🥇      | 818.3kB🥉   | 221.4kB      |
+| Rsbuild 2.2.2    | 927ms🥈          | 568ms🥈            | 258MB🥈      | 819.8kB     | 213.9kB🥇    |
+| Vite 8.2.2       | 610ms🥇          | 585ms🥉            | 290MB🥉      | 796.3kB🥇   | 216.8kB🥈    |
+| webpack 5.110.3  | 5829ms           | 1720ms             | 675MB        | 818.2kB🥈   | 221.0kB🥉    |
+| Farm 1.7.11      | 2653ms           | 1531ms             | 392MB        | 1065.5kB    | 260.4kB      |
+| Parcel 2.16.4    | 4552ms           | 1042ms             | 1107MB       | 942.1kB     | 230.6kB      |
+| Utoo 1.5.14      | 7553ms           | 794ms              | 396MB        | 821.0kB     | 230.4kB      |
 
 ---
 
@@ -77,25 +77,25 @@ CASE=react-5k pnpm benchmark
 
 Development metrics:
 
-| Name              | Startup (no cache) | Startup (with cache) | HMR     | Memory (RSS) |
-| ----------------- | ------------------ | -------------------- | ------- | ------------ |
-| Rspack CLI 2.1.10 | 903ms🥈            | 652ms🥉              | 102ms🥇 | 302MB🥈      |
-| Rsbuild 2.1.13    | 782ms🥇            | 602ms🥇              | 104ms🥈 | 272MB🥇      |
-| Vite 8.2.1        | 3369ms             | 1999ms               | 131ms   | 735MB        |
-| webpack 5.109.2   | 9835ms             | 8695ms               | 2355ms  | 1894MB       |
-| Farm 1.7.11       | 1441ms🥉           | 616ms🥈              | 129ms🥉 | 518MB🥉      |
-| Parcel 2.16.4     | 11892ms            | 2111ms               | 589ms   | 1810MB       |
+| Name             | Startup (no cache) | Startup (with cache) | HMR     | Memory (RSS) |
+| ---------------- | ------------------ | -------------------- | ------- | ------------ |
+| Rspack CLI 2.2.2 | 948ms🥇            | 628ms🥈              | 91ms🥈  | 297MB🥈      |
+| Rsbuild 2.2.2    | 1029ms🥈           | 617ms🥇              | 109ms🥉 | 261MB🥇      |
+| Vite 8.2.2       | 4646ms             | 2528ms               | 130ms   | 727MB        |
+| webpack 5.110.3  | 11423ms            | 9633ms               | 2764ms  | 1541MB       |
+| Farm 1.7.11      | 1380ms🥉           | 900ms🥉              | 73ms🥇  | 515MB🥉      |
+| Parcel 2.16.4    | 11636ms            | 1983ms               | 567ms   | 1803MB       |
 
 Build metrics:
 
-| Name              | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
-| ----------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
-| Rspack CLI 2.1.10 | 1829ms🥉         | 935ms🥇            | 617MB🥈      | 2794.0kB🥉  | 679.8kB🥉    |
-| Rsbuild 2.1.13    | 1739ms🥈         | 1008ms🥈           | 636MB🥉      | 2736.1kB🥈  | 675.8kB🥇    |
-| Vite 8.2.1        | 1183ms🥇         | 1028ms🥉           | 660MB        | 2627.8kB🥇  | 692.1kB      |
-| webpack 5.109.2   | 12504ms          | 3447ms             | 1309MB       | 2797.9kB    | 679.2kB🥈    |
-| Farm 1.7.11       | 5096ms           | 2070ms             | 611MB🥇      | 3545.4kB    | 816.8kB      |
-| Parcel 2.16.4     | 10926ms          | 1588ms             | 2065MB       | 3490.0kB    | 766.9kB      |
+| Name             | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
+| ---------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
+| Rspack CLI 2.2.2 | 1610ms🥈         | 677ms🥇            | 542MB🥇      | 2678.6kB🥉  | 673.7kB🥉    |
+| Rsbuild 2.2.2    | 1753ms🥉         | 918ms🥈            | 556MB🥈      | 2620.7kB🥈  | 669.7kB🥇    |
+| Vite 8.2.2       | 1153ms🥇         | 1135ms🥉           | 659MB        | 2512.4kB🥇  | 684.6kB      |
+| webpack 5.110.3  | 12285ms          | 4043ms             | 1192MB       | 2681.6kB    | 673.1kB🥈    |
+| Farm 1.7.11      | 6007ms           | 1965ms             | 624MB🥉      | 3430.0kB    | 809.3kB      |
+| Parcel 2.16.4    | 11011ms          | 1781ms             | 2031MB       | 3374.6kB    | 758.7kB      |
 
 ---
 
@@ -109,21 +109,21 @@ CASE=react-10k pnpm benchmark
 
 Development metrics:
 
-| Name              | Startup (no cache) | Startup (with cache) | HMR     | Memory (RSS) |
-| ----------------- | ------------------ | -------------------- | ------- | ------------ |
-| Rspack CLI 2.1.10 | 1562ms🥈           | 1104ms🥈             | 133ms🥈 | 374MB🥈      |
-| Rsbuild 2.1.13    | 1457ms🥇           | 1089ms🥇             | 180ms🥉 | 323MB🥇      |
-| Vite 8.2.1        | 9780ms🥉           | 5631ms🥉             | 112ms🥇 | 1176MB🥉     |
-| webpack 5.109.2   | 25706ms            | 26604ms              | 3668ms  | 1987MB       |
+| Name             | Startup (no cache) | Startup (with cache) | HMR    | Memory (RSS) |
+| ---------------- | ------------------ | -------------------- | ------ | ------------ |
+| Rspack CLI 2.2.2 | 961ms🥈            | 565ms🥇              | 88ms🥇 | 365MB🥈      |
+| Rsbuild 2.2.2    | 695ms🥇            | 628ms🥈              | 98ms🥉 | 313MB🥇      |
+| Vite 8.2.2       | 4241ms🥉           | 2693ms🥉             | 93ms🥈 | 1182MB🥉     |
+| webpack 5.110.3  | 13219ms            | 9999ms               | 4898ms | 2442MB       |
 
 Build metrics:
 
-| Name              | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
-| ----------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
-| Rspack CLI 2.1.10 | 4057ms🥈         | 2242ms🥈           | 1100MB🥇     | 5861.1kB🥉  | 1367.3kB🥉   |
-| Rsbuild 2.1.13    | 4567ms🥉         | 2150ms🥇           | 1104MB🥈     | 5723.3kB🥈  | 1357.8kB🥇   |
-| Vite 8.2.1        | 2421ms🥇         | 2340ms🥉           | 1182MB🥉     | 5462.7kB🥇  | 1416.3kB     |
-| webpack 5.109.2   | 38824ms          | 8994ms             | 1928MB       | 5869.6kB    | 1367.0kB🥈   |
+| Name             | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
+| ---------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
+| Rspack CLI 2.2.2 | 2963ms🥉         | 1026ms🥈           | 957MB🥇      | 5601.5kB🥉  | 1352.5kB🥉   |
+| Rsbuild 2.2.2    | 2286ms🥈         | 909ms🥇            | 967MB🥈      | 5463.6kB🥈  | 1343.5kB🥇   |
+| Vite 8.2.2       | 1235ms🥇         | 1299ms🥉           | 1204MB🥉     | 5203.0kB🥇  | 1398.3kB     |
+| webpack 5.110.3  | 15260ms          | 4642ms             | 1906MB       | 5609.1kB    | 1352.0kB🥈   |
 
 ---
 
@@ -139,16 +139,16 @@ CASE=ui-components pnpm benchmark
 
 Build metrics:
 
-| Name              | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
-| ----------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
-| Rspack CLI 2.1.10 | 4032ms🥉         | 1361ms🥈           | 1430MB🥈     | 5139.9kB🥉  | 1479.8kB🥇   |
-| Rsbuild 2.1.13    | 5384ms           | 2043ms             | 1548MB🥉     | 5140.5kB    | 1480.1kB🥈   |
-| Vite 8.2.1        | 2773ms🥇         | 2366ms             | 1744MB       | 5134.4kB🥇  | 1483.7kB     |
-| webpack 5.109.2   | 20169ms          | 10886ms            | 1947MB       | 5134.6kB🥈  | 1481.3kB🥉   |
-| esbuild 0.28.2    | 3387ms🥈         | 2811ms             | N/A          | 6313.4kB    | 1827.0kB     |
-| Farm 1.7.11       | 13960ms          | 3600ms             | 2265MB       | 8120.8kB    | 2748.9kB     |
-| Parcel 2.16.4     | 21731ms          | 1702ms🥉           | 2223MB       | 5397.9kB    | 1519.9kB     |
-| Utoo 1.5.5        | 18402ms          | 647ms🥇            | 1245MB🥇     | 5324.1kB    | 1538.5kB     |
+| Name             | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
+| ---------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
+| Rspack CLI 2.2.2 | 5709ms🥉         | 1815ms🥈           | 1208MB🥇     | 5130.8kB🥇  | 1474.1kB🥇   |
+| Rsbuild 2.2.2    | 6342ms           | 2187ms🥉           | 1346MB🥉     | 5131.2kB🥈  | 1474.4kB🥈   |
+| Vite 8.2.2       | 4356ms🥇         | 3429ms             | 1735MB       | 5135.8kB🥉  | 1484.0kB     |
+| webpack 5.110.3  | 29534ms          | 16155ms            | 1750MB       | 5143.9kB    | 1475.7kB🥉   |
+| esbuild 0.28.2   | 4638ms🥈         | 3991ms             | N/A          | 6310.7kB    | 1826.6kB     |
+| Farm 1.7.11      | 17127ms          | 5313ms             | 2256MB       | 8630.6kB    | 2920.9kB     |
+| Parcel 2.16.4    | 28367ms          | 2435ms             | 2366MB       | 5417.7kB    | 1518.9kB     |
+| Utoo 1.5.14      | 30799ms          | 1102ms🥇           | 1219MB🥈     | 5313.0kB    | 1533.6kB     |
 
 ---
 
@@ -196,17 +196,17 @@ CASE=popular-libs pnpm benchmark
 
 Build metrics:
 
-| Name              | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
-| ----------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
-| Rspack CLI 2.1.10 | 1496ms           | 486ms🥉            | 437MB🥇      | 1822.2kB    | 569.0kB      |
-| Rsbuild 2.1.13    | 1777ms           | 481ms🥈            | 448MB🥈      | 1821.4kB    | 568.8kB🥈    |
-| Vite 8.2.1        | 1159ms🥉         | 1092ms             | 613MB        | 1818.4kB🥈  | 569.7kB      |
-| Rollup 4.62.4     | 8462ms           | 7817ms             | 1215MB       | 1657.7kB🥇  | 514.2kB🥇    |
-| Rolldown 1.2.4    | 883ms🥇          | 847ms              | 561MB        | 1819.2kB🥉  | 568.8kB🥉    |
-| webpack 5.109.2   | 7502ms           | 1680ms             | 1067MB       | 1824.3kB    | 569.6kB      |
-| esbuild 0.28.2    | 932ms🥈          | 793ms              | N/A          | 2126.9kB    | 643.9kB      |
-| Farm 1.7.11       | 4519ms           | 1308ms             | 771MB        | 2309.4kB    | 782.7kB      |
-| Utoo 1.5.5        | 6324ms           | 371ms🥇            | 504MB🥉      | 1865.4kB    | 581.5kB      |
+| Name             | Build (no cache) | Build (with cache) | Memory (RSS) | Output size | Gzipped size |
+| ---------------- | ---------------- | ------------------ | ------------ | ----------- | ------------ |
+| Rspack CLI 2.2.2 | 1102ms           | 323ms🥈            | 418MB🥇      | 1757.4kB    | 535.1kB      |
+| Rsbuild 2.2.2    | 1236ms           | 355ms🥉            | 426MB🥈      | 1756.6kB    | 534.9kB🥉    |
+| Vite 8.2.2       | 894ms🥉          | 847ms              | 607MB        | 1756.0kB🥈  | 536.9kB      |
+| Rollup 4.63.1    | 6592ms           | 6401ms             | 1263MB       | 1687.4kB🥇  | 516.0kB🥇    |
+| Rolldown 1.2.6   | 767ms🥇          | 640ms              | 550MB        | 1756.3kB🥉  | 535.7kB      |
+| webpack 5.110.3  | 5261ms           | 1289ms             | 753MB        | 1758.6kB    | 534.5kB🥈    |
+| esbuild 0.28.2   | 807ms🥈          | 608ms              | N/A          | 2070.4kB    | 608.1kB      |
+| Farm 1.7.11      | 3306ms           | 1187ms             | 788MB        | 2244.0kB    | 752.4kB      |
+| Utoo 1.5.14      | 4734ms           | 311ms🥇            | 492MB🥉      | 1892.0kB    | 581.5kB      |
 
 ---
 
