@@ -104,9 +104,6 @@ importers:
       gzip-size:
         specifier: ^7.0.0
         version: 7.0.0
-      html-webpack-plugin:
-        specifier: ^5.6.8
-        version: 5.6.8(@rspack/core@2.2.2(@swc/helpers@0.5.23))(webpack@5.110.3)
       markdown-table:
         specifier: ^3.0.4
         version: 3.0.4
@@ -4051,9 +4048,6 @@ packages:
   '@types/fs-extra@11.0.4':
     resolution: {integrity: sha512-yTbItCNreRooED33qjunPthRcSjERP1r4MqCZc7wv0u2sUkzTFp45tgUfS5+r7FrZPdmCCNflLhVSP/o+SemsQ==}
 
-  '@types/html-minifier-terser@6.1.0':
-    resolution: {integrity: sha512-oh/6byDPnL1zeNXFrDXFLyZjkr1MsBG667IM792caf1L2UPOOMf65NFzjUH/ltyfwjAGfs1rsX1eftK0jC/KIg==}
-
   '@types/http-errors@2.0.5':
     resolution: {integrity: sha512-r8Tayk8HJnX0FztbZN7oVqGccWgw98T/0neJphO91KkmOzug1KkofZURD4UaD5uH8AqcFLfdPErnBod0u71/qg==}
 
@@ -5511,9 +5505,6 @@ packages:
   dom-align@1.12.4:
     resolution: {integrity: sha512-R8LUSEay/68zE5c8/3BDxiTEvgb4xZTF0RKmAHfiEVN3klfIpXfi2/QCoiWPccVQ0J/ZGdz9OjzL4uJEP/MRAw==}
 
-  dom-converter@0.2.0:
-    resolution: {integrity: sha512-gd3ypIPfOMr9h5jIKq8E3sHOTCjeirnl0WK5ZdS1AW0Odt0b1PaWaHdJ4Qk4klv+YB9aJBS7mESXjFoDQPu6DA==}
-
   dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
 
@@ -6128,23 +6119,8 @@ packages:
   html-parse-stringify@4.0.1:
     resolution: {integrity: sha512-0zHsZJrK7S3K2aucXWL6ycoYJ/iNtIcFHC/nYQgFklPtrv5LpJctIiSCroWZWeuoXvuyFdzp6KzjJQ+OT5MfFw==}
 
-  html-webpack-plugin@5.6.8:
-    resolution: {integrity: sha512-MZmKQcTnhEh1SPSyMiEytIeDZDUoBZVorNHivQGXMASHf/BSGGOrKa2xQ5bGx3TCe1n109ecCt+cpww7wwWhKA==}
-    engines: {node: '>=10.13.0'}
-    peerDependencies:
-      '@rspack/core': 0.x || 1.x || 2.x
-      webpack: ^5.20.0
-    peerDependenciesMeta:
-      '@rspack/core':
-        optional: true
-      webpack:
-        optional: true
-
   htmlparser2@10.0.0:
     resolution: {integrity: sha512-TwAZM+zE5Tq3lrEHvOlvwgj1XLWQCtaaibSN11Q+gGBAS7Y1uZSWwXXRe4iF6OXnaq1riyQAPFOBtYc77Mxq0g==}
-
-  htmlparser2@6.1.0:
-    resolution: {integrity: sha512-gyyPk6rgonLFEDGoeRgQNaEUvdJ4ktTmmUh/h2t7s+M8oPpIPxgNACWa+6ESR57kXstwqPiCut0V8NRpcwgU7A==}
 
   http-assert@1.5.0:
     resolution: {integrity: sha512-uPpH7OKX4H25hBmU6G1jWNaqJGpTXxey+YOUizJUAgu0AjLUeC8D73hTrhvDS5D+GJN1DN1+hhc/eF/wpxtp0w==}
@@ -7627,9 +7603,6 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  pretty-error@4.0.0:
-    resolution: {integrity: sha512-AoJ5YMAcXKYxKhuJGdcvse+Voc6v1RgnsR3nWcYU7q4t6z0Q6T86sv5Zq8VIRbOWWFpvdGE83LtdSMNd+6Y0xw==}
-
   primereact@10.9.9:
     resolution: {integrity: sha512-cM2mI1+usdIhQQQZre85Lv2GaiYrKaRlTUT+xXQSWwhPmel+YwhljNQ210mpjuY30aF3eQg6hU5Yl0VwJp0PWQ==}
     engines: {node: '>=14.0.0'}
@@ -7963,9 +7936,6 @@ packages:
   remeda@2.45.0:
     resolution: {integrity: sha512-CTftZ0GJSox3CH77OhJemj20sXXUScH/kpkExD6t2LP3IG+mPKASBMFkbvWtsvzhU+54gKcgH38WWVihfr7bCA==}
     engines: {node: '>=18.0.0'}
-
-  renderkid@3.0.0:
-    resolution: {integrity: sha512-q/7VIQA8lmM1hF+jn+sFSPWGlMkSAeNYcPLmDQx2zzuiDfaLrOmumR8iaUKlenFgh0XRPIUeSPlH3A+AW3Z5pg==}
 
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -8716,9 +8686,6 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
-
-  utila@0.4.0:
-    resolution: {integrity: sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA==}
 
   utility-types@3.11.0:
     resolution: {integrity: sha512-6Z7Ma2aVEWisaL6TvBCy7P8rm2LQoPv6dJ7ecIaIixHcwfbJ0x7mWdbcwlIM5IGQxPZSFYeqRCqlOOeKoJYMkw==}
@@ -13168,8 +13135,6 @@ snapshots:
       '@types/jsonfile': 6.1.4
       '@types/node': 24.13.3
 
-  '@types/html-minifier-terser@6.1.0': {}
-
   '@types/http-errors@2.0.5': {}
 
   '@types/http-proxy@1.17.17':
@@ -14594,6 +14559,7 @@ snapshots:
     dependencies:
       pascal-case: 3.1.2
       tslib: 2.8.1
+    optional: true
 
   camelize@1.0.1: {}
 
@@ -14664,6 +14630,7 @@ snapshots:
   clean-css@5.3.3:
     dependencies:
       source-map: 0.6.1
+    optional: true
 
   cli-cursor@3.1.0:
     dependencies:
@@ -14734,7 +14701,8 @@ snapshots:
 
   commander@7.2.0: {}
 
-  commander@8.3.0: {}
+  commander@8.3.0:
+    optional: true
 
   commondir@1.0.1: {}
 
@@ -15145,10 +15113,6 @@ snapshots:
 
   dom-align@1.12.4: {}
 
-  dom-converter@0.2.0:
-    dependencies:
-      utila: 0.4.0
-
   dom-helpers@5.2.1:
     dependencies:
       '@babel/runtime': 7.29.2
@@ -15233,6 +15197,7 @@ snapshots:
     dependencies:
       no-case: 3.0.4
       tslib: 2.8.1
+    optional: true
 
   dotenv-expand@11.0.7:
     dependencies:
@@ -15779,7 +15744,8 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
-  he@1.2.0: {}
+  he@1.2.0:
+    optional: true
 
   highlight.js@11.11.1: {}
 
@@ -15809,19 +15775,9 @@ snapshots:
       param-case: 3.0.4
       relateurl: 0.2.7
       terser: 5.51.2
+    optional: true
 
   html-parse-stringify@4.0.1: {}
-
-  html-webpack-plugin@5.6.8(@rspack/core@2.2.2(@swc/helpers@0.5.23))(webpack@5.110.3):
-    dependencies:
-      '@types/html-minifier-terser': 6.1.0
-      html-minifier-terser: 6.1.0
-      lodash: 4.18.1
-      pretty-error: 4.0.0
-      tapable: 2.3.3
-    optionalDependencies:
-      '@rspack/core': 2.2.2(@swc/helpers@0.5.23)
-      webpack: 5.110.3(@swc/core@1.16.1(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.26))(csso@4.2.0)(esbuild@0.28.2)(html-minifier-terser@6.1.0)(lightningcss@1.33.0)(postcss@8.5.26)(webpack-cli@7.2.3)
 
   htmlparser2@10.0.0:
     dependencies:
@@ -15829,13 +15785,6 @@ snapshots:
       domhandler: 5.0.3
       domutils: 3.2.2
       entities: 6.0.1
-
-  htmlparser2@6.1.0:
-    dependencies:
-      domelementtype: 2.3.0
-      domhandler: 4.3.1
-      domutils: 2.8.0
-      entities: 2.2.0
 
   http-assert@1.5.0:
     dependencies:
@@ -16377,6 +16326,7 @@ snapshots:
   lower-case@2.0.2:
     dependencies:
       tslib: 2.8.1
+    optional: true
 
   lru-cache@7.18.3: {}
 
@@ -16599,6 +16549,7 @@ snapshots:
     dependencies:
       lower-case: 2.0.2
       tslib: 2.8.1
+    optional: true
 
   node-addon-api@6.1.0: {}
 
@@ -16762,6 +16713,7 @@ snapshots:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.8.1
+    optional: true
 
   parcel@2.16.4(@swc/helpers@0.5.23):
     dependencies:
@@ -16801,6 +16753,7 @@ snapshots:
     dependencies:
       no-case: 3.0.4
       tslib: 2.8.1
+    optional: true
 
   path-browserify@1.0.1: {}
 
@@ -17271,11 +17224,6 @@ snapshots:
 
   prettier@3.9.6: {}
 
-  pretty-error@4.0.0:
-    dependencies:
-      lodash: 4.18.1
-      renderkid: 3.0.0
-
   primereact@10.9.9(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
       '@types/react-transition-group': 4.4.12(@types/react@19.2.18)
@@ -17723,17 +17671,10 @@ snapshots:
 
   regenerator-runtime@0.14.1: {}
 
-  relateurl@0.2.7: {}
+  relateurl@0.2.7:
+    optional: true
 
   remeda@2.45.0: {}
-
-  renderkid@3.0.0:
-    dependencies:
-      css-select: 4.3.0
-      dom-converter: 0.2.0
-      htmlparser2: 6.1.0
-      lodash: 4.18.1
-      strip-ansi: 6.0.1
 
   require-directory@2.1.1: {}
 
@@ -18575,8 +18516,6 @@ snapshots:
       react: 19.2.8
 
   util-deprecate@1.0.2: {}
-
-  utila@0.4.0: {}
 
   utility-types@3.11.0: {}
 
