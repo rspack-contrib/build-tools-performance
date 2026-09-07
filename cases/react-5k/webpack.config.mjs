@@ -1,11 +1,10 @@
 // @ts-check
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { target, isProd } from '../../shared/constants.mjs';
 
 export default {
   extends: '../../shared/webpack.config.mjs',
-  entry: './src/index.jsx',
+  entry: './index.html',
   module: {
     rules: [
       {
@@ -33,7 +32,6 @@ export default {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: 'index-rspack.html' }),
     isProd ? null : new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),
 };
