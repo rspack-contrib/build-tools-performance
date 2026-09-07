@@ -55,7 +55,7 @@
     "rslog": "^2.3.0",
     "swc-loader": "^0.2.7",
     "tree-kill": "^1.2.2",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "vite": "^8.2.2",
     "webpack": "^5.110.3",
     "webpack-cli": "^7.2.3",
